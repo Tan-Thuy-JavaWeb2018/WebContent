@@ -38,6 +38,7 @@
 	<!-- Bắt đầu slide -->
 	<div class="slider-area">
 		<div class="bend niceties preview-2">
+	
 			<div id="ensign-nivoslider" class="slides">
 				<img src="assets/img/slider/2.png" alt=""
 					title="#slider-direction-1" /> <img src="assets/img/slider/1.png"
