@@ -1,36 +1,40 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page pageEncoding="utf-8"%>
+<%@ page import="Control.ProductsControl"%>
+<%@ page import="Objects.Products"%>
+<%@ page import="java.text.DecimalFormat"%>
 <!doctype html>
 <html class="no-js" lang="en">
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <title>Trang chủ</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!-- icon cho trang -->
 <link rel="shortcut icon" type="image/x-icon"
 	href="assets/img/favicon.ico">
-	<!-- Toàn bộ link css -->
-	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="assets/css/magnific-popup.css">
-	<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="assets/css/pe-icon-7-stroke.css">
-	<link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
-	<link rel="stylesheet" href="lib/css/preview.css" type="text/css"
-		media="screen" />
-	<link rel="stylesheet" href="assets/css/animate.css">
-	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-	<link rel="stylesheet" href="assets/css/bundle.css">
-	<link rel="stylesheet" href="assets/css/style.css">
-	<link rel="stylesheet" href="assets/css/responsive.css">
-	<script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+<!-- Toàn bộ link css -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/magnific-popup.css">
+<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="assets/css/pe-icon-7-stroke.css">
+<link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/preview.css" type="text/css"
+	media="screen" />
+<link rel="stylesheet" href="assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+<link rel="stylesheet" href="assets/css/bundle.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+<script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
-
+	<%
+		ProductsControl produts = new ProductsControl();
+	%>
 	<!-- Thêm phần tiêu đề trang -->
 	<jsp:include page="layout/header.jsp"></jsp:include>
 	<!-- Xong phần tiêu đề trang -->
@@ -38,7 +42,7 @@
 	<!-- Bắt đầu slide -->
 	<div class="slider-area">
 		<div class="bend niceties preview-2">
-	
+
 			<div id="ensign-nivoslider" class="slides">
 				<img src="assets/img/slider/2.png" alt=""
 					title="#slider-direction-1" /> <img src="assets/img/slider/1.png"
@@ -152,14 +156,29 @@
 				<!-- Hiển thị sản phẩm -->
 				<div class="grid">
 					<!--(Bánh ngọt)1  -->
-					<div class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mb-50">
+					<%
+						int max = 33;
+						int numb = produts.getListCategory().size();
+						DecimalFormat numformat = new DecimalFormat("#,###,###");  
+						if (numb < max) {
+							for (Products ls : produts.getListCategory()) {
+					%>
+					<div
+						class="col-md-3 col-sm-6 col-xs-12 grid-item mix<%=ls.getId_loaisanpham()%> mb-50">
 						<div class="single-shop">
 							<div class="shop-img">
-								<a href="#"><img src="assets/img/shop/product/BanhNgot1.png"
-									alt="" /></a>
+								<a href="#"><img
+									src="assets/img/shop/product/<%=ls.getAnhchinh()%>" alt="" /></a>
+								<%
+									if (ls.getKhuyenmai() > 0) {
+								%>
 								<div class="price-up-down">
-									<span class="sale-new">Giảm</span>
+									<span class="sale-new">Giảm <%=ls.getKhuyenmai()%>%
+									</span>
 								</div>
+								<%
+									}
+								%>
 								<div class="button-group">
 									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
 									</a> <a class="wishlist" href="#" title="Wishlist"> <i
@@ -173,25 +192,44 @@
 								<div class="title-color fix">
 									<div class="shop-title f-left">
 										<h3>
-											<a href="#">Tên sản phẩm</a>
+											<a href="#"><%=ls.getTensanpham()%></a>
 										</h3>
 									</div>
 									<div class="price f-right">
-										<span class="new">120.000 đ</span>
+										<%
+											double price = ls.getGiagoc();
+													int sale = ls.getKhuyenmai();
+													price = price - (price * sale / 100);
+													String price_nb = numformat.format(price); 
+										%>
+										<span class="new"><%=price_nb%>đ</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- [Bánh mặn]2 -->
-					<div class="col-md-3 col-sm-6 col-xs-12 grid-item mix2 mb-50">
+					<%
+						}
+						} else {
+							for (int i = 0; i < max; i++) {
+					%>
+					<div
+						class="col-md-3 col-sm-6 col-xs-12 grid-item mix<%=produts.getListCategory().get(i).getId_loaisanpham()%> mb-50">
 						<div class="single-shop">
 							<div class="shop-img">
-								<a href="#"><img src="assets/img/shop/product/BanhMan1.png"
+								<a href="#"><img
+									src="assets/img/shop/product/<%=produts.getListCategory().get(i).getAnhchinh()%>"
 									alt="" /></a>
+								<%
+									if (produts.getListCategory().get(i).getKhuyenmai() > 0) {
+								%>
 								<div class="price-up-down">
-									<span class="sale-new">Giảm</span>
+									<span class="sale-new">Giảm <%=produts.getListCategory().get(i).getKhuyenmai()%>%
+									</span>
 								</div>
+								<%
+									}
+								%>
 								<div class="button-group">
 									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
 									</a> <a class="wishlist" href="#" title="Wishlist"> <i
@@ -205,208 +243,26 @@
 								<div class="title-color fix">
 									<div class="shop-title f-left">
 										<h3>
-											<a href="#">Tên sản phẩm</a>
+											<a href="#"><%=produts.getListCategory().get(i).getTensanpham()%></a>
 										</h3>
 									</div>
 									<div class="price f-right">
-										<span class="new">150.000 đ</span>
+										<%
+											double price = produts.getListCategory().get(i).getGiagoc();
+											int sale = produts.getListCategory().get(i).getKhuyenmai();
+											price = price - (price * sale / 100);
+											String price_nb = numformat.format(price); 
+										%>
+										<span class="new"><%=price_nb%> đ</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!--(Bánh ngọt)3 -->
-					<div class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mb-50">
-						<div class="single-shop">
-							<div class="shop-img">
-								<a href="#"><img src="assets/img/shop/product/BanhNgot2.png"
-									alt="" /></a>
-								<div class="price-up-down">
-									<span class="sale-new">Mới</span>
-								</div>
-								<div class="button-group">
-									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
-									</a> <a class="wishlist" href="#" title="Wishlist"> <i
-										class="pe-7s-like"></i>
-									</a> <a href="#" data-toggle="modal" data-target="#quick-view"
-										title="Quick View"> <i class="pe-7s-look"></i>
-									</a>
-								</div>
-							</div>
-							<div class="shop-text-all">
-								<div class="title-color fix">
-									<div class="shop-title f-left">
-										<h3>
-											<a href="#">Tên sản phẩm</a>
-										</h3>
-									</div>
-									<div class="price f-right">
-										<span class="new">180.000 đ</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 4 nước uống -->
-					<div class="col-md-3 col-sm-6 col-xs-12 grid-item mix4 mb-50">
-						<div class="single-shop">
-							<div class="shop-img">
-								<a href="#"><img src="assets/img/shop/product/NuocUong.png"
-									alt="" /></a>
-								<div class="price-up-down">
-									<span class="sale-new">Mới</span>
-								</div>
-								<div class="button-group">
-									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
-									</a> <a class="wishlist" href="#" title="Wishlist"> <i
-										class="pe-7s-like"></i>
-									</a> <a href="#" data-toggle="modal" data-target="#quick-view"
-										title="Quick View"> <i class="pe-7s-look"></i>
-									</a>
-								</div>
-							</div>
-							<div class="shop-text-all">
-								<div class="title-color fix">
-									<div class="shop-title f-left">
-										<h3>
-											<a href="#">Tên sản phẩm</a>
-										</h3>
-									</div>
-									<div class="price f-right">
-										<span class="new">220.000 đ</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--(Bánh ngọt) 5 -->
-					<div class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mb-50">
-						<div class="single-shop">
-							<div class="shop-img">
-								<a href="#"><img src="assets/img/shop/product/BanhNgot3.png"
-									alt="" /></a>
-								<div class="price-up-down">
-									<span class="sale-new">Giảm</span>
-								</div>
-								<div class="button-group">
-									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
-									</a> <a class="wishlist" href="#" title="Wishlist"> <i
-										class="pe-7s-like"></i>
-									</a> <a href="#" data-toggle="modal" data-target="#quick-view"
-										title="Quick View"> <i class="pe-7s-look"></i>
-									</a>
-								</div>
-							</div>
-							<div class="shop-text-all">
-								<div class="title-color fix">
-									<div class="shop-title f-left">
-										<h3>
-											<a href="#">Tên sản phẩm</a>
-										</h3>
-									</div>
-									<div class="price f-right">
-										<span class="new">430.000 đ</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- {trà sữa} 6-->
-					<div class="col-md-3 col-sm-6 col-xs-12 grid-item mix3 mb-50">
-						<div class="single-shop">
-							<div class="shop-img">
-								<a href="#"><img src="assets/img/shop/product/TraSua1.png"
-									alt="" /></a>
-								<div class="price-up-down">
-									<span class="sale-new">Giảm</span>
-								</div>
-								<div class="button-group">
-									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
-									</a> <a class="wishlist" href="#" title="Wishlist"> <i
-										class="pe-7s-like"></i>
-									</a> <a href="#" data-toggle="modal" data-target="#quick-view"
-										title="Quick View"> <i class="pe-7s-look"></i>
-									</a>
-								</div>
-							</div>
-							<div class="shop-text-all">
-								<div class="title-color fix">
-									<div class="shop-title f-left">
-										<h3>
-											<a href="#">Tên sản phẩm</a>
-										</h3>
-									</div>
-									<div class="price f-right">
-										<span class="new">380.00 đ</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 4 nước uống -->
-					<div class="col-md-3 col-sm-6 col-xs-12 grid-item mix4 mb-50">
-						<div class="single-shop">
-							<div class="shop-img">
-								<a href="#"><img src="assets/img/shop/product/NuocUong1.png"
-									alt="" /></a>
-								<div class="price-up-down">
-									<span class="sale-new">Giảm</span>
-								</div>
-								<div class="button-group">
-									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
-									</a> <a class="wishlist" href="#" title="Wishlist"> <i
-										class="pe-7s-like"></i>
-									</a> <a href="#" data-toggle="modal" data-target="#quick-view"
-										title="Quick View"> <i class="pe-7s-look"></i>
-									</a>
-								</div>
-							</div>
-							<div class="shop-text-all">
-								<div class="title-color fix">
-									<div class="shop-title f-left">
-										<h3>
-											<a href="#">Tên sản phẩm</a>
-										</h3>
-									</div>
-									<div class="price f-right">
-										<span class="new">650.00 đ</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--(Bánh ngọt)8 -->
-					<div class="col-md-3 col-sm-6 col-xs-12 grid-item mix1 mb-50">
-						<div class="single-shop">
-							<div class="shop-img">
-								<a href="#"><img src="assets/img/shop/product/BanhNgot4.png"
-									alt="" /></a>
-								<div class="price-up-down">
-									<span class="sale-new">Giảm</span>
-								</div>
-								<div class="button-group">
-									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
-									</a> <a class="wishlist" href="#" title="Wishlist"> <i
-										class="pe-7s-like"></i>
-									</a> <a href="#" data-toggle="modal" data-target="#quick-view"
-										title="Quick View"> <i class="pe-7s-look"></i>
-									</a>
-								</div>
-							</div>
-							<div class="shop-text-all">
-								<div class="title-color fix">
-									<div class="shop-title f-left">
-										<h3>
-											<a href="#">Tên sản phẩm</a>
-										</h3>
-									</div>
-									<div class="price f-right">
-										<span class="new">120.000 đ</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<%
+						}
+						}
+					%>
 				</div>
 				<!-- Xong hiển thị sản phẩm -->
 			</div>
