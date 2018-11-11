@@ -28,6 +28,7 @@
                         <div class="page-header float-left">
                             <div class="page-title">
                                 <h1>Tên bảng</h1>
+                                <a class="btn btn-primary float-right" href="javascript:void(0)"><span><i class="fa fa-plus-square"></i></span> Thêm</a>
                             </div>
                         </div>
                     </div>
@@ -61,22 +62,30 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Salary</th>
+                                            <th>Sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>Charde Marshall</td>
                                             <td>Regional Director</td>
-                                            <td>San Francisco</td>
-                                            <td>$470,600</td>
+                                            <td>
+                                            	<a class="btn btn-success" href="javascript:void(0)"><span><i class="fa fa-edit"></i></span> Sửa</a>
+                                            </td>
+                                            <td>
+                                            	<a class="btn btn-secondary" href="javascript:void(0)"><span><i class="fa fa-trash-o"></i></span> Xóa</a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Haley Kennedy</td>
                                             <td>Senior Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>$313,500</td>
+                                            <td>
+                                            	<a class="btn btn-success" href="javascript:void(0)"><span><i class="fa fa-edit"></i></span> Sửa</a>
+                                            </td>
+                                            <td>
+                                            	<a class="btn btn-secondary" href="javascript:void(0)"><span><i class="fa fa-trash-o"></i></span> Xóa</a>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

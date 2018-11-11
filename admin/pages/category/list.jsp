@@ -1,5 +1,8 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="Objects.Category"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html class="no-js" lang="">
 <head>
@@ -12,7 +15,6 @@
     <jsp:include page="../include/css.jsp"></jsp:include>
 </head>
 <body>
-    
 	<jsp:include page="../include/leftmenu.jsp"></jsp:include>
 	
     <!-- Right Panel -->
@@ -27,7 +29,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Tên bảng</h1>
+                                <h1><b>LOẠI SẢN PHẨM</b></h1>
                             </div>
                         </div>
                     </div>
@@ -36,8 +38,8 @@
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
                                     <li><a href="javascript:void(0)">Trang chủ</a></li>
-                                    <li><a href="javascript:void(0)">Menu 2 cấp</a></li>
-                                    <li class="active">Tên bảng</li>
+                                    <li><a href="javascript:void(0)">Loại sản phẩm</a></li>
+                                    <li class="active">Danh sách</li>
                                 </ol>
                             </div>
                         </div>
@@ -53,31 +55,36 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Tiêu đề (Danh sách, thêm, xóa, sửa)</strong>
+                                <strong class="card-title">Danh sách</strong>
+                                <a class="btn btn-primary float-right" href="add.jsp"><span><i class="fa fa-plus-square"></i></span> Thêm</a>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Salary</th>
+                                            <th>ID</th>
+                                            <th>Tên loại sản phẩm</th>
+                                            <th>Sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Charde Marshall</td>
-                                            <td>Regional Director</td>
-                                            <td>San Francisco</td>
-                                            <td>$470,600</td>
+                                   		<% ArrayList<Category> list = (ArrayList<Category>) request.getAttribute("list");
+                                   		for (Category l : list){
+                                		%>
+                                	 	<tr>
+                                            <td><%=l.getId() %></td>
+                                            <td><%=l.getTenloai() %></td>
+                                            <td>
+                                            	<a class="btn btn-success" href="edit?id=<%=l.getId() %>"><span><i class="fa fa-edit"></i></span> Sửa</a>
+                                            </td>
+                                            <td>
+                                            	<a class="btn btn-secondary" href="javascript:void(0)"><span><i class="fa fa-trash-o"></i></span> Xóa</a>
+                                            </td>
                                         </tr>
-                                        <tr>
-                                            <td>Haley Kennedy</td>
-                                            <td>Senior Marketing Designer</td>
-                                            <td>London</td>
-                                            <td>$313,500</td>
-                                        </tr>
+	                                	<%
+	                                   }
+	                                   %>
                                     </tbody>
                                 </table>
                             </div>
