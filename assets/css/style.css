@@ -1233,6 +1233,7 @@ a.top-cart {
     font-weight: 600;
     margin-bottom: 20px;
     padding-bottom: 20px;
+   margin-top: 40px;
     position: relative;
     text-transform: uppercase;
 }

@@ -18,7 +18,7 @@
 				<div class="row">
 					<div class="col-md-4 col-sm-3 col-xs-6">
 						<div class="logo">
-							<a href="../index.jsp"> <img src="assets/img/logo/logo.png"
+							<a href="../index.jsp"> <img src="../assets/img/logo/logo.png"
 								alt="">
 							</a>
 						</div>
@@ -73,7 +73,7 @@
 										<div class="cart-img-price">
 											<div class="cart-img">
 												<a href="#"><img
-													src="assets/img/shop/product/BanhNgot1.png" alt="" /></a>
+													src="../assets/img/shop/product/BanhNgot1.png" alt="" /></a>
 											</div>
 											<div class="cart-content">
 												<h3>
@@ -90,7 +90,7 @@
 										<div class="cart-img-price">
 											<div class="cart-img">
 												<a href="#"><img
-													src="assets/img/shop/product/BanhNgot3.png" alt="" /></a>
+													src="../assets/img/shop/product/BanhNgot3.png" alt="" /></a>
 											</div>
 											<div class="cart-content">
 												<h3>
@@ -120,20 +120,24 @@
 								<nav>
 									<ul>
 										<li><a href="../index.jsp">Trang chủ</a>
-										<li><a href="./pages/shop-page.jsp?id_product=0">Sản phẩm</a>
+										<li><a href="../pages/shop-page.jsp?id_product=0">Sản phẩm</a>
 											<ul class="dropdown">
 												<!-- ** Đổ thể loại từ dữ liệu ra ** -->
 												<%
 													for (Category ds : category.getListCategory()) {
 												%>
-												<li><a href="./pages/shop-page.jsp?id_product=<%=ds.getId()%>"><%=ds.getTenloai()%>
+												<li><a href="../pages/shop-page.jsp?id_product=<%=ds.getId()%>"><%=ds.getTenloai()%>
 												</a></li>
 												<%
 													}
 												%>
 											</ul></li>
-										<li><a href="./pages/blog-page.jsp">Bài viết</a> 
-										<li><a href="./pages/contact.jsp">Liên hệ</a></li>
+										<li><a href="../pages/blog-page.jsp">Bài viết</a>
+											<ul class="dropdown">
+												<li><a href="../pages/blog-page.jsp">Giao diện phân trang</a></li>
+												<li><a href="../pages/blog-sidebar.jsp">Giao diện menu trái</a></li>
+											</ul></li>
+										<li><a href="../pages/contact.jsp">Liên hệ</a></li>
 									</ul>
 								</nav>
 							</div>
@@ -160,15 +164,19 @@
 										<%
 											for (Category ds : category.getListCategory()) {
 										%>
-										<li><a href="./pages/shop-page.jsp?id_product=<%=ds.getId()%>"><%=ds.getTenloai()%>
+										<li><a href="../pages/shop-page.jsp?id_product=<%=ds.getId()%>"><%=ds.getTenloai()%>
 										</a></li>
 										<%
 											}
 										%>
 									</ul></li>
-								<li class="active1"><a class="active1" href="./pages/blog-page.jsp">Bài
-										viết</a> 
-								<li><a href="./pages/contact.jsp">Liên hệ</a></li>
+								<li class="active1"><a class="active1" href="#">Bài
+										viết</a>
+									<ul>
+										<li><a href="../pages/blog-page.jsp">Giao diện phân trang</a></li>
+										<li><a href="../pages/blog-sidebar.jsp">Giao diện menu</a></li>
+									</ul></li>
+								<li><a href="../pages/contact.jsp">Liên hệ</a></li>
 							</ul>
 						</nav>
 					</div>

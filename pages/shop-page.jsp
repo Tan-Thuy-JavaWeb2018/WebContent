@@ -37,7 +37,7 @@
 <body>
 
 	<!-- Thêm phần tiêu đề trang -->
-	<jsp:include page="../layout/header.jsp"></jsp:include>
+	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
 	<!-- Xong phần tiêu đề trang -->
 
 	<!-- Bắt đầu tiêu đề trang con -->
@@ -159,11 +159,8 @@
 								<div class="tab-menu">
 									<ul role="tablist">
 										<li class="active"><a href="#grid" data-toggle="tab">
-												<i class="fa fa-th-large"></i> Grid
-										</a></li>
-										<li><a href="#list" data-toggle="tab"> <i
-												class="fa fa-align-justify"></i> List
-										</a></li>
+												<i class="fa fa-th-large"></i> Danh mục
+										</a></li> 
 									</ul>
 								</div>
 								<div class="tab-sort">
@@ -181,14 +178,16 @@
 										<div class="row">
 											<%
 												ProductsControl product = new ProductsControl();
-												int id_type = Integer.parseInt(request.getParameter("id_product")); 
-												for (Products ls : product.getListProductsType(id_type)) {
+												int id_type = Integer.parseInt(request.getParameter("id_product"));
+												if (id_type == 0) {
+													for (Products ls : product.getListProducts()) {
 											%>
 											<div class="col-md-6 col-lg-4 col-sm-6">
 												<div class="single-shop mb-40">
 													<div class="shop-img">
 														<a href="#"><img
-															src="../assets/img/shop/product/<%=ls.getAnhchinh() %>" alt="" /></a>
+															src="../assets/img/shop/product/<%=ls.getAnhchinh()%>"
+															alt="" /></a>
 														<div class="price-up-down">
 															<span class="sale-new">Giảm</span>
 														</div>
@@ -208,7 +207,7 @@
 														<div class="title-color fix">
 															<div class="shop-title f-left">
 																<h3>
-																	<a href="#"><%=ls.getGiagoc() %></a>
+																	<a href="#"><%=ls.getGiagoc()%></a>
 																</h3>
 															</div>
 															<div class="price f-right">
@@ -220,303 +219,48 @@
 											</div>
 											<%
 												}
+												} else {
+													for (Products ls : product.getListProductsType(id_type)) {
 											%>
-										</div>
-									</div>
-									<div class="tab-pane mb-10" id="list">
-										<div class="row">
-											<div class="col-md-12">
-												<div class="row">
-													<div class="single-shop mb-30">
-														<div class="col-md-4 col-sm-4 col-xs-12">
-															<div class="shop-list-left">
-																<div class="shop-img">
-																	<a href="#"><img
-																		src="../assets/img/shop/product/NuocUong1.png" alt="" />
-																	</a>
-																	<div class="shop-quick-view">
-																		<a href="#" data-toggle="modal"
-																			data-target="#quick-view" title="Quick View"> <i
-																			class="pe-7s-look"></i>
-																		</a>
-																	</div>
-																	<div class="price-up-down">
-																		<span class="sale-new">Mới</span>
-																	</div>
-																</div>
-															</div>
+											<div class="col-md-6 col-lg-4 col-sm-6">
+												<div class="single-shop mb-40">
+													<div class="shop-img">
+														<a href="#"><img
+															src="../assets/img/shop/product/<%=ls.getAnhchinh()%>"
+															alt="" /></a>
+														<div class="price-up-down">
+															<span class="sale-new">Giảm</span>
 														</div>
-														<div class="col-md-8 col-sm-8 col-xs-12">
-															<div class="shop-list-right">
-																<div class="shop-list-all">
-																	<div class="shop-list-name">
-																		<h3>
-																			<a href="#">Tên sản phẩm</a>
-																		</h3>
-																	</div>
-																	<div class="shop-list-rating">
-																		<span class="ratting"> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i>
-																		</span>
-																	</div>
-																	<p>Lorem ipsum dolor sit amet, adipiscing elit. Nam
-																		fringilla augue nec est auctor. Donec non est at
-																		libero vulputate rutrum. Morbi ornare lectus quis
-																		justo gravida semper. Nulla tellus mi, vulputate
-																		adipiscing cursus eu, odio...</p>
-																	<div class="shop-list-price">
-																		<span class="list-price"> <span class="new">120.000
-																				đ</span> <span class="old">110.000 đ</span>
-																		</span>
-																	</div>
-																	<div class="shop-list-cart">
-																		<div class="shop-group">
-																			<a href="#" title="Add to Cart"> <i
-																				class="pe-7s-cart"></i> Mua ngay
-																			</a> <a class="wishlist" href="#" title="Wishlist"> <i
-																				class="pe-7s-like"></i> Yêu thích
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
+														<div class="button-group">
+															<a href="#" title="Add to Cart" data-toggle="modal"
+																data-target="#quick-view"> <i class="pe-7s-cart"></i>
+															</a> <a class="wishlist" href="#" title="Wishlist"
+																data-toggle="modal" data-target="#quick-view"> <i
+																class="pe-7s-like"></i>
+															</a> <a href="#" data-toggle="modal"
+																data-target="#quick-view" title="Quick View"> <i
+																class="pe-7s-look"></i>
+															</a>
 														</div>
 													</div>
-													<div class="single-shop mb-30">
-														<div class="col-md-4 col-sm-4 col-xs-12">
-															<div class="shop-list-left">
-																<div class="shop-img">
-																	<a href="#"><img
-																		src="../assets/img/shop/product/BanhNgot2.png" alt="" /></a>
-																	<div class="shop-quick-view">
-																		<a href="#" data-toggle="modal"
-																			data-target="#quick-view" title="Quick View"> <i
-																			class="pe-7s-look"></i>
-																		</a>
-																	</div>
-																	<div class="price-up-down">
-																		<span class="sale-new">Mới</span>
-																	</div>
-																</div>
+													<div class="shop-text-all">
+														<div class="title-color fix">
+															<div class="shop-title f-left">
+																<h3>
+																	<a href="#"><%=ls.getGiagoc()%></a>
+																</h3>
 															</div>
-														</div>
-														<div class="col-md-8 col-sm-8 col-xs-12">
-															<div class="shop-list-right">
-																<div class="shop-list-all">
-																	<div class="shop-list-name">
-																		<h3>
-																			<a href="#">Tên sản phẩm</a>
-																		</h3>
-																	</div>
-																	<div class="shop-list-rating">
-																		<span class="ratting"> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i>
-																		</span>
-																	</div>
-																	<p>Lorem ipsum dolor sit amet, adipiscing elit. Nam
-																		fringilla augue nec est auctor. Donec non est at
-																		libero vulputate rutrum. Morbi ornare lectus quis
-																		justo gravida semper. Nulla tellus mi, vulputate
-																		adipiscing cursus eu, odio...</p>
-																	<div class="shop-list-price">
-																		<span class="list-price"> <span class="new">160.000
-																				đ</span>
-																		</span>
-																	</div>
-																	<div class="shop-list-cart">
-																		<div class="shop-group">
-																			<a href="#" title="Add to Cart"> <i
-																				class="pe-7s-cart"></i> Mua ngay
-																			</a> <a class="wishlist" href="#" title="Wishlist"> <i
-																				class="pe-7s-like"></i> Yêu thích
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="single-shop mb-30">
-														<div class="col-md-4 col-sm-4 col-xs-12">
-															<div class="shop-list-left">
-																<div class="shop-img">
-																	<a href="#"><img
-																		src="../assets/img/shop/product/BanhNgot4.png" alt="" /></a>
-																	<div class="shop-quick-view">
-																		<a href="#" data-toggle="modal"
-																			data-target="#quick-view" title="Quick View"> <i
-																			class="pe-7s-look"></i>
-																		</a>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-8 col-sm-8 col-xs-12">
-															<div class="shop-list-right">
-																<div class="shop-list-all">
-																	<div class="shop-list-name">
-																		<h3>
-																			<a href="#">Tên sản phẩm</a>
-																		</h3>
-																	</div>
-																	<div class="shop-list-rating">
-																		<span class="ratting"> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i>
-																		</span>
-																	</div>
-																	<p>Lorem ipsum dolor sit amet, adipiscing elit. Nam
-																		fringilla augue nec est auctor. Donec non est at
-																		libero vulputate rutrum. Morbi ornare lectus quis
-																		justo gravida semper. Nulla tellus mi, vulputate
-																		adipiscing cursus eu, odio...</p>
-																	<div class="shop-list-price">
-																		<span class="list-price"> <span class="new">170.000
-																				đ</span> <span class="old">190.000 đ</span>
-																		</span>
-																	</div>
-																	<div class="shop-list-cart">
-																		<div class="shop-group">
-																			<a href="#" title="Add to Cart"> <i
-																				class="pe-7s-cart"></i> Mua ngay
-																			</a> <a class="wishlist" href="#" title="Wishlist"> <i
-																				class="pe-7s-like"></i> Yêu thích
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="single-shop mb-30">
-														<div class="col-md-4 col-sm-4 col-xs-12">
-															<div class="shop-list-left">
-																<div class="shop-img">
-																	<a href="#"><img
-																		src="../assets/img/shop/product/BanhNgot1.png" alt="" /></a>
-																	<div class="shop-quick-view">
-																		<a href="#" data-toggle="modal"
-																			data-target="#quick-view" title="Quick View"> <i
-																			class="pe-7s-look"></i>
-																		</a>
-																	</div>
-																	<div class="price-up-down">
-																		<span class="sale-new">Giảm</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-8 col-sm-8 col-xs-12">
-															<div class="shop-list-right">
-																<div class="shop-list-all">
-																	<div class="shop-list-name">
-																		<h3>
-																			<a href="#">Tên sản phẩm</a>
-																		</h3>
-																	</div>
-																	<div class="shop-list-rating">
-																		<span class="ratting"> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i>
-																		</span>
-																	</div>
-																	<p>Lorem ipsum dolor sit amet, adipiscing elit. Nam
-																		fringilla augue nec est auctor. Donec non est at
-																		libero vulputate rutrum. Morbi ornare lectus quis
-																		justo gravida semper. Nulla tellus mi, vulputate
-																		adipiscing cursus eu, odio...</p>
-																	<div class="shop-list-price">
-																		<span class="list-price"> <span class="new">150.000
-																				đ</span>
-																		</span>
-																	</div>
-																	<div class="shop-list-cart">
-																		<div class="shop-group">
-																			<a href="#" title="Add to Cart"> <i
-																				class="pe-7s-cart"></i> Mua ngay
-																			</a> <a class="wishlist" href="#" title="Wishlist"> <i
-																				class="pe-7s-like"></i> Yêu thích
-																			</a>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="single-shop mb-30">
-														<div class="col-md-4 col-sm-4 col-xs-12">
-															<div class="shop-list-left">
-																<div class="shop-img">
-																	<a href="#"><img
-																		src="../assets/img/shop/product/NuocUong.png" alt="" /></a>
-																	<div class="shop-quick-view">
-																		<a href="#" data-toggle="modal"
-																			data-target="#quick-view" title="Quick View"> <i
-																			class="pe-7s-look"></i>
-																		</a>
-																	</div>
-																	<div class="price-up-down">
-																		<span class="sale-new">Giảm</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-														<div class="col-md-8 col-sm-8 col-xs-12">
-															<div class="shop-list-right">
-																<div class="shop-list-all">
-																	<div class="shop-list-name">
-																		<h3>
-																			<a href="#">Tên sản phẩm</a>
-																		</h3>
-																	</div>
-																	<div class="shop-list-rating">
-																		<span class="ratting"> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i> <i
-																			class="fa fa-star active"></i>
-																		</span>
-																	</div>
-																	<p>Lorem ipsum dolor sit amet, adipiscing elit. Nam
-																		fringilla augue nec est auctor. Donec non est at
-																		libero vulputate rutrum. Morbi ornare lectus quis
-																		justo gravida semper. Nulla tellus mi, vulputate
-																		adipiscing cursus eu, odio...</p>
-																	<div class="shop-list-price">
-																		<span class="list-price"> <span class="new">120.000
-																				đ</span> <span class="old">110.000 đ</span>
-																		</span>
-																	</div>
-																	<div class="shop-list-cart">
-																		<div class="shop-group">
-																			<a href="#" title="Add to Cart"> <i
-																				class="pe-7s-cart"></i> Mua ngay
-																			</a> <a class="wishlist" href="#" title="Wishlist"> <i
-																				class="pe-7s-like"></i> Yêu thích
-																			</a>
-																		</div>
-																	</div>
-																</div>
+															<div class="price f-right">
+																<span class="new">120.000 đ</span>
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
+											<%
+												}
+												}
+											%>
 										</div>
 									</div>
 									<div class="page-pagination text-center">

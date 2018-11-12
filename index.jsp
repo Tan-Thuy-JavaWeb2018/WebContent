@@ -1,3 +1,4 @@
+<%@page import="java.io.Writer"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page pageEncoding="utf-8"%>
 <%@ page import="Control.ProductsControl"%>
@@ -153,10 +154,14 @@
 			</div>
 			<div class="shop-menu portfolio-left-menu text-center mb-50">
 				<button class="active" data-filter="*">Mọi thứ</button>
-				<%for (Category ls : category.getListCategory()) { %>
-				<button data-filter=".mix<%=ls.getId()%>"><%=ls.getTenloai() %></button>
-				<%} %>
-				
+				<%
+					for (Category ls : category.getListCategory()) {
+				%>
+				<button data-filter=".mix<%=ls.getId()%>"><%=ls.getTenloai()%></button>
+				<%
+					}
+				%>
+
 			</div>
 			<div class="row portfolio-style-2">
 				<!-- Hiển thị sản phẩm -->
@@ -176,7 +181,8 @@
 								<a href="#"><img
 									src="assets/img/shop/product/<%=ls.getAnhchinh()%>" alt="" /></a>
 								<%
-									if (ls.getKhuyenmai() > 0) {
+									if (ls.getTinhtrang() == 1) {
+												if (ls.getKhuyenmai() > 0) {
 								%>
 								<div class="price-up-down">
 									<span class="sale-new">Giảm <%=ls.getKhuyenmai()%>%
@@ -184,7 +190,16 @@
 								</div>
 								<%
 									}
+											} else {
+												%>
+								<div class="price-up-down">
+									<span class="sale-new">Hết
+									</span>
+								</div>
+								<%
+											}
 								%>
+
 								<div class="button-group">
 									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
 									</a> <a class="wishlist" href="#" title="Wishlist"> <i
@@ -397,7 +412,7 @@
 			<div class="container">
 				<div class="section-title text-center mb-50">
 					<h2>
-						Bài đăng mới nhất <i class="fa fa-pencil"></i>
+						Chia sẽ công thức nấu ngon<i class="fa fa-pencil"></i>
 					</h2>
 				</div>
 				<div class="row">
@@ -411,8 +426,8 @@
 					<div class="col-md-4 col-sm-6">
 						<div class="blog-details mb-30">
 							<div class="blog-img">
-								<a href="blog-details.html"><img src="assets/img/blog/<%=dem+1 %>.jpg"
-									alt=""></a>
+								<a href="blog-details.html"><img
+									src="assets/img/blog/<%=ls.getHinhanh()%>" alt=""></a>
 								<div class="blog-quick-view">
 									<a href="blog-details.html"> <i class="pe-7s-link"></i>
 									</a>
@@ -420,12 +435,20 @@
 							</div>
 							<div class="blog-meta">
 								<h4>
-									<a href="blog-details.jsp"><%=ls.getTieude() %></a>
+									<%
+										//xử lý độ dài tiêu đề
+											String tieude;
+											if (ls.getTieude().length() > 20) {
+												tieude = ls.getTieude().substring(0, 20);
+											} else {
+												tieude = ls.getTieude();
+											}
+									%>
+									<a href="blog-details.jsp"><%=tieude%></a>
 								</h4>
 								<ul class="meta">
 									<li>08 tháng 8 năm 2018</li>
 								</ul>
-								<p><%=ls.getMota() %></p>
 								<a href="blog-details.jsp">Đọc tiếp <i class="pe-7s-next"></i></a>
 							</div>
 						</div>
