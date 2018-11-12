@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../lib/assets/css/cs-skin-elastic.css">
     <link rel="stylesheet" href="../../lib/assets/css/lib/datatable/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="../../lib/assets/css/style.css">
+    <link rel="stylesheet" href="../../lib/bower_components/sweetalert2/dist/sweetalert2.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
     
