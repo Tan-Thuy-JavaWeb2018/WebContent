@@ -18,7 +18,7 @@
 				<div class="row">
 					<div class="col-md-4 col-sm-3 col-xs-6">
 						<div class="logo">
-							<a href="../index.jsp"> <img src="assets/img/logo/logo.png"
+							<a href="./index.jsp"> <img src="assets/img/logo/logo.png"
 								alt="">
 							</a>
 						</div>
@@ -44,11 +44,11 @@
 								<div class="currence-user-page">
 									<div class="user-page">
 										<ul>
-											<li><a href="../pages/checkout.jsp"><i class="pe-7s-check"></i>Thanh
+											<li><a href="./pages/checkout.jsp"><i class="pe-7s-check"></i>Thanh
 													toán</a></li>
-											<li><a href="../pages/login.jsp"><i class="pe-7s-next-2"></i>Đăng
+											<li><a href="./pages/login.jsp"><i class="pe-7s-next-2"></i>Đăng
 													nhập</a></li>
-											<li><a href="../pages/register.jsp"><i class="pe-7s-add-user"></i>Tạo
+											<li><a href="./pages/register.jsp"><i class="pe-7s-add-user"></i>Tạo
 													tài khoản mới</a></li>
 										</ul>
 									</div>
@@ -66,7 +66,7 @@
 								</div>
 							</div>
 							<div class="shopping-cart f-right">
-								<a class="top-cart" href="../pages/cart.html"><i class="pe-7s-cart"></i></a>
+								<a class="top-cart" href="./pages/cart.html"><i class="pe-7s-cart"></i></a>
 								<span>10</span>
 								<ul>
 									<li>
@@ -110,8 +110,8 @@
 									</li>
 									<li>
 										<p class="buttons">
-											<a class="my-cart" href="../pages/cart.jsp">Xem giỏ hàng</a> <a
-												class="checkout" href="../pages/checkout.jsp">Thanh toán</a>
+											<a class="my-cart" href="./pages/cart.jsp">Xem giỏ hàng</a> <a
+												class="checkout" href="./pages/checkout.jsp">Thanh toán</a>
 										</p>
 									</li>
 								</ul>
@@ -119,7 +119,7 @@
 							<div class="main-menu f-right">
 								<nav>
 									<ul>
-										<li><a href="../index.jsp">Trang chủ</a>
+										<li><a href="./index.jsp">Trang chủ</a>
 										<li><a href="./pages/shop-page.jsp?id_product=0">Sản phẩm</a>
 											<ul class="dropdown">
 												<!-- ** Đổ thể loại từ dữ liệu ra ** -->

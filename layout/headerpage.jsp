@@ -133,9 +133,7 @@
 												%>
 											</ul></li>
 										<li><a href="../pages/blog-page.jsp">Bài viết</a>
-											<ul class="dropdown">
-												<li><a href="../pages/blog-page.jsp">Giao diện phân trang</a></li>
-												<li><a href="../pages/blog-sidebar.jsp">Giao diện menu trái</a></li>
+											<ul class="dropdown"> 
 											</ul></li>
 										<li><a href="../pages/contact.jsp">Liên hệ</a></li>
 									</ul>
@@ -172,9 +170,7 @@
 									</ul></li>
 								<li class="active1"><a class="active1" href="#">Bài
 										viết</a>
-									<ul>
-										<li><a href="../pages/blog-page.jsp">Giao diện phân trang</a></li>
-										<li><a href="../pages/blog-sidebar.jsp">Giao diện menu</a></li>
+									<ul> 
 									</ul></li>
 								<li><a href="../pages/contact.jsp">Liên hệ</a></li>
 							</ul>

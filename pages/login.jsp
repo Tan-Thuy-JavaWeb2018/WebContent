@@ -31,7 +31,7 @@
 <body>
     
     <!-- Thêm phần tiêu đề trang -->
-	<jsp:include page="../layout/header.jsp"></jsp:include>
+	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
 	<!-- Xong phần tiêu đề trang -->
     
     

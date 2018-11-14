@@ -66,7 +66,7 @@
 								Đến với chúng tôi, thỏa sức chọn lựa những loại thức uống <br>hot
 								nhất với giá rẻ hơn và khuyến mãi cực tốt
 							</h3>
-							<a class="btn-hover" href="shop-page.html">Mua ngay <i
+							<a class="btn-hover" href="pages/shop-page.jsp?id_product=0">Mua ngay <i
 								class="fa fa-angle-double-right"></i></a>
 						</div>
 					</div>
@@ -193,7 +193,7 @@
 											} else {
 												%>
 								<div class="price-up-down">
-									<span class="sale-new">Hết
+									<span class="sale-new">Hết bán
 									</span>
 								</div>
 								<%
@@ -242,7 +242,8 @@
 									src="assets/img/shop/product/<%=produts.getListProducts().get(i).getAnhchinh()%>"
 									alt="" /></a>
 								<%
-									if (produts.getListProducts().get(i).getKhuyenmai() > 0) {
+									if (produts.getListProducts().get(i).getTinhtrang() == 1) {
+												if (produts.getListProducts().get(i).getKhuyenmai() > 0) {
 								%>
 								<div class="price-up-down">
 									<span class="sale-new">Giảm <%=produts.getListProducts().get(i).getKhuyenmai()%>%
@@ -250,6 +251,14 @@
 								</div>
 								<%
 									}
+											} else {
+												%>
+								<div class="price-up-down">
+									<span class="sale-new">Hết bán
+									</span>
+								</div>
+								<%
+											}
 								%>
 								<div class="button-group">
 									<a href="#" title="Add to Cart"> <i class="pe-7s-cart"></i>
@@ -288,7 +297,7 @@
 				<!-- Xong hiển thị sản phẩm -->
 			</div>
 			<div class="text-center">
-				<a class="hvr-shutter-out-horizontal" href="shop-page.jsp">Xem
+				<a class="hvr-shutter-out-horizontal" href="pages/shop-page.jsp?id_product=0">Xem
 					thêm <i class="fa fa-angle-double-right"></i>
 				</a>
 			</div>
@@ -304,7 +313,7 @@
 						<div class="offer-text text-center">
 							<h3>chương trình khuyến mãi</h3>
 							<div class="text-center">
-								<a class="hvr-shutter-out-horizontal" href="shop-page.html">mua
+								<a class="hvr-shutter-out-horizontal" href="pages/shop-page.jsp?id_product=0">mua
 									ngay <i class="fa fa-angle-double-right"></i>
 								</a>
 							</div>

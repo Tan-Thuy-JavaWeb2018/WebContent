@@ -10,28 +10,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- icon cho trang -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 
     <!-- Toàn bộ link css -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/pe-icon-7-stroke.css">
-    <link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
-    <link rel="stylesheet" href="lib/css/preview.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
-    <link rel="stylesheet" href="assets/css/bundle.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="../lib/css/nivo-slider.css" type="text/css" />
+    <link rel="stylesheet" href="../lib/css/preview.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet" href="../assets/css/meanmenu.min.css">
+    <link rel="stylesheet" href="../assets/css/bundle.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
     
 <!-- Thêm phần tiêu đề trang -->
-	<jsp:include page="../layout/header.jsp"></jsp:include>
+	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
 	<!-- Xong phần tiêu đề trang -->
 	
     <!-- Bắt đầu phần tiêu đề trang con -->
@@ -128,7 +128,7 @@
     </div>
     <div class="contact-area-all">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3833.929636134013!2d108.22173081433671!3d16.069140743709852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142183224111241%3A0xa99dd0ef2ad89be0!2sWonderlust!5e0!3m2!1svi!2s!4v1540569468539"
-            width="1350" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+            width="1500" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
     </div>
     <!-- Xong phần bản đồ -->
 
@@ -138,18 +138,18 @@
 
 
     <!-- Toàn bộ js -->
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.meanmenu.js"></script>
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="assets/js/jquery.validate.min.js"></script>
-    <script src="lib/js/jquery.nivo.slider.js"></script>
-    <script src="lib/home.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery.meanmenu.js"></script>
+    <script src="../assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="../assets/js/isotope.pkgd.min.js"></script>
+    <script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/jquery.validate.min.js"></script>
+    <script src="../lib/js/jquery.nivo.slider.js"></script>
+    <script src="../lib/home.js"></script>
+    <script src="../assets/js/plugins.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 
 </html>

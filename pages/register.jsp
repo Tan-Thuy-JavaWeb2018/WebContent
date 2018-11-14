@@ -10,28 +10,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- icon hiển thị -->
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 
     <!-- Tất cả css -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/pe-icon-7-stroke.css">
-    <link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
-    <link rel="stylesheet" href="lib/css/preview.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
-    <link rel="stylesheet" href="assets/css/bundle.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="../lib/css/nivo-slider.css" type="text/css" />
+    <link rel="stylesheet" href="../lib/css/preview.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet" href="../assets/css/meanmenu.min.css">
+    <link rel="stylesheet" href="../assets/css/bundle.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
    
    <!-- Thêm phần tiêu đề trang -->
-	<jsp:include page="../layout/header.jsp"></jsp:include>
+	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
 	<!-- Xong phần tiêu đề trang -->
    
    
@@ -61,12 +61,13 @@
                             <p>Nhập thông tin đăng ký tài khoản bên dưới.</p>
                         </div>
                         <div class="login-form">
-                            <form action="#">
-                                <input name="user-name" placeholder="Tên tài khoản *" type="text">
-                                <input name="user-password" placeholder="Mật khẩu *" type="password">
-                                <input name="user-password" placeholder="Nhập lại mật khẩu *" type="password">
-                                <input name="user-email" placeholder="Email *" type="email">
-                                <input name="user-name" placeholder="Tên hiển thị *" type="text">
+                            <form action="UsCreatAccount" method="POST">
+                                <input name="user-name" placeholder="Tên tài khoản *" type="text" required>
+                                <input name="user-password" placeholder="Mật khẩu *" type="password" required>
+                                <input name="user-password" placeholder="Nhập lại mật khẩu *" type="password" required>
+                                <input name="user-email" placeholder="Email *" type="email" required>
+                                <input name="user-name" placeholder="Tên hiển thị *" type="text" required>
+                                <input type="hidden" value="insert" name ="command">
                                 <div class="button-remember">
                                     <button class="login-btn" type="submit">Xác nhận</button>
                                 </div>
@@ -88,18 +89,18 @@
 
 
     <!-- Toàn bộ js -->
-    <script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/jquery.meanmenu.js"></script>
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/isotope.pkgd.min.js"></script>
-    <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-    <script src="assets/js/jquery.validate.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <script src="lib/js/jquery.nivo.slider.js"></script>
-    <script src="lib/home.js"></script>
-    <script src="assets/js/plugins.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/vendor/jquery-1.12.0.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/jquery.meanmenu.js"></script>
+    <script src="../assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="../assets/js/isotope.pkgd.min.js"></script>
+    <script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+    <script src="../assets/js/jquery.validate.min.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../lib/js/jquery.nivo.slider.js"></script>
+    <script src="../lib/home.js"></script>
+    <script src="../assets/js/plugins.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 
 
