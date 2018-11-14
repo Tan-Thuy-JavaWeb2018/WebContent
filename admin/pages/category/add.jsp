@@ -58,7 +58,7 @@
                                     	<div class="col-md-6">
                                     	<div class="form-group">
                                         <label class="form-control-label">Tên loại sản phẩm</label>
-                                        <input type="text" placeholder="Nhập tên loại sản phẩm" class="form-control" name="tenloai">
+                                        <input type="text" placeholder="Nhập tên loại sản phẩm" class="form-control" name="tenloai" required="required">
                                     </div>
                                      <div class="form-actions form-group">
                                         <button type="submit" class="btn btn-success">Lưu lại</button>
