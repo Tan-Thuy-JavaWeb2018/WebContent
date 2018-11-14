@@ -62,10 +62,9 @@
 								<strong>Chỉnh sửa</strong>
 							</div>
 							<div class="card-body card-block">
-								<form action="edit" method="post" enctype="multipart/form-data"
-									class="form-horizontal">
-									<input type="hidden" id="" class="form-control"
-										value="${ product.getId() }" name="id">
+								<form action="edit" method="POST" enctype="multipart/form-data" class="form-horizontal">
+									<input type="hidden" class="form-control"
+										value="<%=product.getId()%>" name="id">
 									<div class="row">
 										<div class="col-md-6">
 											<div class="form-group">
@@ -118,9 +117,15 @@
 													<option value="">Chọn</option>
 													<%
 														for (Category category : (ArrayList<Category>) request.getAttribute("listCategory")) {
+															if (category.getId() == product.getId_loaisanpham()) {
+													%>
+													<option value="<%=category.getId()%>" selected="selected"><%=category.getTenloai()%></option>
+													<%
+														} else {
 													%>
 													<option value="<%=category.getId()%>"><%=category.getTenloai()%></option>
 													<%
+														}
 														}
 													%>
 
