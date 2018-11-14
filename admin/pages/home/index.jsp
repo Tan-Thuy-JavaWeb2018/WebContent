@@ -35,9 +35,7 @@
                         <div class="page-header float-right">
                             <div class="page-title">
                                 <ol class="breadcrumb text-right">
-                                    <li><a href="javascript:void(0)">Trang chủ</a></li>
-                                    <li><a href="javascript:void(0)">Loại sản phẩm</a></li>
-                                    <li class="active">Thêm</li>
+                                    <li><a href="javascript:void(0)" class="active">Trang chủ</a></li>
                                 </ol>
                             </div>
                         </div>
@@ -51,22 +49,9 @@
                 <div class="row">
 					<div class="col-md-12">
                         <div class="card">
-                            <div class="card-header"><strong>Thêm</strong></div>
+                            <div class="card-header"><strong>abc</strong></div>
                             <div class="card-body card-block">
-                                <form action="add" method="post" enctype="application/x-www-form-urlencoded" class="form-horizontal">
-                                    <div class="row">
-                                    	<div class="col-md-6">
-                                    	<div class="form-group">
-                                        <label class="form-control-label">Tên loại sản phẩm</label>
-                                        <input type="text" placeholder="Nhập tên loại sản phẩm" class="form-control" name="tenloai">
-                                    </div>
-                                     <div class="form-actions form-group">
-                                        <button type="submit" class="btn btn-success">Lưu lại</button>
-                                        <a class="btn btn-danger" href="list">Hủy bỏ</a>
-                                    </div>
-                                    	</div>
-                                    </div>
-                                </form>
+                               Nội dung trang chủ
                             </div>
                         </div>
                     </div>
