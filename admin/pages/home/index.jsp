@@ -27,7 +27,7 @@
                     <div class="col-sm-4">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1><b>LOẠI SẢN PHẨM</b></h1>
+                                <h1><b>TRANG CHỦ</b></h1>
                             </div>
                         </div>
                     </div>

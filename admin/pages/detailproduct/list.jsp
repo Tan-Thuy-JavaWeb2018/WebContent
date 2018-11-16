@@ -1,11 +1,9 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="Objects.DetailProducts"%>
 <%@ page import="Objects.Products"%>
-<%@ page import="Objects.Category"%>
 <%@ page import="java.util.ArrayList"%>
-<%@ page import="java.lang.*"%>
-<%@ page import="java.text.*"%>
-
 <!DOCTYPE html>
 <html class="no-js" lang="">
 <head>
@@ -18,9 +16,10 @@
 <jsp:include page="../include/css.jsp"></jsp:include>
 </head>
 <body>
-
 	<jsp:include page="../include/leftmenu.jsp"></jsp:include>
-
+	<%
+		Products product = (Products) request.getAttribute("product");
+	%>
 	<!-- Right Panel -->
 
 	<div id="right-panel" class="right-panel">
@@ -34,11 +33,7 @@
 						<div class="page-header float-left">
 							<div class="page-title">
 								<h1>
-									<b>SẢN PHẨM</b>
-									<%
-										
-									%>
-
+									<b>CHI TIẾT SẢN PHẨM</b><small><i><%=product.getTensanpham()%></i></small>
 								</h1>
 							</div>
 						</div>
@@ -48,7 +43,7 @@
 							<div class="page-title">
 								<ol class="breadcrumb text-right">
 									<li><a href="javascript:void(0)">Trang chủ</a></li>
-									<li><a href="javascript:void(0)">Sản phẩm</a></li>
+									<li><a href="javascript:void(0)">Chi tiết sản phẩm</a></li>
 									<li class="active">Danh sách</li>
 								</ol>
 							</div>
@@ -66,77 +61,36 @@
 						<div class="card">
 							<div class="card-header">
 								<strong class="card-title">Danh sách</strong> <a
-									class="btn btn-primary float-right" href="add"><span><i
+									class="btn btn-primary float-right"
+									href="add?id_sanpham=<%=product.getId()%>"><span><i
 										class="fa fa-plus-square"></i></span> Thêm</a>
 							</div>
 							<div class="card-body">
 								<table id="bootstrap-data-table"
-									class="table table-striped table-bordered" style="width: 100%;">
+									class="table table-striped table-bordered">
 									<thead>
 										<tr>
 											<th>ID</th>
-											<th>Tên</th>
-											<th>Loại</th>
-											<th>Mô tả</th>
-											<th>Giá</th>
-											<th>KM</th>
-											<th>Nổi bật</th>
-											<th>Lượt thích</th>
-											<th>Ảnh</th>
-											<th>Chi tiết</th>
-											<th>Sửa-Xóa</th>
+											<th>Hình ảnh chi tiết</th>
+											<th>Sửa</th>
+											<th>Xóa</th>
 										</tr>
 									</thead>
 									<tbody>
 										<%
-											DecimalFormat myFormatter = new DecimalFormat("###,###.###");
-
-											String realRootPath = request.getServletContext().getRealPath("");
-											String folderUrl = "assets/img/shop/product/";
-
-											ArrayList<Products> list = (ArrayList<Products>) request.getAttribute("list");
-											for (Products l : list) {
+											ArrayList<DetailProducts> list = (ArrayList<DetailProducts>) request.getAttribute("list");
+											for (DetailProducts l : list) {
 										%>
 										<tr>
 											<td><%=l.getId()%></td>
-											<td><%=l.getTensanpham()%></td>
-											<td>
-												<%
-													for (Category category : (ArrayList<Category>) request.getAttribute("listCategory")) {
-															long a = category.getId();
-															long b = l.getId_loaisanpham();
-															if (a == b) {
-																out.print(category.getTenloai());
-															}
-														}
-												%>
+											<td><img alt=""
+												src="../../../assets/img/shop/DetailProduct/<%=l.getAnhChiTiet()%>"
+												style="width: 80%; display: block; margin-left: auto; margin-right: auto;">
 											</td>
-											<td style="min-width: 150px;"><%=l.getMota()%></td>
-											<td><%=myFormatter.format(l.getGiagoc())%>đ</td>
-											<td><%=l.getKhuyenmai()%>%</td>
-											<td><%=l.getTinhtrang()%></td>
-											<td><%=l.getLuotthich()%></td>
-											<td style="min-width: 100px;">
-												<%
-													if (l.getAnhchinh() != "") {
-												%> <a
-												href="../../../assets/img/shop/product/<%=l.getAnhchinh()%>">
-													<img alt=""
-													src="../../../assets/img/shop/product/<%=l.getAnhchinh()%>"
-													style="width: 100%">
-											</a> <%
- 	} else {
- %> <img alt="" src="https://placehold.it/270x270" style="width: 100%">
-												<%
-													}
-												%>
-											</td>
-											<td><a href="../detailproduct/list?id=<%=l.getId() %>" class="btn btn-warning btn-block">Xem</a>
-											</td>
-											<td><a class="btn btn-success  btn-block"
+											<td><a class="btn btn-success btn-block"
 												href="edit?id=<%=l.getId()%>"><span><i
-														class="fa fa-edit"></i></span> Sửa</a>
-												<button class="btn btn-secondary btn-block"
+														class="fa fa-edit"></i></span> Sửa</a></td>
+											<td><button class="btn btn-secondary btn-block"
 													onclick="Delete(<%=l.getId()%>)">
 													<span><i class="fa fa-trash-o"></i></span> Xóa
 												</button></td>
@@ -178,12 +132,12 @@
 	<script src="../../lib/assets/js/lib/data-table/buttons.colVis.min.js"></script>
 	<script src="../../lib/assets/js/init/datatables-init.js"></script>
 
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#bootstrap-data-table-export').DataTable();
 		});
 	</script>
-
 	<%
 		if ((String) session.getAttribute("Edit") == "Success") {
 	%>

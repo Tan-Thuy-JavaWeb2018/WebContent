@@ -17,10 +17,13 @@
                     <li>
 						<a href="../product/list"> <i class="menu-icon ti-receipt"></i>Sản phẩm</a>
                     </li>
+                    <li>
+						<a href="../detailproduct/list"> <i class="menu-icon ti-receipt"></i>Chi tiết sản phẩm</a>
+                    </li>
 					<li class="menu-item-has-children">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Menu 2 cấp</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="javascript:void(0)">Bảng</a></li>
+                            <li><i class="fa fa-table"></i><a href="../demotinymce/demo">Demo tinymce</a></li>
                             <li><i class="fa fa-table"></i><a href="javascript:void(0)">Bảng</a></li>
                         </ul>
                     </li>

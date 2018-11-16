@@ -10,23 +10,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- icon hiển thị -->
-<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
 
 <!-- Toàn bộ css -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/pe-icon-7-stroke.css">
-<link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
-<link rel="stylesheet" href="lib/css/preview.css" type="text/css"
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/css/magnific-popup.css">
+<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="../assets/css/pe-icon-7-stroke.css">
+<link rel="stylesheet" href="../lib/css/nivo-slider.css" type="text/css" />
+<link rel="stylesheet" href="../lib/css/preview.css" type="text/css"
 	media="screen" />
-<link rel="stylesheet" href="assets/css/animate.css">
-<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-<link rel="stylesheet" href="assets/css/bundle.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
-<script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+<link rel="stylesheet" href="../assets/css/animate.css">
+<link rel="stylesheet" href="../assets/css/meanmenu.min.css">
+<link rel="stylesheet" href="../assets/css/bundle.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/responsive.css">
+<script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
@@ -55,7 +55,7 @@
 				<div class="col-md-8 col-lg-9">
 					<div class="blog-wrapper">
 						<div class="single-blog">
-							<a href="#"><img src="assets/img/blog/blog-details.html"
+							<a href="#"><img src="../assets/img/blog/blog-details.html"
 								alt=""></a>
 							<div class="blog-details-text mt-20">
 								<h3>Tiêu đề bài viết</h3>
@@ -96,7 +96,7 @@
 								<h3 class="leave-comment-text">Bình luận</h3>
 								<div class="blog-top">
 									<div class="news-allreply">
-										<a href="#"><img src="assets/img/testimonial/1.jpg" alt=""></a>
+										<a href="#"><img src="../assets/img/testimonial/1.jpg" alt=""></a>
 									</div>
 									<div class="blog-img-details">
 										<div class="blog-title">
@@ -118,7 +118,7 @@
 								</div>
 								<div class="blog-top mt-40 mb-40 margin-middle">
 									<div class="news-allreply">
-										<a href="#"><img src="assets/img/testimonial/2.jpg" alt=""></a>
+										<a href="#"><img src="../assets/img/testimonial/2.jpg" alt=""></a>
 									</div>
 									<div class="blog-img-details">
 										<div class="blog-title">
@@ -140,7 +140,7 @@
 								</div>
 								<div class="blog-top">
 									<div class="news-allreply">
-										<a href="#"><img src="assets/img/testimonial/3.jpg" alt=""></a>
+										<a href="#"><img src="../assets/img/testimonial/3.jpg" alt=""></a>
 									</div>
 									<div class="blog-img-details">
 										<div class="blog-title">
@@ -199,7 +199,7 @@
 							<div class="recent-all">
 								<div class="recent-img-text mb-20">
 									<div class="recent-img">
-										<a href="#"><img src="assets/img/blog/1.jpg" alt=""></a>
+										<a href="#"><img src="../assets/img/blog/1.jpg" alt=""></a>
 									</div>
 									<div class="recent-text">
 										<h4>
@@ -215,7 +215,7 @@
 								</div>
 								<div class="recent-img-text mb-20">
 									<div class="recent-img">
-										<a href="#"><img src="assets/img/blog/2.jpg" alt=""></a>
+										<a href="#"><img src="../assets/img/blog/2.jpg" alt=""></a>
 									</div>
 									<div class="recent-text">
 										<h4>
@@ -231,7 +231,7 @@
 								</div>
 								<div class="recent-img-text">
 									<div class="recent-img">
-										<a href="#"><img src="assets/img/blog/3.jpg" alt=""></a>
+										<a href="#"><img src="../assets/img/blog/3.jpg" alt=""></a>
 									</div>
 									<div class="recent-text">
 										<h4>
@@ -250,7 +250,7 @@
 						<div class="single-sidebar">
 							<div class="sidebar-img-text">
 								<div class="sidebar-img">
-									<a href="#"> <img src="assets/img/shop/2.jpg" alt="">
+									<a href="#"> <img src="../assets/img/shop/2.jpg" alt="">
 									</a>
 									<div class="sidebar-text">
 										<h3>save up to</h3>
@@ -273,18 +273,18 @@
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->
-	<script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/jquery.meanmenu.js"></script>
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
-	<script src="assets/js/isotope.pkgd.min.js"></script>
-	<script src="assets/js/imagesloaded.pkgd.min.js"></script>
-	<script src="assets/js/jquery.validate.min.js"></script>
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<script src="lib/js/jquery.nivo.slider.js"></script>
-	<script src="lib/home.js"></script>
-	<script src="assets/js/plugins.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="../assets/js/vendor/jquery-1.12.0.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/jquery.meanmenu.js"></script>
+	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="../assets/js/isotope.pkgd.min.js"></script>
+	<script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+	<script src="../assets/js/jquery.validate.min.js"></script>
+	<script src="../assets/js/owl.carousel.min.js"></script>
+	<script src="../lib/js/jquery.nivo.slider.js"></script>
+	<script src="../lib/home.js"></script>
+	<script src="../assets/js/plugins.js"></script>
+	<script src="../assets/js/main.js"></script>
 </body>
 
 
