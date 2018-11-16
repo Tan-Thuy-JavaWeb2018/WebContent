@@ -1,6 +1,7 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ page import="Objects.Category"%>
 <%@ page import="Control.CategoryControl"%>
+<%@ page import="Objects.Users"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,8 @@
 					<div class="col-md-8 col-sm-9 col-xs-6">
 						<div class="cart-menu">
 							<div class="search-style-2 f-right">
-								<a class="icon-search-2" href="javascript:void(0)"> <i class="pe-7s-search"></i></a>
+								<a class="icon-search-2" href="javascript:void(0)"> <i
+									class="pe-7s-search"></i></a>
 								<div class="search2-content">
 									<form action="#">
 										<div class="search-input-button2">
@@ -39,20 +41,41 @@
 								</div>
 							</div>
 							<div class="user user-style-3 f-right">
+								<%
+									if (session.getAttribute("uslogin") != null) {
+										Users us = (Users)session.getAttribute("uslogin");
+								%>
+								<a href="#"> <i class="pe-7s-user"></i>
+								</a>
+								<div class="currence-user-page">
+									<div class="user-page">
+										<ul> 
+											<li><a href="#"><i class="pe-7s-id"></i> <%=us.getTenhienthi() %></a></li>
+											<li><a href="logout"><i class="pe-7s-back"></i> Đăng xuất</a></li>
+										</ul>
+									</div>
+								</div>
+								<% 
+									} else {
+								%>
 								<a href="#"> <i class="pe-7s-add-user"></i>
 								</a>
 								<div class="currence-user-page">
 									<div class="user-page">
 										<ul>
-											<li><a href="./pages/checkout.jsp"><i class="pe-7s-check"></i>Thanh
-													toán</a></li>
-											<li><a href="./pages/login.jsp"><i class="pe-7s-next-2"></i>Đăng
-													nhập</a></li>
-											<li><a href="./pages/register.jsp"><i class="pe-7s-add-user"></i>Tạo
-													tài khoản mới</a></li>
+											<li><a href="./pages/checkout.jsp"><i
+													class="pe-7s-check"></i>Thanh toán</a></li>
+											<li><a href="./pages/login.jsp"><i
+													class="pe-7s-next-2"></i>Đăng nhập</a></li>
+											<li><a href="./pages/register.jsp"><i
+													class="pe-7s-add-user"></i>Tạo tài khoản mới</a></li>
 										</ul>
 									</div>
 								</div>
+								<%
+									}
+								%>
+
 							</div>
 							<div class="user user-style-3 f-right hidden-xs">
 								<a href="#"> <i class="pe-7s-global"></i>
@@ -66,8 +89,8 @@
 								</div>
 							</div>
 							<div class="shopping-cart f-right">
-								<a class="top-cart" href="./pages/cart.html"><i class="pe-7s-cart"></i></a>
-								<span>10</span>
+								<a class="top-cart" href="./pages/cart.html"><i
+									class="pe-7s-cart"></i></a> <span>10</span>
 								<ul>
 									<li>
 										<div class="cart-img-price">
@@ -120,19 +143,21 @@
 								<nav>
 									<ul>
 										<li><a href="./index.jsp">Trang chủ</a>
-										<li><a href="./pages/shop-page.jsp?id_product=0">Sản phẩm</a>
+										<li><a href="./pages/shop-page.jsp?id_product=0">Sản
+												phẩm</a>
 											<ul class="dropdown">
 												<!-- ** Đổ thể loại từ dữ liệu ra ** -->
 												<%
 													for (Category ds : category.getListCategory()) {
 												%>
-												<li><a href="./pages/shop-page.jsp?id_product=<%=ds.getId()%>"><%=ds.getTenloai()%>
+												<li><a
+													href="./pages/shop-page.jsp?id_product=<%=ds.getId()%>"><%=ds.getTenloai()%>
 												</a></li>
 												<%
 													}
 												%>
 											</ul></li>
-										<li><a href="./pages/blog-page.jsp">Bài viết</a> 
+										<li><a href="./pages/blog-page.jsp">Bài viết</a>
 										<li><a href="./pages/contact.jsp">Liên hệ</a></li>
 									</ul>
 								</nav>
@@ -153,21 +178,22 @@
 						<nav id="dropdown">
 							<ul>
 								<li><a class="active1" href="./index.jsp">Trang chủ</a></li>
-								<li class="active1"><a class="active1" href="./pages/shop-page.jsp?id_product=0">Sản
-										phẩm</a>
+								<li class="active1"><a class="active1"
+									href="./pages/shop-page.jsp?id_product=0">Sản phẩm</a>
 									<ul>
 										<!-- ** Đổ thể loại từ dữ liệu ra ** -->
 										<%
 											for (Category ds : category.getListCategory()) {
 										%>
-										<li><a href="./pages/shop-page.jsp?id_product=<%=ds.getId()%>"><%=ds.getTenloai()%>
+										<li><a
+											href="./pages/shop-page.jsp?id_product=<%=ds.getId()%>"><%=ds.getTenloai()%>
 										</a></li>
 										<%
 											}
 										%>
 									</ul></li>
-								<li class="active1"><a class="active1" href="./pages/blog-page.jsp">Bài
-										viết</a> 
+								<li class="active1"><a class="active1"
+									href="./pages/blog-page.jsp">Bài viết</a>
 								<li><a href="./pages/contact.jsp">Liên hệ</a></li>
 							</ul>
 						</nav>

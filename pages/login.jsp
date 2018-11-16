@@ -61,7 +61,7 @@
 								if (session.getAttribute("SingupSuccess") != null) {
 							%>
 							<div class="alert alert-success">
-								<%=session.getAttribute("SingupSuccess") %>
+								<%=session.getAttribute("SingupSuccess")%>
 							</div>
 							<%
 								session.removeAttribute("SingupSuccess");
@@ -71,16 +71,21 @@
 							<p>Cung cấp thông tin đăng nhập bên dưới.</p>
 						</div>
 						<div class="login-form">
-							<form action="#">
+							<form action="login" method="post">
 								<input name="user-name" placeholder="Tên tài khoản hoặc email"
-									type="text"> <input name="user-password"
-									placeholder="Mật khẩu" type="password">
+									type="text" required> <input name="user-password"
+									placeholder="Mật khẩu" type="password" required>
+								<%
+									if (session.getAttribute("errorlogin") != null) {
+								%>
+								<div class="alert alert-danger"><center><%=session.getAttribute("errorlogin")%></center></div>
+								<%
+									session.removeAttribute("errorlogin");
+									}
+								%>
 								<div class="button-remember">
-									<div class="checkbox-remember">
-										<a href="#">Quên mật khẩu?</a>
-									</div>
 									<button class="login-btn" type="submit">Đăng nhập</button>
-								</div>
+								</div> 
 								<div class="new-account">
 									<p>
 										<i class="pe-7s-add-user"></i> <a href="register.jsp">Tạo
