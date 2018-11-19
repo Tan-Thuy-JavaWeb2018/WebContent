@@ -458,7 +458,7 @@
 					<div class="blog-details mb-30">
 						<div class="blog-img">
 							<a href="blog-details.html"><img
-								src="assets/img/blog/<%=ls.getHinhanh()%>" alt=""></a>
+								src="assets/img/blog/<%=ls.getHinhanh()%>" alt="" title=""></a>
 							<div class="blog-quick-view">
 								<a href="blog-details.html"> <i class="pe-7s-link"></i>
 								</a>

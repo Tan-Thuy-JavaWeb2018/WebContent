@@ -1,7 +1,7 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ page import="Objects.Category"%>
 <%@ page import="Control.CategoryControl"%>
-<%@ page import="Objects.Users"%>
+<%@ page import="Objects.Users"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +43,8 @@
 							<div class="user user-style-3 f-right">
 								<%
 									if (session.getAttribute("uslogin") != null) {
+										// Giá trị session tồn tại 2 giờ
+										session.setMaxInactiveInterval(2*60*60);
 										Users us = (Users)session.getAttribute("uslogin");
 								%>
 								<a href="#"> <i class="pe-7s-user"></i>
@@ -50,7 +52,7 @@
 								<div class="currence-user-page">
 									<div class="user-page">
 										<ul> 
-											<li><a href="#"><i class="pe-7s-id"></i> <%=us.getTenhienthi() %></a></li>
+											<li><a href="pages/user-profile.jsp"><i class="pe-7s-id"></i> <%=us.getTenhienthi() %></a></li>
 											<li><a href="logout"><i class="pe-7s-back"></i> Đăng xuất</a></li>
 										</ul>
 									</div>
