@@ -28,6 +28,8 @@
 <link rel="stylesheet" href="../assets/css/bundle.css">
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/responsive.css">
+<link rel="stylesheet"
+	href="../admin/lib/bower_components/sweetalert2/dist/sweetalert2.css">
 <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
 
 
@@ -63,15 +65,20 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<!--left col-->
-				<form method="POST" action="#" enctype="multipart/form-data">
+				<form method="POST" action="user-avatar"
+					enctype="multipart/form-data">
 					<div class="form-group">
 						<div class="text-center">
 							<img src="../assets/img/testimonial/<%=us.getHinhanh()%>"
-								class="avatar img-circle img-thumbnail" alt="avatar">
+								class="avatar img-circle img-thumbnail" alt="avatar"
+								name="link-img">
 							<h4>
 								<br><%=us.getTenhienthi()%>
 							</h4>
-							<input type="file" class="text-center center-block file-upload">
+							<input id="file-up-avatar" type="file"
+								class="text-center center-block file-upload" name="file">
+							<input value="<%=us.getTentaikhoan()%>" name="user-name"
+								hidden="">
 						</div>
 					</div>
 					<div class="form-group">
@@ -82,6 +89,7 @@
 						</div>
 					</div>
 				</form>
+
 			</div>
 			<!--/col-3-->
 			<div class="col-sm-9">
@@ -138,7 +146,8 @@
 							<div class="col-xs-6">
 								<br> <label><h4>Mật khẩu</h4></label> <input
 									type="password" class="form-control" name="password"
-									placeholder="Mật khẩu" title="Nhập vào mật khẩu." value="" required>
+									placeholder="Mật khẩu" title="Nhập vào mật khẩu." value=""
+									required>
 							</div>
 						</div>
 						<div class="form-group">
@@ -183,6 +192,11 @@
 	<script src="../lib/home.js"></script>
 	<script src="../assets/js/plugins.js"></script>
 	<script src="../assets/js/main.js"></script>
+
+
+	<script
+		src="../admin/lib/bower_components/sweetalert2/dist/sweetalert2.js"></script>
+
 	<script>
 		$(document).ready(function() {
 			var readURL = function(input) {
@@ -194,7 +208,24 @@
 					reader.readAsDataURL(input.files[0]);
 				}
 			}
+			var fileValidation = function() {
+				var fileInput = document.getElementById('file-up-avatar');
+				var filePath = fileInput.value;//lấy giá trị input theo id
+				var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;//các tập tin cho phép
+				//Kiểm tra định dạng
+				if (!allowedExtensions.exec(filePath)) {
+					swal({
+						type : 'error',
+						title : 'Rất tiết...',
+						text : 'Tệp tải lên có định dạng không được hổ trợ!',
+					});
+
+					fileInput.value = '';
+					return false;
+				}
+			}
 			$(".file-upload").on('change', function() {
+				fileValidation();
 				readURL(this);
 			});
 		});
