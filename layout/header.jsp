@@ -1,7 +1,13 @@
+<%@page import="java.util.Map.Entry"%>
+<%@page import="Objects.Items"%> 
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="java.util.Map.Entry"%>
 <%@ page pageEncoding="utf-8"%>
 <%@ page import="Objects.Category"%>
 <%@ page import="Control.CategoryControl"%>
-<%@ page import="Objects.Users"%> 
+<%@ page import="Objects.Users"%>
+<%@ page import="Model.dao_Cart"%> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,20 +50,22 @@
 								<%
 									if (session.getAttribute("uslogin") != null) {
 										// Giá trị session tồn tại 2 giờ
-										session.setMaxInactiveInterval(2*60*60);
-										Users us = (Users)session.getAttribute("uslogin");
+										session.setMaxInactiveInterval(2 * 60 * 60);
+										Users us = (Users) session.getAttribute("uslogin");
 								%>
 								<a href="#"> <i class="pe-7s-user"></i>
 								</a>
 								<div class="currence-user-page">
 									<div class="user-page">
-										<ul> 
-											<li><a href="pages/user-profile.jsp"><i class="pe-7s-id"></i> <%=us.getTenhienthi() %></a></li>
-											<li><a href="logout"><i class="pe-7s-back"></i> Đăng xuất</a></li>
+										<ul>
+											<li><a href="pages/user-profile.jsp"><i
+													class="pe-7s-id"></i> <%=us.getTenhienthi()%></a></li>
+											<li><a href="logout"><i class="pe-7s-back"></i> Đăng
+													xuất</a></li>
 										</ul>
 									</div>
 								</div>
-								<% 
+								<%
 									} else {
 								%>
 								<a href="#"> <i class="pe-7s-add-user"></i>
@@ -90,47 +98,40 @@
 									</div>
 								</div>
 							</div>
+							<%
+								dao_Cart cart = (dao_Cart) session.getAttribute("cart");
+								if (cart == null) {
+									cart = new dao_Cart();
+									session.setAttribute("cart", cart);
+									session.setMaxInactiveInterval(10*60*60);
+								}  
+							%>
 							<div class="shopping-cart f-right">
 								<a class="top-cart" href="./pages/cart.html"><i
-									class="pe-7s-cart"></i></a> <span>10</span>
+									class="pe-7s-cart"></i></a> <span><%=cart.countItems()%></span>
 								<ul>
+									<%for (Entry<Long, Items> list : cart.getCartItems().entrySet()) { %>
 									<li>
 										<div class="cart-img-price">
 											<div class="cart-img">
 												<a href="#"><img
-													src="assets/img/shop/product/BanhNgot1.png" alt="" /></a>
+													src="assets/img/shop/product/<%=list.getValue().getProducts().getAnhchinh() %>" alt="" /></a>
 											</div>
 											<div class="cart-content">
 												<h3>
-													<a href="#">Sản phẩm 1</a>
+													<a href="#"><%=list.getValue().getProducts().getTensanpham()%></a>
 												</h3>
-												<span class="cart-price">299.000 (3)</span>
+												<span class="cart-price"><%=list.getValue().getProducts().getGiagoc() %> (<%=list.getValue().getQuantity() %>)</span>
 											</div>
 											<div class="cart-del">
-												<i class="pe-7s-close-circle"></i>
+												<a href="cart?status=remove&id_product=<%=list.getKey() %>"><i class="pe-7s-close-circle"></i></a>
 											</div>
 										</div>
 									</li>
-									<li>
-										<div class="cart-img-price">
-											<div class="cart-img">
-												<a href="#"><img
-													src="assets/img/shop/product/BanhNgot3.png" alt="" /></a>
-											</div>
-											<div class="cart-content">
-												<h3>
-													<a href="#">Sản phẩm 2</a>
-												</h3>
-												<span class="cart-price">200.000 (7)</span>
-											</div>
-											<div class="cart-del">
-												<i class="pe-7s-close-circle"></i>
-											</div>
-										</div>
-									</li>
+									<%} %>
 									<li>
 										<p class="total">
-											Tổng: <span class="total-price">499.000 đ</span>
+											Tổng: <span class="total-price"><%=cart.totalCart() %> đ</span>
 										</p>
 									</li>
 									<li>

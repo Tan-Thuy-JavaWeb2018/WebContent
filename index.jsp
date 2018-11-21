@@ -203,7 +203,7 @@
 								%>
 
 								<div class="button-group">
-									<a href="javascript:void(0)" title="Add to Cart"> <i class="pe-7s-cart"></i>
+									<a href="cart?status=add&id_product=<%=ls.getId() %>" title="Add to Cart"> <i class="pe-7s-cart"></i>
 									</a> <a class="wishlist" href="#" title="Wishlist"> <i
 										class="pe-7s-like"></i>
 									</a> <a href="#" data-toggle="modal"
