@@ -15,7 +15,7 @@
 
 <!-- icon hiển thị -->
 <link rel="shortcut icon" type="image/x-icon"
-	href="assets/img/favicon.ico">
+	href="../assets/img/favicon.ico">
 
 <!-- Toàn bộ css -->
 <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
@@ -38,7 +38,7 @@
 <body>
 
 	<!-- Thêm phần tiêu đề trang -->
-	<jsp:include page="../layout/header.jsp"></jsp:include>
+	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
 	<!-- Xong phần tiêu đề trang -->
 
 	<!-- Bắt đầu tiêu đề trang con -->
@@ -90,22 +90,34 @@
 													double cost = list.getValue().getProducts().getGiagoc();
 													int discount = list.getValue().getProducts().getKhuyenmai();
 													double total = cost - (cost * discount) / 100;
-													double sum_price = total * (int)list.getValue().getQuantity(); 
+													double sum_price = total * (int) list.getValue().getQuantity();
 													String price_nb = numformat.format(total);
 													String sum_price_nb = numformat.format(sum_price);
 										%>
-										<td class="product-price"><span class="amount"><%=price_nb %> đ</span></td>
-										<td class="product-quantity"><input value="<%=list.getValue().getQuantity() %>"
-											type="number" min="1" maxlength="4"></td>
+										<td class="product-price"><span class="amount"><%=price_nb%>
+												đ</span></td>
+										<td class="product-quantity"><input
+											value="<%=list.getValue().getQuantity()%>" type="number"
+											min="1" maxlength="4" id="quantity<%=list.getKey()%>"></td>
 
-										<td class="product-subtotal"><%=sum_price_nb %> đ</td>
-										<td class="product-remove"><a
-											href="#" title="Sửa đổi chọn hàng"><i
-												class="fa fa-pencil"></i></a><a href="#"
-											title="xóa bỏ chọn hàng"><i class="fa fa-times"></i></a> </td>
+										<td class="product-subtotal"><%=sum_price_nb%> đ</td>
+										<td class="product-remove"><a onclick="calleditcart(<%=list.getKey() %>);"
+											title="Sửa đổi chọn hàng"><i class="fa fa-pencil"></i></a><a
+											href="../cart?status=remove&id_product=<%=list.getKey()%>" title="xóa bỏ chọn hàng"><i class="fa fa-times"></i></a>
+										</td>
 									</tr>
 									<%
 										}
+										} else {
+									%>
+									<tr>
+										<div class="alert alert-info">
+											<center>
+												<strong>Giỏ hàng trống!</strong>
+											</center>
+										</div>
+									</tr>
+									<%
 										}
 									%>
 								</tbody>
@@ -119,13 +131,20 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="cart-total">
 						<ul>
-							<li>Số lượng<span><%=cart.countItems() %></span></li>
-							<li class="cart-black">Tổng tiền<span><%=cart.totalCart() %> đ</span></li>
+							<li>Số lượng<span><%=cart.countItems()%></span></li>
+							<li class="cart-black">Tổng tiền<span><%=cart.totalCart()%>
+									đ</span></li>
 						</ul>
 						<div class="cart-total-btn">
+							<%
+								if (cart.countItems() > 0) {
+							%>
 							<div class="cart-total-btn2 f-right">
 								<a href="#">Tiến hàng thanh toán</a>
 							</div>
+							<%
+								}
+							%>
 						</div>
 					</div>
 				</div>
@@ -139,6 +158,12 @@
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->
+	<script>
+		function calleditcart(id) {
+			var quantity = document.getElementById("quantity"+id).value;
+			window.location.href = "../cart?status=edit&id_product="+id+"&quantity="+quantity+" ";
+		}
+	</script>
 
 	<script src="../assets/js/vendor/jquery-1.12.0.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
