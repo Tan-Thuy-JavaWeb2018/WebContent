@@ -1,4 +1,8 @@
 <%@ page pageEncoding="utf-8"%>
+<%@ page import="Model.dao_Cart"%>
+<%@page import="java.util.Map.Entry"%>
+<%@page import="Objects.Items"%>
+<%@ page import="java.text.DecimalFormat"%>
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -14,21 +18,21 @@
 	href="assets/img/favicon.ico">
 
 <!-- Toàn bộ css -->
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="assets/css/pe-icon-7-stroke.css">
-<link rel="stylesheet" href="lib/css/nivo-slider.css" type="text/css" />
-<link rel="stylesheet" href="lib/css/preview.css" type="text/css"
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/css/magnific-popup.css">
+<link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
+<link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="../assets/css/pe-icon-7-stroke.css">
+<link rel="stylesheet" href="../lib/css/nivo-slider.css" type="text/css" />
+<link rel="stylesheet" href="../lib/css/preview.css" type="text/css"
 	media="screen" />
-<link rel="stylesheet" href="assets/css/animate.css">
-<link rel="stylesheet" href="assets/css/jquery-ui.css">
-<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-<link rel="stylesheet" href="assets/css/bundle.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
-<script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+<link rel="stylesheet" href="../assets/css/animate.css">
+<link rel="stylesheet" href="../assets/css/jquery-ui.css">
+<link rel="stylesheet" href="../assets/css/meanmenu.min.css">
+<link rel="stylesheet" href="../assets/css/bundle.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/responsive.css">
+<script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
@@ -70,30 +74,40 @@
 									</tr>
 								</thead>
 								<tbody>
+									<%
+										dao_Cart cart = (dao_Cart) session.getAttribute("cart");
+										if (cart.countItems() > 0) {
+											for (Entry<Long, Items> list : cart.getCartItems().entrySet()) {
+									%>
 									<tr>
 										<td class="product-thumbnail"><a href="#"><img
-												src="assets/img/shop/product/BanhNgot3.png" alt=""></a></td>
-										<td class="product-name"><a href="#">Tên sản phẩm</a></td>
-										<td class="product-price"><span class="amount">165.000
-												đ</span></td>
-										<td class="product-quantity"><input value="1"
-											type="number"></td>
-										<td class="product-subtotal">165.000 đ</td>
-										<td class="product-remove"><a href="#"><i
-												class="fa fa-times"></i></a></td>
+												src="../assets/img/shop/product/<%=list.getValue().getProducts().getAnhchinh()%>"
+												alt=""></a></td>
+										<td class="product-name"><a href="#"><%=list.getValue().getProducts().getTensanpham()%></a></td>
+										<%
+											//xử lý giá bán
+													DecimalFormat numformat = new DecimalFormat("#,###,###");
+													double cost = list.getValue().getProducts().getGiagoc();
+													int discount = list.getValue().getProducts().getKhuyenmai();
+													double total = cost - (cost * discount) / 100;
+													double sum_price = total * (int)list.getValue().getQuantity(); 
+													String price_nb = numformat.format(total);
+													String sum_price_nb = numformat.format(sum_price);
+										%>
+										<td class="product-price"><span class="amount"><%=price_nb %> đ</span></td>
+										<td class="product-quantity"><input value="<%=list.getValue().getQuantity() %>"
+											type="number" min="1" maxlength="4"></td>
+
+										<td class="product-subtotal"><%=sum_price_nb %> đ</td>
+										<td class="product-remove"><a
+											href="#" title="Sửa đổi chọn hàng"><i
+												class="fa fa-pencil"></i></a><a href="#"
+											title="xóa bỏ chọn hàng"><i class="fa fa-times"></i></a> </td>
 									</tr>
-									<tr>
-										<td class="product-thumbnail"><a href="#"><img
-												src="assets/img/shop/product/NuocUong.png" alt=""></a></td>
-										<td class="product-name"><a href="#">Tên sản phẩm</a></td>
-										<td class="product-price"><span class="amount">150.000
-												đ</span></td>
-										<td class="product-quantity"><input value="1"
-											type="number"></td>
-										<td class="product-subtotal">150.000 đ</td>
-										<td class="product-remove"><a href="#"><i
-												class="fa fa-times"></i></a></td>
-									</tr>
+									<%
+										}
+										}
+									%>
 								</tbody>
 							</table>
 						</div>
@@ -105,8 +119,8 @@
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="cart-total">
 						<ul>
-							<li>Số lượng<span>10</span></li>
-							<li class="cart-black">Tổng tiền<span>315.000 đ</span></li>
+							<li>Số lượng<span><%=cart.countItems() %></span></li>
+							<li class="cart-black">Tổng tiền<span><%=cart.totalCart() %> đ</span></li>
 						</ul>
 						<div class="cart-total-btn">
 							<div class="cart-total-btn2 f-right">
@@ -125,18 +139,19 @@
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->
-	<script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/jquery.meanmenu.js"></script>
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
-	<script src="assets/js/isotope.pkgd.min.js"></script>
-	<script src="assets/js/imagesloaded.pkgd.min.js"></script>
-	<script src="assets/js/jquery.validate.min.js"></script>
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<script src="lib/js/jquery.nivo.slider.js"></script>
-	<script src="lib/home.js"></script>
-	<script src="assets/js/plugins.js"></script>
-	<script src="assets/js/main.js"></script>
+
+	<script src="../assets/js/vendor/jquery-1.12.0.min.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
+	<script src="../assets/js/jquery.meanmenu.js"></script>
+	<script src="../assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="../assets/js/isotope.pkgd.min.js"></script>
+	<script src="../assets/js/imagesloaded.pkgd.min.js"></script>
+	<script src="../assets/js/jquery.validate.min.js"></script>
+	<script src="../assets/js/owl.carousel.min.js"></script>
+	<script src="../lib/js/jquery.nivo.slider.js"></script>
+	<script src="../lib/home.js"></script>
+	<script src="../assets/js/plugins.js"></script>
+	<script src="../assets/js/main.js"></script>
 </body>
 
 </html>

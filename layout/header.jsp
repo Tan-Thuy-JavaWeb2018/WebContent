@@ -1,12 +1,13 @@
 <%@page import="java.util.Map.Entry"%>
-<%@page import="Objects.Items"%> 
+<%@page import="Objects.Items"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="java.util.Map.Entry"%>
 <%@ page pageEncoding="utf-8"%>
 <%@ page import="Objects.Category"%>
 <%@ page import="Control.CategoryControl"%>
 <%@ page import="Objects.Users"%>
-<%@ page import="Model.dao_Cart"%> 
+<%@ page import="Model.dao_Cart"%>
+<%@ page import="java.text.DecimalFormat"%>
 
 <!DOCTYPE html>
 <html>
@@ -72,9 +73,7 @@
 								</a>
 								<div class="currence-user-page">
 									<div class="user-page">
-										<ul>
-											<li><a href="./pages/checkout.jsp"><i
-													class="pe-7s-check"></i>Thanh toán</a></li>
+										<ul> 
 											<li><a href="./pages/login.jsp"><i
 													class="pe-7s-next-2"></i>Đăng nhập</a></li>
 											<li><a href="./pages/register.jsp"><i
@@ -103,42 +102,58 @@
 								if (cart == null) {
 									cart = new dao_Cart();
 									session.setAttribute("cart", cart);
-									session.setMaxInactiveInterval(10*60*60);
-								}  
+									session.setMaxInactiveInterval(10 * 60 * 60);
+								}
 							%>
 							<div class="shopping-cart f-right">
-								<a class="top-cart" href="./pages/cart.html"><i
+								<a class="top-cart" href="#"><i
 									class="pe-7s-cart"></i></a> <span><%=cart.countItems()%></span>
 								<ul>
-									<%for (Entry<Long, Items> list : cart.getCartItems().entrySet()) { %>
+									<%
+										for (Entry<Long, Items> list : cart.getCartItems().entrySet()) {
+									%>
 									<li>
 										<div class="cart-img-price">
 											<div class="cart-img">
 												<a href="#"><img
-													src="assets/img/shop/product/<%=list.getValue().getProducts().getAnhchinh() %>" alt="" /></a>
+													src="assets/img/shop/product/<%=list.getValue().getProducts().getAnhchinh()%>"
+													alt="" /></a>
 											</div>
 											<div class="cart-content">
 												<h3>
 													<a href="#"><%=list.getValue().getProducts().getTensanpham()%></a>
 												</h3>
-												<span class="cart-price"><%=list.getValue().getProducts().getGiagoc() %> (<%=list.getValue().getQuantity() %>)</span>
+												<%
+													//xử lý giá bán
+														DecimalFormat numformat = new DecimalFormat("#,###,###");
+														double cost = list.getValue().getProducts().getGiagoc();
+														int discount = list.getValue().getProducts().getKhuyenmai();
+														double total = cost - (cost * discount) / 100;
+														String price_nb = numformat.format(total);
+												%>
+												<span class="cart-price"><%=price_nb%> (<%=list.getValue().getQuantity()%>)</span>
 											</div>
 											<div class="cart-del">
-												<a href="cart?status=remove&id_product=<%=list.getKey() %>"><i class="pe-7s-close-circle"></i></a>
+												<a href="cart?status=remove&id_product=<%=list.getKey()%>"><i
+													class="pe-7s-close-circle"></i></a>
 											</div>
 										</div>
 									</li>
-									<%} %>
+									<%
+										}
+									%>
 									<li>
 										<p class="total">
-											Tổng: <span class="total-price"><%=cart.totalCart() %> đ</span>
+											Tổng: <span class="total-price"><%=cart.totalCart()%>
+												đ</span>
 										</p>
 									</li>
 									<li>
+										<%if(cart.countItems()!= 0){%>
 										<p class="buttons">
 											<a class="my-cart" href="./pages/cart.jsp">Xem giỏ hàng</a> <a
 												class="checkout" href="./pages/checkout.jsp">Thanh toán</a>
-										</p>
+										</p> <%} %>
 									</li>
 								</ul>
 							</div>

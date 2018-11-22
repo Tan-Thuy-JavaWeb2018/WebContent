@@ -113,9 +113,6 @@
 																		<ul>
 																			<li class="share-btn clearfix"><span>Yêu
 																					thích</span> <a href="#"><i class="fa fa-thumbs-up"></i></a>
-																			<li class="share-btn clearfix"><span>Số
-																					lượng</span> <input class="input-text qty" name="qty"
-																				maxlength="12" value="1" title="Qty" type="text">
 																			</li>
 
 																		</ul>
@@ -123,7 +120,7 @@
 																</div>
 																<div class="col-sm-12 col-md-6">
 																	<div class="por-dse add-to">
-																		<a href="#">Mua ngay <i class="fa fa-cart-plus"></i></a>
+																		<a href="cart?status=add&id_product=<%=ls.getId()%>">Mua ngay <i class="fa fa-cart-plus"></i></a>
 																	</div>
 																</div>
 															</div>

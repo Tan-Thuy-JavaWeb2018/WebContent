@@ -264,7 +264,7 @@
 									}
 								%>
 								<div class="button-group">
-									<a href="javascript:void(0)" title="Add to Cart"> <i class="pe-7s-cart"></i>
+									<a href="cart?status=add&id_product=<%=produts.getListProducts().get(i).getId() %>" title="Add to Cart"> <i class="pe-7s-cart"></i>
 									</a> <a class="wishlist" href="#" title="Wishlist"> <i
 										class="pe-7s-like"></i>
 									</a> <a href="#" data-toggle="modal" data-target="#quick-view"
@@ -356,7 +356,7 @@
 										<span class="sale-new">Mới</span>
 									</div>
 									<div class="button-group">
-										<a href="javascript:void(0)" title="Add to Cart"> <i class="pe-7s-cart"></i>
+										<a href="cart?status=add&id_product=<%=ls.getId() %>" title="Add to Cart"> <i class="pe-7s-cart"></i>
 										</a> <a class="wishlist" href="#" title="Wishlist"> <i
 											class="pe-7s-like"></i>
 										</a> <a href="#" data-toggle="modal" data-target="#quick-view<%=ls.getId() %>"
@@ -400,7 +400,7 @@
 									<span class="sale-new">Mới</span>
 								</div>
 								<div class="button-group">
-									<a href="javascript:void(0)" title="Add to Cart"> <i class="pe-7s-cart"></i>
+									<a href="cart?status=add&id_product=<%=ls.getId() %>" title="Add to Cart"> <i class="pe-7s-cart"></i>
 									</a> <a class="wishlist" href="#" title="Wishlist"> <i
 										class="pe-7s-like"></i>
 									</a> <a href="#" data-toggle="modal" data-target="#quick-view<%=ls.getId() %>"
