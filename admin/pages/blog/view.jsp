@@ -11,8 +11,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <jsp:include page="../include/css.jsp"></jsp:include>
-<link rel="stylesheet" href="../../../assets/css/bundle.css">
+
 <link rel="stylesheet" href="../../../assets/css/style.css">
+
+<!-- <link -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" -->
+<!-- 	rel="stylesheet"> -->
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+<!-- <link href="https://nightly.datatables.net/css/jquery.dataTables.css" -->
+<!-- 	rel="stylesheet" type="text/css" /> -->
+<link rel="stylesheet" href="../../lib/css/jquery.dataTables.css">
+<link rel="stylesheet"
+	href="../../lib/bower_components/alertifyjs/css/alertify.css">
+<link rel="stylesheet"
+	href="../../lib/bower_components/alertifyjs/css/themes/default.css">
+<style type="text/css">
+td.details-control {
+	text-align: center;
+	color: forestgreen;
+	cursor: pointer;
+}
+
+tr.shown td.details-control {
+	text-align: center;
+	color: red;
+}
+</style>
 </head>
 <body>
 	<%
@@ -90,86 +115,54 @@
 													</div>
 												</div>
 												<div class="news-details-bottom mtb-60">
-													<h3 class="leave-comment-text">Bình luận</h3>
-													<div class="blog-top">
-														<div class="news-allreply">
-															<a href="#"><img
-																src="../../../assets/img/testimonial/1.jpg" alt=""></a>
+													<div class="card">
+														<div class="card-header">
+															<strong class="card-title">BÌNH LUẬN</strong>
 														</div>
-														<div class="blog-img-details">
-															<div class="blog-title">
-																<div class="blog-title-1">
-																	<h3>Hoàng Thị Hà</h3>
-																	<span>ngày 12 tháng 9 năm 2018 lúc 8 : 00 pm</span>
-																</div>
-																<div class="nes-icon">
-																	<a href="#"> trả lời </a>
-																</div>
-															</div>
-															<p class="p-border">Lorem ipsum dolor sit amet,
-																consectetur adipisicing elit, sed do eiusmod tempor
-																incididunt ut labore et dolore i aliqua. Ut enim ad
-																minim veniam, quis nostrud exercitation ullamco laboris
-																nisi ut aliquip ex ea commodo cons. Duis aute irure
-																dolor in reprehenderit in</p>
-														</div>
-													</div>
-													<div class="blog-top mt-40 mb-40 margin-middle">
-														<div class="news-allreply">
-															<a href="#"><img
-																src="../../../assets/img/testimonial/2.jpg" alt=""></a>
-														</div>
-														<div class="blog-img-details">
-															<div class="blog-title">
-																<div class="blog-title-1">
-																	<h3>Nguyễn Hoàng Nam</h3>
-																	<span>ngày 12 tháng 9 năm 2018 lúc 8 : 00 pm</span>
-																</div>
-																<div class="nes-icon">
-																	<a href="#"> trả lời </a>
-																</div>
-															</div>
-															<p class="p-border">Lorem ipsum dolor sit amet,
-																consectetur adipisicing elit, sed do eiusmod tempor
-																incididunt ut labore et dolore i aliqua. Ut enim ad
-																minim veniam, quis nostrud exercitation ullamco laboris
-																nisi ut aliquip ex ea commodo cons. Duis aute irure
-																dolor in reprehenderit in</p>
-														</div>
-													</div>
-													<div class="blog-top">
-														<div class="news-allreply">
-															<a href="#"><img
-																src="../../../assets/img/testimonial/3.jpg" alt=""></a>
-														</div>
-														<div class="blog-img-details">
-															<div class="blog-title">
-																<div class="blog-title-1">
-																	<h3>Hoàng Thị Hà</h3>
-																	<span>ngày 12 tháng 9 năm 2018 lúc 8 : 00 pm</span>
-																</div>
-																<div class="nes-icon">
-																	<a href="#"> trả lời </a>
-																</div>
-															</div>
-															<p class="p-border">Lorem ipsum dolor sit amet,
-																consectetur adipisicing elit, sed do eiusmod tempor
-																incididunt ut labore et dolore i aliqua. Ut enim ad
-																minim veniam, quis nostrud exercitation ullamco laboris
-																nisi ut aliquip ex ea commodo cons. Duis aute irure
-																dolor in reprehenderit in</p>
+														<div class="card-body" style="font-size: 14px;"
+															id="loadajax">
+															<p><%=blog.get("id")%></p>
+															<table width="100%" class="display" id="example"
+																cellspacing="0" style="font-size: 16px">
+																<thead>
+																	<tr>
+																		<th></th>
+																		<th>ID</th>
+																		<th>Tên</th>
+																		<th>Nội dung</th>
+																		<th>Ngày bình luận</th>
+																		<th>Tùy chọn</th>
+																	</tr>
+																</thead>
+																<tfoot>
+																	<tr>
+																		<th></th>
+																		<th>ID</th>
+																		<th>Tên</th>
+																		<th>Nội dung</th>
+																		<th>Ngày bình luận</th>
+																		<th>Tùy chọn</th>
+																	</tr>
+																</tfoot>
+															</table>
 														</div>
 													</div>
 												</div>
 												<div class="leave-comment">
 													<h3 class="leave-comment-text">Viết bình luận</h3>
-													<form action="#">
+													<form action="addComment" method="post"
+														enctype="application/x-www-form-urlencoded">
 														<div class="row">
 															<div class="col-md-12">
-																<div class="text-leave">
-																	<textarea placeholder="Nội dung*"></textarea>
-																	<button class="submit" type="submit">Đăng bình
-																		luận</button>
+																<div class="form-group">
+																	<textarea class="form-control" rows="2"
+																		placeholder="Nhập bình luận" name="noidungbinhluan"
+																		id="noidungbinhluan"></textarea>
+																</div>
+																<div class="form-group">
+																	<input type="button" class="btn btn-primary"
+																		value="Đăng bình luận"
+																		onclick="DangBinhLuan(<%=blog.get("id")%>)">
 																</div>
 															</div>
 														</div>
@@ -195,7 +188,314 @@
 
 	<!-- Scripts -->
 	<jsp:include page="../include/js.jsp"></jsp:include>
-		<script>
+	<script src="../../lib/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../../lib/js/jquery.dataTables.js"></script>
+	<script src="../../lib/js/dataTables.select.min.js"></script>
+	<script src="../../lib/bower_components/alertifyjs/alertify.js"></script>
+	<script type="text/javascript">
+	var datatable = null; var idBaiViet = 0;
+	$(document).ready(function () {
+		idBaiViet = document.getElementById("loadajax").childNodes[1].innerText;
+// 		console.log(idBlog);
+		$.ajax({
+            url: '../comment/loaddata',
+            type: 'GET',
+            contentType: "application/json",
+            dataType:'json',
+            data: {
+                idBaiViet: idBaiViet
+            }
+        }).done(function(ketqua) {
+// 			console.log(ketqua.data[0].chitiet);
+			datatable = ketqua;
+// 			console.log(ketqua.data);
+			//load dữ liệu bình luận
+			var table = $('#example').DataTable({
+	             "data": datatable.data,
+	             select:"single",
+	             "columns": [
+	                 {
+	                     "className": 'details-control',
+	                     "orderable": false,
+	                     "data": null,
+	                     "defaultContent": '',
+	                     "render": function () {
+	                         return '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+	                     },
+	                     width:"15px"
+	                 },
+	                 { "data": "id" },
+	                 { "data": "tenhienthi" },
+	                 { "data": "noidung" },
+	                 { "data": "created_at" },
+	                 { "data": "opition" },
+	             ],
+	             "order": [[1, 'asc']]
+			
+	         });
+			
+			// event listener cho đóng, mở chi tiết
+	         $('#example tbody').on('click', 'td.details-control', function () {
+	             var tr = $(this).closest('tr');
+	             var tdi = tr.find("i.fa");
+	             var row = table.row(tr);
+	             
+	             if (row.child.isShown()) {
+	                 row.child.hide();
+	                 tr.removeClass('shown');
+	                 tdi.first().removeClass('fa-minus-square');
+	                 tdi.first().addClass('fa-plus-square');
+	             }
+	             else {
+	                 row.child(format(row.data())).show();
+	                 tr.addClass('shown');
+	                 tdi.first().removeClass('fa-plus-square');
+	                 tdi.first().addClass('fa-minus-square');
+// 	                 console.log(row.data());
+	             }
+	         });
+	         
+	         table.on("user-select", function (e, dt, type, cell, originalEvent) {
+	             if ($(cell.node()).hasClass("details-control")) {
+	                 e.preventDefault();
+	             }
+	         });
+	         
+        });
+	});
+	
+	function format(d){
+        
+        // dữ liệu cho chi tiết bình luận
+//         if(d.chitiet[0] == null) return "";
+        var str = "";
+        str += '<div class="container"><div class="row"><div class="col-md-1"></div><div class="col-md-10">'
+        +'<table class="table table-bordered" style="padding-left:50px;" '+"id=\"tableDetailComment" + d.id +"\"" + '>' +
+            '<tr>' +
+                '<th>ID</th>' +
+                '<th>Tên</th>' +
+                '<th>Nội dung</th>' +
+                '<th>Ngày bình luận</th>' +
+                '<th>Tùy chọn</th>' +
+            '</tr>';
+            	for (var i = 0; i < d.chitiet.length; i++) {
+            		if(d.chitiet[i] != undefined){
+            			 str +=  "<tr id=\"detailComment" + d.chitiet[i]['id'] + "\">" +
+                         '<td>' + d.chitiet[i]['id'] + '</td>' +
+                         '<td>' + d.chitiet[i]['tenhienthict'] + '</td>' +
+                        '<td>' + d.chitiet[i]['noidungchitiet'] + '</td>' +
+                        '<td>' + d.chitiet[i]['created_at'] + '</td>' +
+                        '<td>' + d.chitiet[i]['opitionDetail'] + '</td>' +
+                     '</tr>';
+            		}
+                   
+                }
+
+            str +=
+        '</table>' + 
+        '</div><div class="col-md-1"></div>'+ '<div class="col-md-1"></div><div class="col-md-8">' +
+		'<div class="form-group">' +
+		'<textarea class="form-control" rows="1"' +
+			'placeholder="Nhập bình luận" name="noidungbinhluan"></textarea>' +
+	'</div></div><div class="col-md-2"><button class="btn btn-primary btn-sm" onclick="addDetailComment('+ d.id +')"> <span><i class="fa fa-plus-square"></i></span> OK</button></div><div class="col-md-1"></div>' + 
+        '</div></div>';
+        return str; 
+   }
+
+</script>
+
+	<script>
+function DangBinhLuan(idBaiViet){
+	var noidungbinhluan = document.getElementById("noidungbinhluan").value;
+	
+	$("#loadajax").html('<table width="100%" class="display" id="example" cellspacing="0" style="font-size: 16px"> <thead><tr><th></th><th>ID</th><th>Tên</th><th>Nội dung</th><th>Ngày bình luận</th><th>Tùy chọn</th></tr></thead><tfoot><tr><th></th><th>ID</th><th>Tên</th><th>Nội dung</th><th>Ngày bình luận</th><th>Tùy chọn</th></tr></tfoot></table>');
+	$.ajax({
+        url: '../comment/add',
+        type: 'GET',
+        contentType: "application/json",
+        dataType:'json',
+        data: {
+            idBaiViet: idBaiViet, noidung: noidungbinhluan
+        }
+    }).done(function(ketqua) {
+    	datatable = ketqua;
+		//load dữ liệu bình luận
+		var table = $('#example').DataTable({
+             "data": datatable.data,
+             select:"single",
+             "columns": [
+                 {
+                     "className": 'details-control',
+                     "orderable": false,
+                     "data": null,
+                     "defaultContent": '',
+                     "render": function () {
+                         return '<i class="fa fa-plus-square" aria-hidden="true"></i>';
+                     },
+                     width:"15px"
+                 },
+                 { "data": "id" },
+                 { "data": "tenhienthi" },
+                 { "data": "noidung" },
+                 { "data": "created_at" },
+                 { "data": "opition" },
+             ],
+             "order": [[1, 'asc']]
+		
+         });
+		
+		// event listener cho đóng, mở chi tiết
+        $('#example tbody').on('click', 'td.details-control', function () {
+            var tr = $(this).closest('tr');
+            var tdi = tr.find("i.fa");
+            var row = table.row(tr);
+            
+            if (row.child.isShown()) {
+                row.child.hide();
+                tr.removeClass('shown');
+                tdi.first().removeClass('fa-minus-square');
+                tdi.first().addClass('fa-plus-square');
+            }
+            else {
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+                tdi.first().removeClass('fa-plus-square');
+                tdi.first().addClass('fa-minus-square');
+            }
+        });
+        
+        table.on("user-select", function (e, dt, type, cell, originalEvent) {
+            if ($(cell.node()).hasClass("details-control")) {
+                e.preventDefault();
+            }
+        });
+       
+        alertify.success('Đăng bình luận thành công!');
+        
+    });
+	document.getElementById("noidungbinhluan").value = "";
+}
+</script>
+
+
+	<script>
+function DeleteComment(idComment){
+// 	console.log(idBaiViet)
+	alertify.defaults.glossary.title = 'Xóa bình luận';
+	alertify.confirm("Bạn muốn xóa dữ liệu?",
+	  function(){
+		$.ajax({
+	        url: '../comment/delete',
+	        type: 'GET',
+	        contentType: "application/json",
+	        dataType:'json',
+	        data: {
+	        	idComment: idComment, idBaiViet: idBaiViet
+	        }
+	    }).done(function(ketqua) {
+	    	datatable = ketqua;
+			//load dữ liệu bình luận
+	    	var hang = $("#example tbody tr");
+			for (var i = 0; i < hang.length; i++) {
+				if(hang[i].innerHTML != "" &&  hang[i].childNodes[1].innerHTML == idComment){
+					hang[i].innerHTML = "";
+				}
+			}
+			alertify.success('Xóa bình luận thành công');
+	    });
+	    
+	  },
+	  function(){
+	    alertify.error('Dữ liệu không thay đổi');
+	  });
+}
+</script>
+
+	<script>
+function EditComment(idComment, content){
+	alertify.defaults.glossary.title = 'Chỉnh sửa';
+	alertify.prompt("Nhập nội dung bình luận", content,
+	  function(evt, content){
+		$.ajax({
+	        url: '../comment/edit',
+	        type: 'GET',
+	        contentType: "application/json",
+	        dataType:'json',
+	        data: {
+	        	idComment: idComment, idBaiViet: idBaiViet, content: content
+	        }
+	    }).done(function(ketqua) {
+	    	datatable = ketqua;
+			var hang = $("#example tbody tr");
+	// 		console.log(hang);
+			for(var i = 0; i < hang.length; i++) {
+				if(hang[i].cells[1] != undefined){
+					if(hang[i].cells[1].childNodes[0].nodeValue == idComment){
+						hang[i].cells[3].childNodes[0].nodeValue = content;
+						hang[i].cells[5].childNodes[2].attributes[1].value = "EditComment(" + idComment + ",'" + content + "')";
+					}
+				}
+			}
+
+			alertify.success('Sửa bình luận thành công');
+	    });
+	    
+	  },
+	  function(){
+	    alertify.error('Dữ liệu không thay đổi');
+	  });
+}
+
+</script>
+
+
+	<script>
+function addDetailComment(idComment){
+	console.log(idComment);
+	
+	var tbody = $("#tableDetailComment" + idComment + " tbody");
+	var createRow = document.createElement("tr");
+	for(var i = 0; i < 5; i++){
+		var createColumn = document.createElement("td");
+		switch(i){
+			case 0: var textNode = document.createTextNode("id"); break;
+			case 1: var textNode = document.createTextNode("ten"); break;
+			case 2: var textNode = document.createTextNode("noidung"); break;
+			case 3: var textNode = document.createTextNode("ngay"); break;
+			case 4: var textNode = document.createTextNode("tuychon"); break;
+		}
+		
+		createColumn.appendChild(textNode);
+		createRow.appendChild(createColumn);
+		
+	}
+	tbody.append(createRow);
+	console.log(tbody);
+}
+</script>
+
+
+	<script>
+function DeleteDetailComment(idDetailComment){
+// 	console.log(datatable.data);
+	for(var i = 0; i < datatable.data.length; i++){
+		for(var j = 0; j < datatable.data[i].chitiet.length; j++){
+			if(datatable.data[i].chitiet[j].id == idDetailComment){
+// 				console.log(datatable.data[i].chitiet[j].id)
+				delete datatable.data[i].chitiet[j]; 
+// 				console.log(datatable.data[i].chitiet[j]);
+				break;
+				
+			}
+		}
+	}
+	$("#detailComment" + idDetailComment).html("");
+}
+</script>
+
+
+
+	<script>
     function Delete(id) {
     	swal({
   		  title: "Bạn có chắc chắn muốn xóa dữ liệu?",

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="Objects.Users" %>
 <!DOCTYPE html>
 <html class="no-js" lang="">
 <head>
@@ -51,7 +52,12 @@
                         <div class="card">
                             <div class="card-header"><strong>abc</strong></div>
                             <div class="card-body card-block">
-                               Nội dung trang chủ
+                               Nội dung trang chủ 
+                               <%
+                               Users user = new Users();
+                               user = (Users) session.getAttribute("uslogin");
+                               %>
+                               <%=user.getTentaikhoan() %>
                             </div>
                         </div>
                     </div>
