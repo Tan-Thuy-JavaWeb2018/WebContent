@@ -1,8 +1,11 @@
 <%@ page pageEncoding="utf-8"%>
 <%@ page import="Model.dao_Cart"%>
 <%@ page import="java.text.DecimalFormat"%>
-<%@page import="java.util.Map.Entry"%>
-<%@page import="Objects.Items"%>
+<%@ page import="java.util.Map.Entry"%>
+<%@ page import="Objects.Items"%>
+<%@ page import="Objects.Users"%>
+<%@ page import="Control.AddressControl"%>
+<%@ page import="Objects.Citys_Provinces"%>
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -58,208 +61,216 @@
 	<!-- Bắt đầu phần thanh toán -->
 	<div class="checkout-area ptb-100">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-7">
-					<div class="returning-customer">
-						<h3>
-							<i class="fa fa-user"></i><span id="customer"> Đăng nhập
-								tài khoản</span>
-						</h3>
-						<div id="customer-login" class="coupon-content">
-							<div class="coupon-info">
-								<p class="coupon-text">Nếu bạn là thành viên vui lòng đăng
-									nhập tài khoản hoặc vui lòng cung cấp thông tin nếu bạn chưa là
-									thành viên. Cảm ơn!</p>
-								<form action="#">
-									<p class="form-row-first">
-										<label>Tài khoản hoặc email <span class="required">*</span></label>
-										<input type="text" />
-									</p>
-									<p class="form-row-last">
-										<label>Mật khẩu <span class="required">*</span></label> <input
-											type="text" />
-									</p>
-									<p class="lost-password">
-										<a href="#">Quên mật khẩu?</a>
-									</p>
-									<input class="coupon-submit" type="submit" value="Đăng nhập" />
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-5">
-					<div class="customer-coupon">
-						<h3>
-							<i class="fa fa-square-o"></i><span id="coupon"> Nhấp chọn
-								nếu bạn có phiếu giảm giá!</span>
-						</h3>
-						<div id="have-coupon" class="coupon-checkout-content">
-							<div class="coupon-info">
-								<form action="#">
-									<p class="checkout-coupon">
-										<label> Nhập mã giảm giá <span class="required">*</span>
-										</label> <input type="text" /> <input class="coupon-submit"
-											type="submit" value="Xác nhận" />
-									</p>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-7">
-					<div class="billing-details-area">
-						<h2>Chi tiết thanh toán</h2>
-						<form action="#">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="billing-input">
-										<label> Họ tên <span class="required">*</span>
-										</label> <input placeholder="" type="text">
-									</div>
+			<div class="col-md-7">
+				<div class="billing-details-area">
+					<h2>Chi tiết thanh toán</h2>
+					<form action="">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="billing-input">
+									<label> Họ tên <span class="required">*</span></label>
+									<%
+										if (session.getAttribute("uslogin") != null) {
+											// Giá trị session tồn tại 2 giờ
+											session.setMaxInactiveInterval(2 * 60 * 60);
+											Users us = (Users) session.getAttribute("uslogin");
+									%>
+									<input placeholder="" type="text"
+										value="<%=us.getTenhienthi()%>" required>
+									<%
+										} else {
+									%>
+									<input placeholder="" type="text">
+									<%
+										}
+									%>
 								</div>
-								<div class="col-md-12">
-									<div class="billing-input">
-										<label> Tỉnh thành <span class="required">*</span>
-										</label> <select>
-											<option value="1">Tỉnh</option>
-											<option value="2">thành phố</option>
-											<option value="3">quận</option>
-											<option value="4">huyện</option>
+							</div>
+
+							<div class="col-md-12">
+								<div class="billing-input">
+									<label> Tỉnh - Thành phố <span class="required">*</span>
+									</label> <select onchange="loadDistrict(this.value);" required>
+										<%
+											AddressControl address = new AddressControl();
+											for (Citys_Provinces list : address.getListAddress()) {
+										%>
+										<option value="<%=list.getId()%>"><%=list.getTen()%></option>
+										<%
+											}
+										%>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-12">
+								<div class="billing-input">
+									<label> Quận - Huyện <span class="required">*</span>
+									</label>
+									<div id="district">
+										<select>
 										</select>
 									</div>
 								</div>
-								<div class="col-md-12">
-									<div class="billing-input">
-										<label> Địa chỉ <span class="required">*</span>
-										</label> <input placeholder="Street address" type="text">
+
+							</div>
+
+							<div class="col-md-12">
+								<div class="billing-input">
+									<label> Xã - Phường - Thị Trấn <span class="required">*</span>
+									</label>
+									<div id="town_ward">
+										<select required id="town_ward_select">
+										</select>
 									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="billing-input">
-										<label> Số điện thoại <span class="required">*</span>
-										</label> <input type="text">
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="billing-input">
-										<label> Email <span class="required">*</span>
-										</label> <input type="email">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="billing-input">
-										<label> Ghi chú <span class="required">*</span>
-										</label>
-										<textarea id="checkout-mess" placeholder="Nội dung ghi chú."></textarea>
-									</div>
+
 								</div>
 							</div>
-						</form>
-					</div>
-				</div>
-				<div class="col-md-5">
-					<div class="your-order-payment">
-						<div class="your-order">
-							<h2>Đơn hàng của bạn</h2>
-							<ul>
-								<%
-									dao_Cart cart = (dao_Cart) session.getAttribute("cart");
-									if (cart.countItems() > 0) {
-										for (Entry<Long, Items> list : cart.getCartItems().entrySet()) {
-											//xử lý giá bán
-											DecimalFormat numformat = new DecimalFormat("#,###,###");
-											double cost = list.getValue().getProducts().getGiagoc();
-											int discount = list.getValue().getProducts().getKhuyenmai();
-											double total = cost - (cost * discount) / 100;
-											double sum_price = total * (int) list.getValue().getQuantity();
-											String price_nb = numformat.format(total);
-								%>
-								<li><%=list.getValue().getProducts().getTensanpham() %> (<%=list.getValue().getQuantity() %>) <span><%=price_nb %> đ</span></li> 
-								
-								<%
-									}
-									} 
-								%>
-								<li class="order-total">Tổng hóa đơn<span><%=cart.totalCart() %>
-										đ</span></li>
-							</ul>
+
+							<div class="col-md-12">
+								<div class="billing-input">
+									<label> Địa chỉ <span class="required">*</span>
+									</label> <input placeholder="Street address" type="text">
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="billing-input">
+									<label> Số điện thoại <span class="required">*</span>
+									</label> <input type="text" onkeypress="return keyPhone(event);"
+										required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="billing-input">
+									<label> Email <span class="required">*</span></label>
+									<%
+										if (session.getAttribute("uslogin") != null) {
+											// Giá trị session tồn tại 2 giờ
+											session.setMaxInactiveInterval(2 * 60 * 60);
+											Users us = (Users) session.getAttribute("uslogin");
+									%>
+									<input type="email" value="<%=us.getEmail()%>" required>
+									<%
+										} else {
+									%>
+									</label> <input type="email" required>
+									<%
+										}
+									%>
+								</div>
+							</div>
+							<div class="col-md-12">
+								<div class="billing-input">
+									<label> Ghi chú <span class="required">*</span>
+									</label>
+									<textarea id="checkout-mess" placeholder="Nội dung ghi chú."></textarea>
+								</div>
+							</div>
+							<div class="order-button-payment">
+								<input type="submit" value="Mua hàng" />
+							</div>
 						</div>
-						<div class="your-payment">
-							<h2>Hình thức thanh toán</h2>
-							<div class="payment-method">
-								<div class="payment-accordion">
-									<div class="panel-group" id="accordion" role="tablist"
-										aria-multiselectable="true">
-										<div class="panel panel-default">
-											<div class="panel-heading" role="tab" id="headingOne">
-												<h4 class="panel-title">
-													<a role="button" data-toggle="collapse"
-														data-parent="#accordion" href="#collapseOne"
-														aria-expanded="true" aria-controls="collapseOne">
-														Thanh toán trả sau </a>
-												</h4>
-											</div>
-											<div id="collapseOne" class="panel-collapse collapse in"
-												role="tabpanel" aria-labelledby="headingOne">
-												<div class="panel-body">
-													<p>Sau khi nhân viên bên chúng tôi xác nhận đơn hàng sẽ
-														có người giao hàng và nhận thanh toán theo địa chỉ bạn
-														cung cấp.</p>
-												</div>
-											</div>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<div class="your-order-payment">
+					<div class="your-order">
+						<h2>Đơn hàng của bạn</h2>
+						<ul>
+							<%
+								dao_Cart cart = (dao_Cart) session.getAttribute("cart");
+								if (cart.countItems() > 0) {
+									for (Entry<Long, Items> list : cart.getCartItems().entrySet()) {
+										//xử lý giá bán
+										DecimalFormat numformat = new DecimalFormat("#,###,###");
+										double cost = list.getValue().getProducts().getGiagoc();
+										int discount = list.getValue().getProducts().getKhuyenmai();
+										double total = cost - (cost * discount) / 100;
+										double sum_price = total * (int) list.getValue().getQuantity();
+										String price_nb = numformat.format(total);
+							%>
+							<li><%=list.getValue().getProducts().getTensanpham()%> (<%=list.getValue().getQuantity()%>)
+								<span><%=price_nb%> đ</span></li>
+
+							<%
+								}
+								}
+							%>
+							<li class="order-total">Tổng hóa đơn<span><%=cart.totalCart()%>
+									đ</span></li>
+						</ul>
+					</div>
+					<div class="your-payment">
+						<h2>Hình thức thanh toán</h2>
+						<div class="payment-method">
+							<div class="payment-accordion">
+								<div class="panel-group" id="accordion" role="tablist"
+									aria-multiselectable="true">
+									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="headingOne">
+											<h4 class="panel-title">
+												<a role="button" data-toggle="collapse"
+													data-parent="#accordion" href="#collapseOne"
+													aria-expanded="true" aria-controls="collapseOne"> Thanh
+													toán trả sau </a>
+											</h4>
 										</div>
-										<div class="panel panel-default">
-											<div class="panel-heading" role="tab" id="headingTwo">
-												<h4 class="panel-title">
-													<a class="collapsed" role="button" data-toggle="collapse"
-														data-parent="#accordion" href="#collapseTwo"
-														aria-expanded="false" aria-controls="collapseTwo">
-														Chuyển tiền trực tiếp </a>
-												</h4>
-											</div>
-											<div id="collapseTwo" class="panel-collapse collapse"
-												role="tabpanel" aria-labelledby="headingTwo">
-												<div class="panel-body">
-													<p>
-														Hiện chúng tôi cung cấp hình thức thanh toán trực tiếp
-														bằng cách: <br> Các bạn chuyển tiền vào tài khoản bên
-														dưới sau khi được nhân viên xác nhận đơn hàng <br> Số
-														tài khoản: 0911038494 <br> Chủ tài khoản: Trần Quang
-														Tân
-													</p>
-												</div>
-											</div>
-										</div>
-										<div class="panel panel-default">
-											<div class="panel-heading" role="tab" id="headingThree">
-												<h4 class="panel-title">
-													<a class="collapsed" role="button" data-toggle="collapse"
-														data-parent="#accordion" href="#collapseThree"
-														aria-expanded="false" aria-controls="collapseThree">
-														Thanh toán quốc tế </a>
-												</h4>
-											</div>
-											<div id="collapseThree" class="panel-collapse collapse"
-												role="tabpanel" aria-labelledby="headingThree">
-												<div class="panel-body">
-													<p>Hiện tại chúng tôi chưa cung cấp hình thức này.</p>
-												</div>
+										<div id="collapseOne" class="panel-collapse collapse in"
+											role="tabpanel" aria-labelledby="headingOne">
+											<div class="panel-body">
+												<p>Sau khi nhân viên bên chúng tôi xác nhận đơn hàng sẽ
+													có người giao hàng và nhận thanh toán theo địa chỉ bạn cung
+													cấp.</p>
 											</div>
 										</div>
 									</div>
-									<div class="order-button-payment">
-										<input type="submit" value="Mua hàng" />
+									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="headingTwo">
+											<h4 class="panel-title">
+												<a class="collapsed" role="button" data-toggle="collapse"
+													data-parent="#accordion" href="#collapseTwo"
+													aria-expanded="false" aria-controls="collapseTwo">
+													Chuyển tiền trực tiếp </a>
+											</h4>
+										</div>
+										<div id="collapseTwo" class="panel-collapse collapse"
+											role="tabpanel" aria-labelledby="headingTwo">
+											<div class="panel-body">
+												<p>
+													Hiện chúng tôi cung cấp hình thức thanh toán trực tiếp bằng
+													cách: <br> Các bạn chuyển tiền vào tài khoản bên dưới
+													sau khi được nhân viên xác nhận đơn hàng <br> Số tài
+													khoản: 0911038494 <br> Chủ tài khoản: Trần Quang Tân
+												</p>
+											</div>
+										</div>
+									</div>
+									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="headingThree">
+											<h4 class="panel-title">
+												<a class="collapsed" role="button" data-toggle="collapse"
+													data-parent="#accordion" href="#collapseThree"
+													aria-expanded="false" aria-controls="collapseThree">
+													Thanh toán quốc tế </a>
+											</h4>
+										</div>
+										<div id="collapseThree" class="panel-collapse collapse"
+											role="tabpanel" aria-labelledby="headingThree">
+											<div class="panel-body">
+												<p>Hiện tại chúng tôi chưa cung cấp hình thức này.</p>
+											</div>
+										</div>
 									</div>
 								</div>
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	<!-- Xong phần thanh toán -->
 
@@ -268,6 +279,76 @@
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->
+	<script>
+		function loadDistrict(id) {
+			if(id != "" && id != 0){
+				//Thực hiện ajax
+				if (window.XMLHttpRequest) {
+		            var xhttp = new XMLHttpRequest();
+		        }
+		        else {
+		            var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		        }
+		        xhttp.onreadystatechange = function () {
+		            if (this.readyState == 4 && this.status == 200) {
+		                document.getElementById('district').innerHTML = this.responseText; 
+		            }
+		        }; 
+		        xhttp.open("GET", "address?status=district&id_city="+id+"", true);
+		        xhttp.send();
+			}
+			
+		}
+		
+		
+		function load_town_ward(id) {
+			if(id != "" && id != 0){
+				//Thực hiện ajax
+				if (window.XMLHttpRequest) {
+		            var xhttp = new XMLHttpRequest();
+		        }
+		        else {
+		            var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		        }
+		        xhttp.onreadystatechange = function () {
+		            if (this.readyState == 4 && this.status == 200) {
+		                document.getElementById('town_ward').innerHTML = this.responseText; 
+		            }
+		        }; 
+		        xhttp.open("GET", "address?status=town_ward&id_dictricst="+id+"", true);
+		        xhttp.send();
+			}
+			
+		}
+		
+		function open_town_ward(check){
+			var town_ward = document.getElementById("town_ward_select");
+			if(check === 1){ 
+				town_ward.attributes.disabled = true;
+			}
+			if(check === 0){ 
+				town_ward.attributes.disabled = false;
+			}
+		}
+		
+//Xự kiện chỉ nhập số
+		function keyPhone(e) {
+			var keyword = null;
+			if (window.event) {
+				keyword = window.event.keyCode;
+			} else {
+				keyword = e.which;  
+			}
+
+			if (keyword<48 || keyword>57) {
+				if (keyword == 8 || keyword == 48 || keyword == 127) {
+					return true;
+				}
+				return false;
+			}
+		}
+	</script>
+	</script>
 	<script src="../assets/js/vendor/jquery-1.12.0.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/jquery.meanmenu.js"></script>

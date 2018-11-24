@@ -98,7 +98,7 @@
 												đ</span></td>
 										<td class="product-quantity"><input
 											value="<%=list.getValue().getQuantity()%>" type="number"
-											min="1" maxlength="4" id="quantity<%=list.getKey()%>"></td>
+											min="1" maxlength="4" id="quantity<%=list.getKey()%>" onkeypress="return keyPhone(event);"></td>
 
 										<td class="product-subtotal"><%=sum_price_nb%> đ</td>
 										<td class="product-remove"><a onclick="calleditcart(<%=list.getKey() %>);"
@@ -162,6 +162,22 @@
 		function calleditcart(id) {
 			var quantity = document.getElementById("quantity"+id).value;
 			window.location.href = "../cart?status=edit&id_product="+id+"&quantity="+quantity+" ";
+		}
+		
+		function keyPhone(e) {
+			var keyword = null;
+			if (window.event) {
+				keyword = window.event.keyCode;
+			} else {
+				keyword = e.which;  
+			}
+
+			if (keyword<48 || keyword>57) {
+				if (keyword == 8 || keyword == 48 || keyword == 127) { 
+					return true;
+				}
+				return false;
+			}
 		}
 	</script>
 

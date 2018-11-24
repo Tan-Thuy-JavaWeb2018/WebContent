@@ -34,7 +34,7 @@
 					<div class="col-md-3 col-sm-4">
 						<div class="footer-widget mb-30">
 							<div class="footer-logo">
-								<a href="index.html"> <img src="assets/img/logo/logo.png"
+								<a href="index.html"> <img src="../assets/img/logo/logo.png"
 									alt="">
 								</a>
 							</div>

@@ -59,9 +59,9 @@
 								<div class="currence-user-page">
 									<div class="user-page">
 										<ul>
-											<li><a href="pages/user-profile.jsp"><i
+											<li><a href="../pages/user-profile.jsp"><i
 													class="pe-7s-id"></i> <%=us.getTenhienthi()%></a></li>
-											<li><a href="logout"><i class="pe-7s-back"></i> Đăng
+											<li><a href="../logout"><i class="pe-7s-back"></i> Đăng
 													xuất</a></li>
 										</ul>
 									</div>
