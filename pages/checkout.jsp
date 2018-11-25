@@ -38,7 +38,10 @@
 <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
-<body>
+<body onload="initialize()">
+	<%
+		dao_Cart cart = (dao_Cart) session.getAttribute("cart");
+	%>
 	<!-- Thêm phần tiêu đề trang -->
 	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
 	<!-- Xong phần tiêu đề trang -->
@@ -64,7 +67,8 @@
 			<div class="col-md-7">
 				<div class="billing-details-area">
 					<h2>Chi tiết thanh toán</h2>
-					<form action="">
+					<form action="" <%if (cart.countItems() < 1) {%> hidden="true"
+						<%}%>>
 						<div class="row">
 							<div class="col-md-12">
 								<div class="billing-input">
@@ -90,12 +94,12 @@
 							<div class="col-md-12">
 								<div class="billing-input">
 									<label> Tỉnh - Thành phố <span class="required">*</span>
-									</label> <select onchange="loadDistrict(this.value);" required>
+									</label> <select onchange="loadDistrict(this.value);" id="city" required">
 										<%
 											AddressControl address = new AddressControl();
 											for (Citys_Provinces list : address.getListAddress()) {
 										%>
-										<option value="<%=list.getId()%>"><%=list.getTen()%></option>
+										<option value="<%=list.getId()%>" title="<%=list.getTendaydu()%>"><%=list.getTen()%></option>
 										<%
 											}
 										%>
@@ -172,6 +176,19 @@
 						</div>
 					</form>
 				</div>
+
+				<%
+					if (cart.countItems() < 1) {
+				%>
+				<div class="alert alert-info">
+					<center>
+						<strong>Giỏ hàng trống! Mời bạn tiếp tục mua sắm.</strong>
+					</center>
+				</div>
+				<%
+					}
+				%>
+
 			</div>
 			<div class="col-md-5">
 				<div class="your-order-payment">
@@ -179,7 +196,6 @@
 						<h2>Đơn hàng của bạn</h2>
 						<ul>
 							<%
-								dao_Cart cart = (dao_Cart) session.getAttribute("cart");
 								if (cart.countItems() > 0) {
 									for (Entry<Long, Items> list : cart.getCartItems().entrySet()) {
 										//xử lý giá bán
@@ -197,6 +213,7 @@
 								}
 								}
 							%>
+							<li id="ship" hidden="true">Phí vận chuyển<span id="shiptext"></span></li>
 							<li class="order-total">Tổng hóa đơn<span><%=cart.totalCart()%>
 									đ</span></li>
 						</ul>
@@ -279,65 +296,70 @@
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->
+	<script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAA7j_Q-rshuWkc8HyFI4V2HxQYPm-xtd00hTQOC0OXpAMO40FHAxT29dNBGfxqMPq5zwdeiDSHEPL89A"
+        type="text/javascript"></script> 
 	<script>
 		function loadDistrict(id) {
-			if(id != "" && id != 0){
+			closeship();
+			if (id != "" && id != 0) {
 				//Thực hiện ajax
 				if (window.XMLHttpRequest) {
-		            var xhttp = new XMLHttpRequest();
-		        }
-		        else {
-		            var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		        }
-		        xhttp.onreadystatechange = function () {
-		            if (this.readyState == 4 && this.status == 200) {
-		                document.getElementById('district').innerHTML = this.responseText; 
-		            }
-		        }; 
-		        xhttp.open("GET", "address?status=district&id_city="+id+"", true);
-		        xhttp.send();
+					var xhttp = new XMLHttpRequest();
+				} else {
+					var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById('district').innerHTML = this.responseText;
+						document.getElementById('town_ward').innerHTML = '<select required id="town_ward_select"></select>';
+					}
+				};
+				xhttp.open("GET", "address?status=district&id_city=" + id + "",
+						true);
+				xhttp.send();
+			} else {
+				document.getElementById('district').innerHTML = '<select></select>';
+				document.getElementById('town_ward').innerHTML = '<select required id="town_ward_select"></select>';
 			}
-			
+
 		}
-		
-		
+
 		function load_town_ward(id) {
-			if(id != "" && id != 0){
+			closeship();
+			if (id != "" && id != 0) {
 				//Thực hiện ajax
 				if (window.XMLHttpRequest) {
-		            var xhttp = new XMLHttpRequest();
-		        }
-		        else {
-		            var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-		        }
-		        xhttp.onreadystatechange = function () {
-		            if (this.readyState == 4 && this.status == 200) {
-		                document.getElementById('town_ward').innerHTML = this.responseText; 
-		            }
-		        }; 
-		        xhttp.open("GET", "address?status=town_ward&id_dictricst="+id+"", true);
-		        xhttp.send();
+					var xhttp = new XMLHttpRequest();
+				} else {
+					var xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById('town_ward').innerHTML = this.responseText;
+					}
+				};
+				xhttp.open("GET", "address?status=town_ward&id_dictricst=" + id
+						+ "", true);
+				xhttp.send();
 			}
-			
+
 		}
-		
-		function open_town_ward(check){
-			var town_ward = document.getElementById("town_ward_select");
-			if(check === 1){ 
-				town_ward.attributes.disabled = true;
-			}
-			if(check === 0){ 
-				town_ward.attributes.disabled = false;
-			}
+		var ship = document.getElementById("ship");
+		function showship(text) {
+			showLocation();
+			ship.hidden = false;
 		}
-		
-//Xự kiện chỉ nhập số
+		function closeship() {
+			ship.hidden = true;
+		}
+
+		//Xự kiện chỉ nhập số
 		function keyPhone(e) {
 			var keyword = null;
 			if (window.event) {
 				keyword = window.event.keyCode;
 			} else {
-				keyword = e.which;  
+				keyword = e.which;
 			}
 
 			if (keyword<48 || keyword>57) {
@@ -347,7 +369,59 @@
 				return false;
 			}
 		}
-	</script>
+		 
+		// Xử lý tính tiền ship 
+        var geocoder, location1, location2;
+		
+        function initialize() {
+            geocoder = new GClientGeocoder();
+        } 
+        
+        function showLocation() {  
+            var addressship = document.getElementById("idtown_ward").value;  
+            var addressshop = "96 Trần Phú, Quận Hải Châu, Đà Nẵng";  
+            geocoder.getLocations(addressship, function (response) {
+                if (!response || response.Status.code != 200) {
+                    alert("Không tìm thấy địa chỉ "+addressship +" trên bản đồ");
+                }
+                else {
+                    location1 = { lat: response.Placemark[0].Point.coordinates[1], lon: response.Placemark[0].Point.coordinates[0], address: response.Placemark[0].address };
+                    geocoder.getLocations(addressshop, function (response) {
+                        if (!response || response.Status.code != 200) {
+                            alert("Không tìm thấy địa chỉ "+addressshop +" trên bản đồ");
+                        }
+                        else {
+                            location2 = { lat: response.Placemark[0].Point.coordinates[1], lon: response.Placemark[0].Point.coordinates[0], address: response.Placemark[0].address };
+                            try {
+                                var glatlng1 = new GLatLng(location1.lat, location1.lon);
+                                var glatlng2 = new GLatLng(location2.lat, location2.lon);
+                                var miledistance = glatlng1.distanceFrom(glatlng2, 3959).toFixed(1);
+                                var kmdistance = (miledistance * 1.609344).toFixed(1); 
+                                document.getElementById('shiptext').innerHTML = kmdistance;
+                                console.log(document.getElementById('shiptext').innerHTML);
+                            }
+                            catch (error) {
+                                alert("Lỗi hệ thống");
+                            }
+                        }
+                    });
+                }
+            });
+        } 
+
+        function calculateDistance() {
+            try {
+                var glatlng1 = new GLatLng(location1.lat, location1.lon);
+                var glatlng2 = new GLatLng(location2.lat, location2.lon);
+                var miledistance = glatlng1.distanceFrom(glatlng2, 3959).toFixed(1);
+                var kmdistance = (miledistance * 1.609344).toFixed(1); 
+                document.getElementById('results').innerHTML = '<strong>Địa chỉ 1: </strong>' + location1.address + '<br /><strong>Địa chỉ 2: </strong>' + location2.address + '<br /><strong>Khoảng cánh: </strong>' + miledistance + ' miles (or ' + kmdistance + ' km)';
+            }
+            catch (error) {
+                alert(error);
+            }
+        } 
+		
 	</script>
 	<script src="../assets/js/vendor/jquery-1.12.0.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
