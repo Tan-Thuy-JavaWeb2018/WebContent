@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.Map"%>
+<%@ page import="Objects.Comments"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html class="no-js" lang="">
 <head>
@@ -15,12 +17,7 @@
 <link rel="stylesheet" href="../../../assets/css/style.css">
 
 <!-- <link -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" -->
-<!-- 	rel="stylesheet"> -->
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
-<!-- <link href="https://nightly.datatables.net/css/jquery.dataTables.css" -->
-<!-- 	rel="stylesheet" type="text/css" /> -->
+
 <link rel="stylesheet" href="../../lib/css/jquery.dataTables.css">
 <link rel="stylesheet"
 	href="../../lib/bower_components/alertifyjs/css/alertify.css">
@@ -99,8 +96,7 @@ tr.shown td.details-control {
 										<div class="blog-wrapper">
 											<!-- div class="single-blog"> -->
 											<div>
-												<a href="#"><img
-													src="../assets/img/blog/blog-details.html" alt=""></a>
+												<a href="#"><img src="#" alt=""></a>
 												<div class="blog-details-text mt-20">
 													<div class="post-info">
 														<ul>
@@ -122,28 +118,50 @@ tr.shown td.details-control {
 														<div class="card-body" style="font-size: 14px;"
 															id="loadajax">
 															<p><%=blog.get("id")%></p>
-															<table width="100%" class="display" id="example"
-																cellspacing="0" style="font-size: 16px">
+															<table id="bootstrap-data-table"
+									class="table table-striped table-bordered">
 																<thead>
 																	<tr>
-																		<th></th>
 																		<th>ID</th>
 																		<th>Tên</th>
 																		<th>Nội dung</th>
 																		<th>Ngày bình luận</th>
-																		<th>Tùy chọn</th>
+																		<th>Chỉnh sửa</th>
+																		<th>Xóa</th>
 																	</tr>
 																</thead>
 																<tfoot>
 																	<tr>
-																		<th></th>
 																		<th>ID</th>
 																		<th>Tên</th>
 																		<th>Nội dung</th>
 																		<th>Ngày bình luận</th>
-																		<th>Tùy chọn</th>
+																		<th>Chỉnh sửa</th>
+																		<th>Xóa</th>
 																	</tr>
 																</tfoot>
+																<tbody>
+																	<%
+																		ArrayList<Comments> comment = (ArrayList<Comments>) request.getAttribute("comment");
+																		for (Comments cm : comment) {
+																	%>
+																	<tr>
+																		<td><%=cm.getId()%></td>
+																		<td><%=cm.getId_taikhoan()%></td>
+																		<td><%=cm.getNoidung()%></td>
+																		<td><%=cm.getCreated_at()%></td>
+																		<td><a class="btn btn-success"
+																			href="edit?id=<%=cm.getId()%>"><span><i
+																					class="fa fa-edit"></i></span> Sửa</a></td>
+																		<td><button class="btn btn-secondary"
+																				onclick="Delete(<%=cm.getId()%>)">
+																				<span><i class="fa fa-trash-o"></i></span> Xóa
+																			</button></td>
+																	</tr>
+																	<%
+																		}
+																	%>
+																</tbody>
 															</table>
 														</div>
 													</div>
@@ -189,121 +207,26 @@ tr.shown td.details-control {
 	<!-- Scripts -->
 	<jsp:include page="../include/js.jsp"></jsp:include>
 	<script src="../../lib/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="../../lib/js/jquery.dataTables.js"></script>
-	<script src="../../lib/js/dataTables.select.min.js"></script>
+	<script src="../../lib/assets/js/lib/data-table/datatables.min.js"></script>
+	<script
+		src="../../lib/assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+	<script
+		src="../../lib/assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+	<script
+		src="../../lib/assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+	<script src="../../lib/assets/js/lib/data-table/jszip.min.js"></script>
+	<script src="../../lib/assets/js/lib/data-table/vfs_fonts.js"></script>
+	<script src="../../lib/assets/js/lib/data-table/buttons.html5.min.js"></script>
+	<script src="../../lib/assets/js/lib/data-table/buttons.print.min.js"></script>
+	<script src="../../lib/assets/js/lib/data-table/buttons.colVis.min.js"></script>
+	<script src="../../lib/assets/js/init/datatables-init.js"></script>
+
 	<script src="../../lib/bower_components/alertifyjs/alertify.js"></script>
 	<script type="text/javascript">
-	var datatable = null; var idBaiViet = 0;
-	$(document).ready(function () {
-		idBaiViet = document.getElementById("loadajax").childNodes[1].innerText;
-// 		console.log(idBlog);
-		$.ajax({
-            url: '../comment/loaddata',
-            type: 'GET',
-            contentType: "application/json",
-            dataType:'json',
-            data: {
-                idBaiViet: idBaiViet
-            }
-        }).done(function(ketqua) {
-// 			console.log(ketqua.data[0].chitiet);
-			datatable = ketqua;
-// 			console.log(ketqua.data);
-			//load dữ liệu bình luận
-			var table = $('#example').DataTable({
-	             "data": datatable.data,
-	             select:"single",
-	             "columns": [
-	                 {
-	                     "className": 'details-control',
-	                     "orderable": false,
-	                     "data": null,
-	                     "defaultContent": '',
-	                     "render": function () {
-	                         return '<i class="fa fa-plus-square" aria-hidden="true"></i>';
-	                     },
-	                     width:"15px"
-	                 },
-	                 { "data": "id" },
-	                 { "data": "tenhienthi" },
-	                 { "data": "noidung" },
-	                 { "data": "created_at" },
-	                 { "data": "opition" },
-	             ],
-	             "order": [[1, 'asc']]
-			
-	         });
-			
-			// event listener cho đóng, mở chi tiết
-	         $('#example tbody').on('click', 'td.details-control', function () {
-	             var tr = $(this).closest('tr');
-	             var tdi = tr.find("i.fa");
-	             var row = table.row(tr);
-	             
-	             if (row.child.isShown()) {
-	                 row.child.hide();
-	                 tr.removeClass('shown');
-	                 tdi.first().removeClass('fa-minus-square');
-	                 tdi.first().addClass('fa-plus-square');
-	             }
-	             else {
-	                 row.child(format(row.data())).show();
-	                 tr.addClass('shown');
-	                 tdi.first().removeClass('fa-plus-square');
-	                 tdi.first().addClass('fa-minus-square');
-// 	                 console.log(row.data());
-	             }
-	         });
-	         
-	         table.on("user-select", function (e, dt, type, cell, originalEvent) {
-	             if ($(cell.node()).hasClass("details-control")) {
-	                 e.preventDefault();
-	             }
-	         });
-	         
-        });
-	});
-	
-	function format(d){
-        
-        // dữ liệu cho chi tiết bình luận
-//         if(d.chitiet[0] == null) return "";
-        var str = "";
-        str += '<div class="container"><div class="row"><div class="col-md-1"></div><div class="col-md-10">'
-        +'<table class="table table-bordered" style="padding-left:50px;" '+"id=\"tableDetailComment" + d.id +"\"" + '>' +
-            '<tr>' +
-                '<th>ID</th>' +
-                '<th>Tên</th>' +
-                '<th>Nội dung</th>' +
-                '<th>Ngày bình luận</th>' +
-                '<th>Tùy chọn</th>' +
-            '</tr>';
-            	for (var i = 0; i < d.chitiet.length; i++) {
-            		if(d.chitiet[i] != undefined){
-            			 str +=  "<tr id=\"detailComment" + d.chitiet[i]['id'] + "\">" +
-                         '<td>' + d.chitiet[i]['id'] + '</td>' +
-                         '<td>' + d.chitiet[i]['tenhienthict'] + '</td>' +
-                        '<td>' + d.chitiet[i]['noidungchitiet'] + '</td>' +
-                        '<td>' + d.chitiet[i]['created_at'] + '</td>' +
-                        '<td>' + d.chitiet[i]['opitionDetail'] + '</td>' +
-                     '</tr>';
-            		}
-                   
-                }
-
-            str +=
-        '</table>' + 
-        '</div><div class="col-md-1"></div>'+ '<div class="col-md-1"></div><div class="col-md-8">' +
-		'<div class="form-group">' +
-		'<textarea class="form-control" rows="1"' +
-			'placeholder="Nhập bình luận" name="noidungbinhluan"></textarea>' +
-	'</div></div><div class="col-md-2"><button class="btn btn-primary btn-sm" onclick="addDetailComment('+ d.id +')"> <span><i class="fa fa-plus-square"></i></span> OK</button></div><div class="col-md-1"></div>' + 
-        '</div></div>';
-        return str; 
-   }
-
-</script>
-
+		$(document).ready(function() {
+			$('#bootstrap-data-table-export').DataTable();
+		});
+	</script>
 	<script>
 function DangBinhLuan(idBaiViet){
 	var noidungbinhluan = document.getElementById("noidungbinhluan").value;
@@ -349,7 +272,6 @@ function DangBinhLuan(idBaiViet){
             var tr = $(this).closest('tr');
             var tdi = tr.find("i.fa");
             var row = table.row(tr);
-            
             if (row.child.isShown()) {
                 row.child.hide();
                 tr.removeClass('shown');
@@ -394,7 +316,6 @@ function DeleteComment(idComment){
 	        }
 	    }).done(function(ketqua) {
 	    	datatable = ketqua;
-			//load dữ liệu bình luận
 	    	var hang = $("#example tbody tr");
 			for (var i = 0; i < hang.length; i++) {
 				if(hang[i].innerHTML != "" &&  hang[i].childNodes[1].innerHTML == idComment){
@@ -451,26 +372,46 @@ function EditComment(idComment, content){
 
 	<script>
 function addDetailComment(idComment){
-	console.log(idComment);
+	var noidungbinhluanchitiet = document.getElementById("noidungbinhluanchitiet" + idComment).value;
+	$.ajax({
+        url: '../detailcomment/add',
+        type: 'GET',
+        contentType: "application/json",
+        dataType:'json',
+        data: {
+        	idComment: idComment, idBaiViet: idBaiViet, noidungchitiet: noidungbinhluanchitiet
+        }
+    }).done(function(ketqua) {
+    	datatable = ketqua;
+    	for(var i = 0; i < datatable.data.length; i++){
+    		  if(datatable.data[i].id == idComment){
+    			  var tbody = $("#tableDetailComment" + idComment + " tbody");
+    		    	var createRow = document.createElement("tr");
+    		    	for(var j = 0; j < 4; j++){
+    		    		var createColumn = document.createElement("td");
+    		    		switch(j){
+    		    			case 0: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].id); break;
+    		    			case 1: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].tenhienthict); break;
+    		    			case 2: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].noidungchitiet); break;
+    		    			case 3: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].created_at); break;
+    		    			case 4: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].opitionDetail); break;
+    		    		}
+    		    		
+    		    		createColumn.appendChild(textNode);
+    		    		createRow.appendChild(createColumn);
+    		    	}
+    		    	var createtdend = document.createElement("td");
+    		    	createtdend.innerHTML = datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].opitionDetail;
+    		    	createRow.appendChild(createtdend);
+    		  }
+    		}
+    	
+    	tbody.append(createRow);
+        alertify.success('Đăng bình luận thành công!');
+        document.getElementById("noidungbinhluanchitiet" + idComment).value = "";
+       
+    });
 	
-	var tbody = $("#tableDetailComment" + idComment + " tbody");
-	var createRow = document.createElement("tr");
-	for(var i = 0; i < 5; i++){
-		var createColumn = document.createElement("td");
-		switch(i){
-			case 0: var textNode = document.createTextNode("id"); break;
-			case 1: var textNode = document.createTextNode("ten"); break;
-			case 2: var textNode = document.createTextNode("noidung"); break;
-			case 3: var textNode = document.createTextNode("ngay"); break;
-			case 4: var textNode = document.createTextNode("tuychon"); break;
-		}
-		
-		createColumn.appendChild(textNode);
-		createRow.appendChild(createColumn);
-		
-	}
-	tbody.append(createRow);
-	console.log(tbody);
 }
 </script>
 
