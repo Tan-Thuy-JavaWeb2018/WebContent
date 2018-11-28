@@ -3,6 +3,10 @@
 <%@ page import="Control.ProductsControl"%>
 <%@ page import="Objects.Category"%>
 <%@ page import="Control.CategoryControl"%>
+<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="Control.DetailProductsControl"%>
+<%@ page import="Control.ProductsControl"%>
+<%@ page import="Objects.DetailProducts"%>
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
@@ -76,7 +80,8 @@
 										CategoryControl category = new CategoryControl();
 										for (Category ls : category.getListCategory()) {
 									%>
-									<li><input type="checkbox"> <a href="#"><%=ls.getTenloai()%></a></li>
+									<li><input type="checkbox"> <a
+										href="shop-page.jsp?id_product=<%=ls.getId()%>"><%=ls.getTenloai()%></a></li>
 									<%
 										}
 									%>
@@ -136,20 +141,6 @@
 								</ul>
 							</div>
 						</div>
-						<div class="single-sidebar">
-							<div class="sidebar-img-text">
-								<div class="sidebar-img">
-									<a href="#"> <img src="../assets/img/shop/2.jpg" alt="">
-									</a>
-									<div class="sidebar-text">
-										<h3>Khuyến mãi</h3>
-										<h2>hơn 40%</h2>
-										<h3>Tại đây</h3>
-										<a href="#">mua ngay</a>
-									</div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 				<div class="col-md-9">
@@ -160,7 +151,7 @@
 									<ul role="tablist">
 										<li class="active"><a href="#grid" data-toggle="tab">
 												<i class="fa fa-th-large"></i> Danh mục
-										</a></li> 
+										</a></li>
 									</ul>
 								</div>
 								<div class="tab-sort">
@@ -177,6 +168,7 @@
 									<div class="tab-pane active" id="grid">
 										<div class="row">
 											<%
+												DecimalFormat numformat = new DecimalFormat("#,###,###");
 												ProductsControl product = new ProductsControl();
 												int id_type = Integer.parseInt(request.getParameter("id_product"));
 												if (id_type == 0) {
@@ -188,18 +180,31 @@
 														<a href="#"><img
 															src="../assets/img/shop/product/<%=ls.getAnhchinh()%>"
 															alt="" /></a>
+														<%
+															if (ls.getTinhtrang() == 1) {
+																		if (ls.getKhuyenmai() > 0) {
+														%>
 														<div class="price-up-down">
-															<span class="sale-new">Giảm</span>
+															<span class="sale-new">Giảm <%=ls.getKhuyenmai()%>%
+															</span>
 														</div>
+														<%
+															}
+																	} else {
+														%>
+														<div class="price-up-down">
+															<span class="sale-new">Hết bán </span>
+														</div>
+														<%
+															}
+														%>
 														<div class="button-group">
-															<a href="#" title="Add to Cart" data-toggle="modal"
-																data-target="#quick-view"> <i class="pe-7s-cart"></i>
-															</a> <a class="wishlist" href="#" title="Wishlist"
-																data-toggle="modal" data-target="#quick-view"> <i
+															<a href="../cart?status=add&id_product=<%=ls.getId()%>" title="Add to Cart"> <i class="pe-7s-cart"></i>
+															</a> <a class="wishlist" href="#" title="Wishlist"> <i
 																class="pe-7s-like"></i>
 															</a> <a href="#" data-toggle="modal"
-																data-target="#quick-view" title="Quick View"> <i
-																class="pe-7s-look"></i>
+																data-target="#quick-view<%=ls.getId()%>"
+																title="Quick View"> <i class="pe-7s-look"></i>
 															</a>
 														</div>
 													</div>
@@ -207,11 +212,17 @@
 														<div class="title-color fix">
 															<div class="shop-title f-left">
 																<h3>
-																	<a href="#"><%=ls.getGiagoc()%></a>
+																	<a href="#"><%=ls.getTensanpham()%></a>
 																</h3>
 															</div>
+															<%
+																double price = ls.getGiagoc();
+																		int sale = ls.getKhuyenmai();
+																		price = price - (price * sale / 100);
+																		String price_nb = numformat.format(price);
+															%>
 															<div class="price f-right">
-																<span class="new">120.000 đ</span>
+																<span class="new"><%=price_nb%> đ</span>
 															</div>
 														</div>
 													</div>
@@ -228,18 +239,31 @@
 														<a href="#"><img
 															src="../assets/img/shop/product/<%=ls.getAnhchinh()%>"
 															alt="" /></a>
+														<%
+															if (ls.getTinhtrang() == 1) {
+																		if (ls.getKhuyenmai() > 0) {
+														%>
 														<div class="price-up-down">
-															<span class="sale-new">Giảm</span>
+															<span class="sale-new">Giảm <%=ls.getKhuyenmai()%>%
+															</span>
 														</div>
+														<%
+															}
+																	} else {
+														%>
+														<div class="price-up-down">
+															<span class="sale-new">Hết bán </span>
+														</div>
+														<%
+															}
+														%>
 														<div class="button-group">
-															<a href="#" title="Add to Cart" data-toggle="modal"
-																data-target="#quick-view"> <i class="pe-7s-cart"></i>
-															</a> <a class="wishlist" href="#" title="Wishlist"
-																data-toggle="modal" data-target="#quick-view"> <i
+															<a href="../cart?status=add&id_product=<%=ls.getId()%>" title="Add to Cart"> <i class="pe-7s-cart"></i>
+															</a> <a class="wishlist" href="#" title="Wishlist"> <i
 																class="pe-7s-like"></i>
 															</a> <a href="#" data-toggle="modal"
-																data-target="#quick-view" title="Quick View"> <i
-																class="pe-7s-look"></i>
+																data-target="#quick-view<%=ls.getId()%>"
+																title="Quick View"> <i class="pe-7s-look"></i>
 															</a>
 														</div>
 													</div>
@@ -247,11 +271,17 @@
 														<div class="title-color fix">
 															<div class="shop-title f-left">
 																<h3>
-																	<a href="#"><%=ls.getGiagoc()%></a>
+																	<a href="#"><%=ls.getTensanpham()%></a>
 																</h3>
 															</div>
+															<%
+																double price = ls.getGiagoc();
+																		int sale = ls.getKhuyenmai();
+																		price = price - (price * sale / 100);
+																		String price_nb = numformat.format(price);
+															%>
 															<div class="price f-right">
-																<span class="new">120.000 đ</span>
+																<span class="new"><%=price_nb%> đ</span>
 															</div>
 														</div>
 													</div>
@@ -285,13 +315,15 @@
 	<!-- Thêm chân trang -->
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
 	<!-- Xong thêm chân trang -->
-
-	<!-- Thêm xem chi tiết sản phẩm -->
-	<jsp:include page="../layout/detail_product.jsp"></jsp:include>
-	<!-- Xong xem chi tiết sản phẩm  -->
+ 
 
 	<!-- Bắt đầu xem nhanh chi tiết -->
-	<div class="quick-view modal fade in" id="quick-view">
+	<%
+		ProductsControl products = new ProductsControl();
+		DetailProductsControl detailproduct = new DetailProductsControl();
+		for (Products ls : products.getListProducts()) {
+	%>
+	<div class="quick-view modal fade in" id="quick-view<%=ls.getId()%>">
 		<div class="container">
 			<div class="row">
 				<div id="view-gallery">
@@ -307,48 +339,47 @@
 											<div class="col-xs-12 col-sm-5">
 												<div class="quick-image">
 													<div class="single-quick-image tab-content text-center">
-
-														<div class="tab-pane  fade in active" id="sin-pro-1">
+														<%
+															int index = -1;
+																for (DetailProducts list : detailproduct.getListWithProductId(ls.getId())) {
+																	index++;
+																	if (index == 0) {
+														%>
+														<div class="tab-pane  fade in active"
+															id="sin-pro-<%=list.getId()%>">
 															<img
-																src="../assets/img/shop/DetailProduct/Ct1BanhMan1.jpg"
+																src="../assets/img/shop/DetailProduct/<%=list.getAnhChiTiet()%>"
 																alt="" />
 														</div>
-														<div class="tab-pane fade in" id="sin-pro-2">
+														<%
+															} else {
+														%>
+														<div class="tab-pane fade in"
+															id="sin-pro-<%=list.getId()%>">
 															<img
-																src="../assets/img/shop/DetailProduct/Ct2BanhMan1.jpg"
+																src="../assets/img/shop/DetailProduct/<%=list.getAnhChiTiet()%>"
 																alt="" />
 														</div>
-														<div class="tab-pane fade in" id="sin-pro-3">
-															<img
-																src="../assets/img/shop/DetailProduct/Ct3BanhMan1.jpg"
-																alt="" />
-														</div>
-														<div class="tab-pane fade in" id="sin-pro-4">
-															<img
-																src="../assets/img/shop/DetailProduct/Ct4BanhMan1.jpg"
-																alt="" />
-														</div>
+														<%
+															}
+																}
+														%>
 
 													</div>
 													<div class="quick-thumb">
 														<div class="nav nav-tabs">
 															<ul>
-																<li><a data-toggle="tab" href="#sin-pro-1"> <img
-																		src="../assets/img/shop/DetailProduct/Ct1BanhMan1.jpg"
+																<%
+																	for (DetailProducts list : detailproduct.getListWithProductId(ls.getId())) {
+																%>
+																<li><a data-toggle="tab"
+																	href="#sin-pro-<%=list.getId()%>"> <img
+																		src="../assets/img/shop/DetailProduct/<%=list.getAnhChiTiet()%>"
 																		alt="quick view" />
 																</a></li>
-																<li><a data-toggle="tab" href="#sin-pro-2"> <img
-																		src="../assets/img/shop/DetailProduct/Ct2BanhMan1.jpg"
-																		alt="quick view" />
-																</a></li>
-																<li><a data-toggle="tab" href="#sin-pro-3"> <img
-																		src="../assets/img/shop/DetailProduct/Ct3BanhMan1.jpg"
-																		alt="quick view" />
-																</a></li>
-																<li><a data-toggle="tab" href="#sin-pro-4"> <img
-																		src="../assets/img/shop/DetailProduct/Ct4BanhMan1.jpg"
-																		alt="quick view" />
-																</a></li>
+																<%
+																	}
+																%>
 															</ul>
 														</div>
 													</div>
@@ -358,63 +389,42 @@
 												<div class="quick-right">
 													<div class="quick-right-text">
 														<h3>
-															<strong>Tên sản phẩm</strong>
+															<strong><%=ls.getTensanpham()%></strong>
 														</h3>
 														<div class="rating">
-															<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-																class="fa fa-star"></i> <i class="fa fa-star-half-o"></i>
-															<i class="fa fa-star-o"></i>
+															<i class="fa fa-thumbs-o-up"> <b><%=ls.getLuotthich()%></b>
+																lượt thích
+															</i>
 														</div>
 														<div class="amount">
-															<h4>650.000 đ</h4>
+															<% 
+																	double price = ls.getGiagoc();
+																	int sale = ls.getKhuyenmai();
+																	price = price - (price * sale / 100);
+																	String price_nb = numformat.format(price);
+															%>
+															<h4>
+																Giá bán
+																<%=price_nb%>
+																đ
+															</h4>
 														</div>
-														<p>Lorem Ipsum is simply dummy text of the printing
-															and typesetting industry. Lorem Ipsum has beenin the
-															stand ard dummy text ever since the 1500s, when an
-															unknown printer took a galley of type and scrames bled it
-															make a type specimen book.</p>
-														<div class="row m-p-b">
-															<div class="col-sm-12 col-md-6">
-																<div class="por-dse color">
-																	<ul>
-																		<li><span>Màu sắc</span><strong>:</strong> <a
-																			href="#">Đỏ</a> <a href="#">Xanh</a> <a href="#">Trắng</a>
-																			<a href="#">Vàng</a></li>
-																		<li><span>Các vị</span><strong>:</strong> <a
-																			href="#">Dâu</a> <a href="#">Xâm dứa</a> <a href="#">Cam</a>
-																		</li>
-																	</ul>
-																</div>
-															</div>
-														</div>
+														<p><%=ls.getMota()%></p>
 														<div class="dse-btn">
 															<div class="row">
 																<div class="col-sm-12 col-md-6">
 																	<div class="por-dse clearfix">
 																		<ul>
-																			<li class="share-btn clearfix"><span>Số
-																					lượng</span> <input class="input-text qty" name="qty"
-																				maxlength="12" value="1" title="Qty" type="text">
+																			<li class="share-btn clearfix"><span>Yêu
+																					thích</span> <a href="#"><i class="fa fa-thumbs-up"></i></a>
 																			</li>
-																			<li class="share-btn clearfix"><span>Chia
-																					sẻ</span> <a href="#"><i class="fa fa-facebook"></i></a> <a
-																				href="#"><i class="fa fa-twitter"></i></a> <a
-																				href="#"><i class="fa fa-google-plus"></i></a> <a
-																				href="#"><i class="fa fa-linkedin"></i></a> <a
-																				href="#"><i class="fa fa-instagram"></i></a></li>
+
 																		</ul>
 																	</div>
 																</div>
 																<div class="col-sm-12 col-md-6">
-																	<div class="por-dse clearfix responsive-othre">
-																		<ul class="other-btn">
-																			<li><a href="#"><i class="fa fa-heart"></i></a></li>
-																			<li><a href="#"><i class="fa fa-refresh"></i></a></li>
-																			<li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
-																		</ul>
-																	</div>
 																	<div class="por-dse add-to">
-																		<a href="#">Mua ngay >></a>
+																		<a href="../cart?status=add&id_product=<%=ls.getId()%>">Mua ngay <i class="fa fa-cart-plus"></i></a>
 																	</div>
 																</div>
 															</div>
@@ -432,6 +442,10 @@
 			</div>
 		</div>
 	</div>
+	<%
+		}
+	%>
+
 	<!-- Xong xem nhanh chi tiết -->
 
 

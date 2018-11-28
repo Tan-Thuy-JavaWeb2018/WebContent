@@ -140,7 +140,7 @@
 	</div>
 	<%
 		}
-	%>>
+	%>
 
 	<!-- Xong xem nhanh chi tiết -->
 

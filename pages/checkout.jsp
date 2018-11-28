@@ -41,6 +41,7 @@
 <body onload="onload()"> 
 	<%
 		dao_Cart cart = (dao_Cart) session.getAttribute("cart");
+		if(cart.countItems() > 0){
 	%>
 	<!-- Thêm phần tiêu đề trang -->
 	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
@@ -291,6 +292,7 @@
 	</div>
 	</div>
 	<!-- Xong phần thanh toán -->
+	<%} %>
 
 	<!-- Thêm chân trang -->
 	<jsp:include page="../layout/footer.jsp"></jsp:include>
@@ -374,10 +376,7 @@
 			window.location.href = '../index.jsp'; 
 		<%}%>
 		}
-	</script>
-	<script
-		src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAA7j_Q-rshuWkc8HyFI4V2HxQYPm-xtd00hTQOC0OXpAMO40FHAxT29dNBGfxqMPq5zwdeiDSHEPL89A"
-		type="text/javascript"></script>
+	</script> 
 	<script src="../assets/js/vendor/jquery-1.12.0.min.js"></script>
 	<script src="../assets/js/bootstrap.min.js"></script>
 	<script src="../assets/js/jquery.meanmenu.js"></script>

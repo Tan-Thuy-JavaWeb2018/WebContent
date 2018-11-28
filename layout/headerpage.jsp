@@ -116,7 +116,7 @@
 										<div class="cart-img-price">
 											<div class="cart-img">
 												<a href="#"><img
-													src="assets/img/shop/product/<%=list.getValue().getProducts().getAnhchinh()%>"
+													src="../assets/img/shop/product/<%=list.getValue().getProducts().getAnhchinh()%>"
 													alt="" /></a>
 											</div>
 											<div class="cart-content">
@@ -134,7 +134,7 @@
 												<span class="cart-price"><%=price_nb%> (<%=list.getValue().getQuantity()%>)</span>
 											</div>
 											<div class="cart-del">
-												<a href="cart?status=remove&id_product=<%=list.getKey()%>"><i
+												<a href="../cart?status=remove&id_product=<%=list.getKey()%>"><i
 													class="pe-7s-close-circle"></i></a>
 											</div>
 										</div>
