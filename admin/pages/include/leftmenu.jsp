@@ -20,6 +20,9 @@
                     <li>
 						<a href="../blog/list"> <i class="menu-icon ti-receipt"></i>Blog</a>
                     </li>
+                    <li>
+						<a href="../bill/list"> <i class="menu-icon ti-receipt"></i>Hóa đơn</a>
+                    </li>
 					<li class="menu-item-has-children">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Menu 2 cấp</a>
                         <ul class="sub-menu children dropdown-menu">

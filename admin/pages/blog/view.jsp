@@ -101,7 +101,7 @@ tr.shown td.details-control {
 													<div class="post-info">
 														<ul>
 															<li><i class="fa fa-user"></i> <%=blog.get("tenhienthi")%></li>
-															<li><i class="fa fa-calendar"></i> <%=blog.get("created_at")%></li>
+															<li><i class="fa fa-calendar"></i> <%=blog.get("ngaydang")%></li>
 															<li><a href="#"><i class="fa fa-comments-o"></i>20</a></li>
 														</ul>
 													</div>
@@ -115,11 +115,11 @@ tr.shown td.details-control {
 														<div class="card-header">
 															<strong class="card-title">BÌNH LUẬN</strong>
 														</div>
-														<div class="card-body" style="font-size: 14px;"
+														<div class="card-body" style="font-size: 16px;"
 															id="loadajax">
-															<p><%=blog.get("id")%></p>
+															<p style="display: none;"><%=blog.get("id")%></p>
 															<table id="bootstrap-data-table"
-									class="table table-striped table-bordered">
+																class="table table-striped table-bordered">
 																<thead>
 																	<tr>
 																		<th>ID</th>
@@ -147,14 +147,15 @@ tr.shown td.details-control {
 																	%>
 																	<tr>
 																		<td><%=cm.getId()%></td>
-																		<td><%=cm.getId_taikhoan()%></td>
+																		<td><%=cm.getTenTaiKhoan()%></td>
 																		<td><%=cm.getNoidung()%></td>
-																		<td><%=cm.getCreated_at()%></td>
-																		<td><a class="btn btn-success"
-																			href="edit?id=<%=cm.getId()%>"><span><i
-																					class="fa fa-edit"></i></span> Sửa</a></td>
+																		<td><%=cm.getNgayDang()%></td>
+																		<td><button class="btn btn-success"
+																				onclick="EditComment(<%=cm.getId()%>, '<%=cm.getNoidung()%>')">
+																				<span><i class="fa fa-edit"></i></span> Sửa
+																			</button></td>
 																		<td><button class="btn btn-secondary"
-																				onclick="Delete(<%=cm.getId()%>)">
+																				onclick="DeleteComment(<%=cm.getId()%>)">
 																				<span><i class="fa fa-trash-o"></i></span> Xóa
 																			</button></td>
 																	</tr>
@@ -180,7 +181,8 @@ tr.shown td.details-control {
 																<div class="form-group">
 																	<input type="button" class="btn btn-primary"
 																		value="Đăng bình luận"
-																		onclick="DangBinhLuan(<%=blog.get("id")%>)">
+																		onclick="DangBinhLuan(<%=blog.get("id")%>)"
+																		required="required">
 																</div>
 															</div>
 														</div>
@@ -228,107 +230,52 @@ tr.shown td.details-control {
 		});
 	</script>
 	<script>
-function DangBinhLuan(idBaiViet){
-	var noidungbinhluan = document.getElementById("noidungbinhluan").value;
-	
-	$("#loadajax").html('<table width="100%" class="display" id="example" cellspacing="0" style="font-size: 16px"> <thead><tr><th></th><th>ID</th><th>Tên</th><th>Nội dung</th><th>Ngày bình luận</th><th>Tùy chọn</th></tr></thead><tfoot><tr><th></th><th>ID</th><th>Tên</th><th>Nội dung</th><th>Ngày bình luận</th><th>Tùy chọn</th></tr></tfoot></table>');
-	$.ajax({
-        url: '../comment/add',
-        type: 'GET',
-        contentType: "application/json",
-        dataType:'json',
-        data: {
-            idBaiViet: idBaiViet, noidung: noidungbinhluan
-        }
-    }).done(function(ketqua) {
-    	datatable = ketqua;
-		//load dữ liệu bình luận
-		var table = $('#example').DataTable({
-             "data": datatable.data,
-             select:"single",
-             "columns": [
-                 {
-                     "className": 'details-control',
-                     "orderable": false,
-                     "data": null,
-                     "defaultContent": '',
-                     "render": function () {
-                         return '<i class="fa fa-plus-square" aria-hidden="true"></i>';
-                     },
-                     width:"15px"
-                 },
-                 { "data": "id" },
-                 { "data": "tenhienthi" },
-                 { "data": "noidung" },
-                 { "data": "created_at" },
-                 { "data": "opition" },
-             ],
-             "order": [[1, 'asc']]
-		
-         });
-		
-		// event listener cho đóng, mở chi tiết
-        $('#example tbody').on('click', 'td.details-control', function () {
-            var tr = $(this).closest('tr');
-            var tdi = tr.find("i.fa");
-            var row = table.row(tr);
-            if (row.child.isShown()) {
-                row.child.hide();
-                tr.removeClass('shown');
-                tdi.first().removeClass('fa-minus-square');
-                tdi.first().addClass('fa-plus-square');
-            }
-            else {
-                row.child(format(row.data())).show();
-                tr.addClass('shown');
-                tdi.first().removeClass('fa-plus-square');
-                tdi.first().addClass('fa-minus-square');
-            }
-        });
-        
-        table.on("user-select", function (e, dt, type, cell, originalEvent) {
-            if ($(cell.node()).hasClass("details-control")) {
-                e.preventDefault();
-            }
-        });
-       
-        alertify.success('Đăng bình luận thành công!');
-        
-    });
-	document.getElementById("noidungbinhluan").value = "";
-}
-</script>
-
-
-	<script>
 function DeleteComment(idComment){
-// 	console.log(idBaiViet)
 	alertify.defaults.glossary.title = 'Xóa bình luận';
 	alertify.confirm("Bạn muốn xóa dữ liệu?",
 	  function(){
 		$.ajax({
 	        url: '../comment/delete',
 	        type: 'GET',
-	        contentType: "application/json",
-	        dataType:'json',
+	        dataType:'html',
 	        data: {
-	        	idComment: idComment, idBaiViet: idBaiViet
+	        	idComment: idComment
 	        }
 	    }).done(function(ketqua) {
-	    	datatable = ketqua;
-	    	var hang = $("#example tbody tr");
-			for (var i = 0; i < hang.length; i++) {
-				if(hang[i].innerHTML != "" &&  hang[i].childNodes[1].innerHTML == idComment){
-					hang[i].innerHTML = "";
-				}
-			}
+	    	var hang = $('#bootstrap-data-table tbody tr').each(function(){
+	    		if($(this).find('td:first-child').text() == idComment){
+	    			$(this).find('td').remove();
+	    		}
+	    	});
 			alertify.success('Xóa bình luận thành công');
 	    });
-	    
 	  },
 	  function(){
 	    alertify.error('Dữ liệu không thay đổi');
 	  });
+}
+</script>
+
+	<script>
+function DangBinhLuan(idBaiViet){
+	var noidungbinhluan = document.getElementById("noidungbinhluan").value;
+	if(noidungbinhluan == "") return;
+	var loadajax = document.getElementById("loadajax");
+	var idBaiViet = $("#loadajax").find('p').first().text();
+	$.ajax({
+        url: '../comment/add',
+        type: 'GET',
+        dataType:'html',
+        data: {
+            idBaiViet: idBaiViet, noidung: noidungbinhluan
+        }
+    }).done(function(ketqua) {
+		//load dữ liệu bình luận
+			$("#loadajax").html(ketqua);
+			$('#bootstrap-data-table').DataTable();
+    		alertify.success('Đăng bình luận thành công!');
+         });
+	document.getElementById("noidungbinhluan").value = "";
 }
 </script>
 
@@ -337,30 +284,27 @@ function EditComment(idComment, content){
 	alertify.defaults.glossary.title = 'Chỉnh sửa';
 	alertify.prompt("Nhập nội dung bình luận", content,
 	  function(evt, content){
+		if(content == "") return;
 		$.ajax({
 	        url: '../comment/edit',
 	        type: 'GET',
-	        contentType: "application/json",
-	        dataType:'json',
+	        dataType:'html',
 	        data: {
-	        	idComment: idComment, idBaiViet: idBaiViet, content: content
+	        	idComment: idComment, content: content
 	        }
 	    }).done(function(ketqua) {
-	    	datatable = ketqua;
-			var hang = $("#example tbody tr");
-	// 		console.log(hang);
-			for(var i = 0; i < hang.length; i++) {
-				if(hang[i].cells[1] != undefined){
-					if(hang[i].cells[1].childNodes[0].nodeValue == idComment){
-						hang[i].cells[3].childNodes[0].nodeValue = content;
-						hang[i].cells[5].childNodes[2].attributes[1].value = "EditComment(" + idComment + ",'" + content + "')";
-					}
-				}
-			}
+	    	var hang = $('#bootstrap-data-table tbody tr').each(function(index, element){
+	    		if($(this).find('td:first-child').text() == idComment){
+// 	    			var hang = $(this).find('td')[2];
+ 	    			$($(this).find('td')[2]).text(content);
+ 	    			$($(this).find('td')[4]).find('button').first().attr("onclick", "EditComment("+ idComment +", '" + content + "')");
+ 	    				
+	    		}
+	    	});
 
 			alertify.success('Sửa bình luận thành công');
 	    });
-	    
+
 	  },
 	  function(){
 	    alertify.error('Dữ liệu không thay đổi');
@@ -369,91 +313,24 @@ function EditComment(idComment, content){
 
 </script>
 
-
-	<script>
-function addDetailComment(idComment){
-	var noidungbinhluanchitiet = document.getElementById("noidungbinhluanchitiet" + idComment).value;
-	$.ajax({
-        url: '../detailcomment/add',
-        type: 'GET',
-        contentType: "application/json",
-        dataType:'json',
-        data: {
-        	idComment: idComment, idBaiViet: idBaiViet, noidungchitiet: noidungbinhluanchitiet
-        }
-    }).done(function(ketqua) {
-    	datatable = ketqua;
-    	for(var i = 0; i < datatable.data.length; i++){
-    		  if(datatable.data[i].id == idComment){
-    			  var tbody = $("#tableDetailComment" + idComment + " tbody");
-    		    	var createRow = document.createElement("tr");
-    		    	for(var j = 0; j < 4; j++){
-    		    		var createColumn = document.createElement("td");
-    		    		switch(j){
-    		    			case 0: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].id); break;
-    		    			case 1: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].tenhienthict); break;
-    		    			case 2: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].noidungchitiet); break;
-    		    			case 3: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].created_at); break;
-    		    			case 4: var textNode = document.createTextNode(datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].opitionDetail); break;
-    		    		}
-    		    		
-    		    		createColumn.appendChild(textNode);
-    		    		createRow.appendChild(createColumn);
-    		    	}
-    		    	var createtdend = document.createElement("td");
-    		    	createtdend.innerHTML = datatable.data[i].chitiet[datatable.data[i].chitiet.length - 1].opitionDetail;
-    		    	createRow.appendChild(createtdend);
-    		  }
-    		}
-    	
-    	tbody.append(createRow);
-        alertify.success('Đăng bình luận thành công!');
-        document.getElementById("noidungbinhluanchitiet" + idComment).value = "";
-       
-    });
-	
+<script>
+function Delete(id) {
+	swal({
+		  title: "Bạn có chắc chắn muốn xóa dữ liệu?",
+		  text: "Sau khi xóa, bạn sẽ không thể phục hồi dữ liệu này!",
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Yes'
+		}).then((result) => {
+		  if (result.value) {
+			  window.location.href = "delete?id=" + id;
+		  } else {
+			  swal("Dữ liệu của bạn không thay đổi!");
+		  }
+		});
 }
 </script>
-
-
-	<script>
-function DeleteDetailComment(idDetailComment){
-// 	console.log(datatable.data);
-	for(var i = 0; i < datatable.data.length; i++){
-		for(var j = 0; j < datatable.data[i].chitiet.length; j++){
-			if(datatable.data[i].chitiet[j].id == idDetailComment){
-// 				console.log(datatable.data[i].chitiet[j].id)
-				delete datatable.data[i].chitiet[j]; 
-// 				console.log(datatable.data[i].chitiet[j]);
-				break;
-				
-			}
-		}
-	}
-	$("#detailComment" + idDetailComment).html("");
-}
-</script>
-
-
-
-	<script>
-    function Delete(id) {
-    	swal({
-  		  title: "Bạn có chắc chắn muốn xóa dữ liệu?",
-  		  text: "Sau khi xóa, bạn sẽ không thể phục hồi dữ liệu này!",
-  		  type: 'warning',
-  		  showCancelButton: true,
-  		  confirmButtonColor: '#3085d6',
-  		  cancelButtonColor: '#d33',
-  		  confirmButtonText: 'Yes'
-  		}).then((result) => {
-  		  if (result.value) {
-  			  window.location.href = "delete?id=" + id;
-  		  } else {
-  			  swal("Dữ liệu của bạn không thay đổi!");
-  		  }
-  		});
-    }
-  </script>
 </body>
 </html>
