@@ -149,7 +149,7 @@ tr.shown td.details-control {
 																		<td><%=cm.getId()%></td>
 																		<td><%=cm.getId_taikhoan()%></td>
 																		<td><%=cm.getNoidung()%></td>
-																		<td><%=cm.getCreated_at()%></td>
+																		<td><%=cm.getNgayDang()%></td>
 																		<td><a class="btn btn-success"
 																			href="edit?id=<%=cm.getId()%>"><span><i
 																					class="fa fa-edit"></i></span> Sửa</a></td>
