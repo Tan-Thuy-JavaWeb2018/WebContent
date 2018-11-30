@@ -74,6 +74,7 @@
 								<div class="currence-user-page">
 									<div class="user-page">
 										<ul> 
+										<%String referrer = request.getHeader("referer");  %>
 											<li><a href="../pages/login.jsp"><i
 													class="pe-7s-next-2"></i>Đăng nhập</a></li>
 											<li><a href="../pages/register.jsp"><i

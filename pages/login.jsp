@@ -82,7 +82,8 @@
 								<%
 									session.removeAttribute("errorlogin");
 									}
-								%>
+								%>  
+								<input name="link-back" hidden value="<%=request.getHeader("referer")%>">
 								<div class="button-remember">
 									<button class="login-btn" type="submit">Đăng nhập</button>
 								</div> 
@@ -119,6 +120,6 @@
 	<script src="../lib/js/jquery.nivo.slider.js"></script>
 	<script src="../lib/home.js"></script>
 	<script src="../assets/js/plugins.js"></script>
-	<script src="../assets/js/main.js"></script>
+	<script src="../assets/js/main.js"></script> 
 </body>
 </html>

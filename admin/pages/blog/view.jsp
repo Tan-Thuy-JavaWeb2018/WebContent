@@ -147,19 +147,13 @@ tr.shown td.details-control {
 																	%>
 																	<tr>
 																		<td><%=cm.getId()%></td>
-																		<td><%=cm.getTenTaiKhoan()%></td>
+																		<td><%=cm.getId_taikhoan()%></td>
 																		<td><%=cm.getNoidung()%></td>
 																		<td><%=cm.getNgayDang()%></td>
-<<<<<<< HEAD
-																		<td><a class="btn btn-success"
-																			href="edit?id=<%=cm.getId()%>"><span><i
-																					class="fa fa-edit"></i></span> Sửa</a></td>
-=======
 																		<td><button class="btn btn-success"
 																				onclick="EditComment(<%=cm.getId()%>, '<%=cm.getNoidung()%>')">
 																				<span><i class="fa fa-edit"></i></span> Sửa
 																			</button></td>
->>>>>>> ecfce4f98af442eed1cfc4cfd5663d792312e222
 																		<td><button class="btn btn-secondary"
 																				onclick="DeleteComment(<%=cm.getId()%>)">
 																				<span><i class="fa fa-trash-o"></i></span> Xóa

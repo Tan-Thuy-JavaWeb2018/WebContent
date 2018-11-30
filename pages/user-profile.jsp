@@ -31,12 +31,6 @@
 <link rel="stylesheet"
 	href="../admin/lib/bower_components/sweetalert2/dist/sweetalert2.css">
 <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
-
-
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-
 <body>
 	<!-- Thêm phần tiêu đề trang -->
 	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
@@ -58,6 +52,7 @@
 
 	<%
 		Users us = (Users) session.getAttribute("uslogin");
+		if(us != null){
 		// Giá trị session tồn tại 2 giờ
 		session.setMaxInactiveInterval(2 * 60 * 60);
 	%>
@@ -169,6 +164,13 @@
 		</div>
 		<!--/col-9-->
 	</div>
+	<% }
+		else{
+		%>
+	<div class="alert alert-danger">
+		<strong><center>Tài khoản đã được đăng xuất! </strong>Bạn vui lòng đăng nhập để dùng tính năng này.</center> 
+	</div>
+	<%} %>
 	<br>
 	<!--/row-->
 
@@ -192,8 +194,6 @@
 	<script src="../lib/home.js"></script>
 	<script src="../assets/js/plugins.js"></script>
 	<script src="../assets/js/main.js"></script>
-
-
 	<script
 		src="../admin/lib/bower_components/sweetalert2/dist/sweetalert2.js"></script>
 

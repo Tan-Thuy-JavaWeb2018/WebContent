@@ -203,7 +203,8 @@
 								%>
 
 								<div class="button-group">
-									<a href="cart?status=add&id_product=<%=ls.getId() %>" title="Add to Cart"> <i class="pe-7s-cart"></i>
+									<a href="cart?status=add&id_product=<%=ls.getId()%>"
+										title="Add to Cart"> <i class="pe-7s-cart"></i>
 									</a> <a class="wishlist" href="#" title="Wishlist"> <i
 										class="pe-7s-like"></i>
 									</a> <a href="#" data-toggle="modal"
@@ -216,7 +217,8 @@
 								<div class="title-color fix">
 									<div class="shop-title f-left">
 										<h3>
-											<a href="#" data-toggle="modal" data-target="#quick-view<%=ls.getId() %>"> <%=ls.getTensanpham()%></a>
+											<a href="#" data-toggle="modal"
+												data-target="#quick-view<%=ls.getId()%>"> <%=ls.getTensanpham()%></a>
 										</h3>
 									</div>
 									<div class="price f-right">
@@ -264,7 +266,9 @@
 									}
 								%>
 								<div class="button-group">
-									<a href="cart?status=add&id_product=<%=produts.getListProducts().get(i).getId() %>" title="Add to Cart"> <i class="pe-7s-cart"></i>
+									<a
+										href="cart?status=add&id_product=<%=produts.getListProducts().get(i).getId()%>"
+										title="Add to Cart"> <i class="pe-7s-cart"></i>
 									</a> <a class="wishlist" href="#" title="Wishlist"> <i
 										class="pe-7s-like"></i>
 									</a> <a href="#" data-toggle="modal" data-target="#quick-view"
@@ -276,7 +280,9 @@
 								<div class="title-color fix">
 									<div class="shop-title f-left">
 										<h3>
-											 <a href="#" data-toggle="modal" data-target="#quick-view<%=produts.getListProducts().get(i) %>"> <%=produts.getListProducts().get(i).getTensanpham()%></a>
+											<a href="#" data-toggle="modal"
+												data-target="#quick-view<%=produts.getListProducts().get(i)%>">
+												<%=produts.getListProducts().get(i).getTensanpham()%></a>
 										</h3>
 									</div>
 									<div class="price f-right">
@@ -356,11 +362,13 @@
 										<span class="sale-new">Mới</span>
 									</div>
 									<div class="button-group">
-										<a href="cart?status=add&id_product=<%=ls.getId() %>" title="Add to Cart"> <i class="pe-7s-cart"></i>
+										<a href="cart?status=add&id_product=<%=ls.getId()%>"
+											title="Add to Cart"> <i class="pe-7s-cart"></i>
 										</a> <a class="wishlist" href="#" title="Wishlist"> <i
 											class="pe-7s-like"></i>
-										</a> <a href="#" data-toggle="modal" data-target="#quick-view<%=ls.getId() %>"
-											title="Quick View"> <i class="pe-7s-look"></i>
+										</a> <a href="#" data-toggle="modal"
+											data-target="#quick-view<%=ls.getId()%>" title="Quick View">
+											<i class="pe-7s-look"></i>
 										</a>
 									</div>
 								</div>
@@ -368,7 +376,8 @@
 									<div class="title-color fix">
 										<div class="shop-title f-left">
 											<h3>
-												 <a href="#" data-toggle="modal" data-target="#quick-view<%=ls.getId() %>"><%=ls.getTensanpham()%></a>
+												<a href="#" data-toggle="modal"
+													data-target="#quick-view<%=ls.getId()%>"><%=ls.getTensanpham()%></a>
 											</h3>
 										</div>
 										<div class="price f-right">
@@ -386,135 +395,151 @@
 							</div>
 						</div>
 					</div>
-				<%
-					} else {
-				%>
+					<%
+						} else {
+					%>
 
-				<div class="single-special-slider">
-					<div class="col-lg-12 col-md-12 col-xs-12">
-						<div class="single-shop">
-							<div class="shop-img">
-								<a href="javascript:void(0)"><img
-									src="assets/img/shop/product/<%=ls.getAnhchinh()%>" alt="" /></a>
-								<div class="price-up-down">
-									<span class="sale-new">Mới</span>
+					<div class="single-special-slider">
+						<div class="col-lg-12 col-md-12 col-xs-12">
+							<div class="single-shop">
+								<div class="shop-img">
+									<a href="javascript:void(0)"><img
+										src="assets/img/shop/product/<%=ls.getAnhchinh()%>" alt="" /></a>
+									<div class="price-up-down">
+										<span class="sale-new">Mới</span>
+									</div>
+									<div class="button-group">
+										<a href="cart?status=add&id_product=<%=ls.getId()%>"
+											title="Add to Cart"> <i class="pe-7s-cart"></i>
+										</a> <a class="wishlist" href="#" title="Wishlist"> <i
+											class="pe-7s-like"></i>
+										</a> <a href="#" data-toggle="modal"
+											data-target="#quick-view<%=ls.getId()%>" title="Quick View">
+											<i class="pe-7s-look"></i>
+										</a>
+									</div>
 								</div>
-								<div class="button-group">
-									<a href="cart?status=add&id_product=<%=ls.getId() %>" title="Add to Cart"> <i class="pe-7s-cart"></i>
-									</a> <a class="wishlist" href="#" title="Wishlist"> <i
-										class="pe-7s-like"></i>
-									</a> <a href="#" data-toggle="modal" data-target="#quick-view<%=ls.getId() %>"
-										title="Quick View"> <i class="pe-7s-look"></i>
+								<div class="shop-text-all">
+									<div class="title-color fix">
+										<div class="shop-title f-left">
+											<h3>
+												<a href="#" data-toggle="modal"
+													data-target="#quick-view<%=ls.getId()%>"> <%=ls.getTensanpham()%></a>
+											</h3>
+										</div>
+										<div class="price f-right">
+											<%
+												double price = ls.getGiagoc();
+														int sale = ls.getKhuyenmai();
+														price = price - (price * sale / 100);
+														String price_nb = numformat.format(price);
+											%>
+											<span class="new"> <%=price_nb%>đ
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<%
+						}
+						}
+					%>
+				</div>
+			</div>
+		</div>
+		<!-- Xong sản phẩm mới -->
+		<!-- Bắt đầu phần bài viết -->
+		<div class="blog-area pb-70">
+			<div class="container">
+				<div class="section-title text-center mb-50">
+					<h2>
+						Chia sẽ công thức nấu ngon<i class="fa fa-pencil"></i>
+					</h2>
+				</div>
+				<div class="row">
+					<%
+						int dem = 0;
+						for (Blogs ls : blogs.getListBlogs()) {
+							if (dem >= 6) {
+								break;
+							}
+					%>
+					<div class="col-md-4 col-sm-6">
+						<div class="blog-details mb-30">
+							<div class="blog-img">
+								<a href="pages/blog-details.jsp?id_blog=<%=ls.getId()%>"><img
+									src="assets/img/blog/<%=ls.getHinhanh()%>" alt=""
+									title="<%=ls.getMota()%>"></a>
+								<div class="blog-quick-view">
+									<a href="pages/blog-details.jsp?id_blog=<%=ls.getId()%>"> <i
+										class="pe-7s-link"></i>
 									</a>
 								</div>
 							</div>
-							<div class="shop-text-all">
-								<div class="title-color fix">
-									<div class="shop-title f-left">
-										<h3>
-											 <a href="#" data-toggle="modal" data-target="#quick-view<%=ls.getId() %>"> <%=ls.getTensanpham()%></a>
-										</h3>
-									</div>
-									<div class="price f-right">
-										<%
-											double price = ls.getGiagoc();
-													int sale = ls.getKhuyenmai();
-													price = price - (price * sale / 100);
-													String price_nb = numformat.format(price);
-										%>
-										<span class="new"> <%=price_nb%>đ
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<%
-					}
-					}
-				%>
-			</div>
-		</div>
-	</div>
-	<!-- Xong sản phẩm mới -->
-	<!-- Bắt đầu phần bài viết -->
-	<div class="blog-area pb-70">
-		<div class="container">
-			<div class="section-title text-center mb-50">
-				<h2>
-					Chia sẽ công thức nấu ngon<i class="fa fa-pencil"></i>
-				</h2>
-			</div>
-			<div class="row">
-				<%
-					int dem = 0;
-					for (Blogs ls : blogs.getListBlogs()) {
-						if (dem >= 6) {
-							break;
-						}
-				%>
-				<div class="col-md-4 col-sm-6">
-					<div class="blog-details mb-30">
-						<div class="blog-img">
-							<a href="blog-details.html"><img
-								src="assets/img/blog/<%=ls.getHinhanh()%>" alt="" title=""></a>
-							<div class="blog-quick-view">
-								<a href="blog-details.html"> <i class="pe-7s-link"></i>
+							<div class="blog-meta">
+								<h4>
+									<%
+										//xử lý độ dài tiêu đề
+											String tieude;
+											if (ls.getTieude().length() > 20) {
+												tieude = ls.getTieude().substring(0, 20) + "...";
+											} else {
+												tieude = ls.getTieude();
+											}
+									%>
+									<a href="pages/blog-details.jsp?id_blog=<%=ls.getId()%>"> <%=tieude%></a>
+								</h4>
+								<ul class="meta">
+									<li>08 tháng 8 năm 2018</li>
+								</ul>
+								<a href="pages/blog-details.jsp?id_blog=<%=ls.getId()%>">
+									Đọc thêm <i class="pe-7s-next"></i>
 								</a>
 							</div>
 						</div>
-						<div class="blog-meta">
-							<h4>
-								<%
-									//xử lý độ dài tiêu đề
-										String tieude;
-										if (ls.getTieude().length() > 20) {
-											tieude = ls.getTieude().substring(0, 20);
-										} else {
-											tieude = ls.getTieude();
-										}
-								%>
-								<a href="blog-details.jsp"> <%=tieude%></a>
-							</h4>
-							<ul class="meta">
-								<li>08 tháng 8 năm 2018</li>
-							</ul>
-							<a href="blog-details.jsp">Đọc tiếp <i class="pe-7s-next"></i></a>
-						</div>
 					</div>
+					<%
+						dem++;
+						}
+					%>
 				</div>
-				<%
-					dem++;
-					}
-				%>
 			</div>
 		</div>
-	</div>
-	<!-- Xong phần bài viết -->
+		<!-- Xong phần bài viết -->
 
-	<!-- Thêm chân trang -->
-	<jsp:include page="layout/footer.jsp"></jsp:include>
-	<!-- Xong thêm chân trang -->
+		<!-- Thêm chân trang -->
+		<jsp:include page="layout/footer.jsp"></jsp:include>
+		<!-- Xong thêm chân trang -->
 
-	<!-- Thêm xem chi tiết sản phẩm -->
-	<jsp:include page="layout/detail_product.jsp"></jsp:include>
-	<!-- Xong xem chi tiết sản phẩm  -->
+		<!-- Thêm xem chi tiết sản phẩm -->
+		<jsp:include page="layout/detail_product.jsp"></jsp:include>
+		<!-- Xong xem chi tiết sản phẩm  -->
 
 
-	<!-- Toàn bộ js -->
-	<script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
-	<script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/jquery.meanmenu.js"></script>
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
-	<script src="assets/js/isotope.pkgd.min.js"></script>
-	<script src="assets/js/imagesloaded.pkgd.min.js"></script>
-	<script src="assets/js/owl.carousel.min.js"></script>
-	<script src="assets/js/jquery.validate.min.js"></script>
-	<script src="lib/js/jquery.nivo.slider.js"></script>
-	<script src="lib/home.js"></script>
-	<script src="assets/js/plugins.js"></script>
-	<script src="assets/js/main.js"></script>
+		<!-- Toàn bộ js -->
+		<script src="assets/js/vendor/jquery-1.12.0.min.js"></script>
+		<script src="assets/js/bootstrap.min.js"></script>
+		<script src="assets/js/jquery.meanmenu.js"></script>
+		<script src="assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="assets/js/isotope.pkgd.min.js"></script>
+		<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+		<script src="assets/js/owl.carousel.min.js"></script>
+		<script src="assets/js/jquery.validate.min.js"></script>
+		<script src="lib/js/jquery.nivo.slider.js"></script>
+		<script src="lib/home.js"></script>
+		<script src="assets/js/plugins.js"></script>
+		<script src="assets/js/main.js"></script>
+		<script>
+			
+		<%if (session.getAttribute("uslogin") != null) {%>
+			$(document).ready(function() {  
+				
+			});
+		<%}%>
+			
+		</script>
 </body>
 
 </html>

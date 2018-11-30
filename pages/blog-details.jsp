@@ -1,4 +1,11 @@
 <%@ page pageEncoding="utf-8"%>
+<%@ page import="Model.dao_Blogs"%>
+<%@ page import="Objects.Blogs"%>
+<%@ page import="Objects.Users"%>
+<%@ page import="Objects.Comments"%>
+<%@ page import="Control.BlogsControl"%>
+<%@ page import="Control.UserControl"%>
+<%@ page import="Control.CommentsControl"%>
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -10,7 +17,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- icon hiển thị -->
-<link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicon.ico">
+<link rel="shortcut icon" type="image/x-icon"
+	href="../assets/img/favicon.ico">
 
 <!-- Toàn bộ css -->
 <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
@@ -26,13 +34,14 @@
 <link rel="stylesheet" href="../assets/css/bundle.css">
 <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/responsive.css">
+<link rel="stylesheet" href="../admin/lib/bower_components/sweetalert2/dist/sweetalert2.css">
 <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
 <body>
 
 	<!-- Thêm phần tiêu đề trang -->
-	<jsp:include page="../layout/header.jsp"></jsp:include>
+	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
 	<!-- Xong phần tiêu đề trang -->
 
 	<!-- Bắt đầu tiêu đề trang con -->
@@ -55,125 +64,94 @@
 				<div class="col-md-8 col-lg-9">
 					<div class="blog-wrapper">
 						<div class="single-blog">
-							<a href="#"><img src="../assets/img/blog/blog-details.html"
-								alt=""></a>
+							<%
+								BlogsControl blog = new BlogsControl();
+								UserControl user = new UserControl();
+								Long id = Long.parseLong(request.getParameter("id_blog"));
+								Blogs bl = blog.getFindWithId(id);
+
+								CommentsControl comment = new CommentsControl();
+
+								Users us = new Users();
+								Long id_us = bl.getId_taikhoan();
+								String name = user.getFindById(id_us).getTenhienthi();
+							%>
 							<div class="blog-details-text mt-20">
-								<h3>Tiêu đề bài viết</h3>
+								<h3><%=bl.getTieude()%></h3>
 								<div class="post-info">
 									<ul>
-										<li><i class="fa fa-user"></i> Admin</li>
-										<li><i class="fa fa-calendar"></i> ngày 26 tháng 8 năm
-											2018</li>
-										<li><a href="#"><i class="fa fa-comments-o"></i>20</a></li>
+										<li><i class="fa fa-user"></i> <%=name%></li>
+										<li><i class="fa fa-calendar"></i><%=bl.getNgayDang()%></li>
+										<li><a href="#"><i class="fa fa-comments-o"></i><%=comment.getListCommnetsWithID_BaiViet(id).size()%></a></li>
 									</ul>
 								</div>
-								<p class="details-pera">Lorem ipsum dolor sit amet,
-									consectetur adipisicing elit, sed do eiusmod tempor incididunt
-									ut labore et dolore magna aliqua. U enim ad minim veniam, quis
-									nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-									commodo consequat. Duis aute irure dol in reprehenderit in
-									voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-									Excepteur sint occaecat cupidatat non proident, s in culpa qui
-									officia deserunt mollit anim id est laborum. Sed ut
-									perspiciatis unde omnis iste</p>
-								<blockquote>
-									<p>
-										<i class="fa fa-quote-left" aria-hidden="true"></i> Lorem
-										ipsum dolor sit amet, consectetur adipisicing elit, sed do
-										eiusmod tempor incididunt ut labore et dolore magna aliqua. U
-										enim ad minim veniam <i class="fa fa-quote-right"
-											aria-hidden="true"></i>
-									</p>
-								</blockquote>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-									sed do eiusmod tempor incididunt ut labore et dolore magna
-									aliqua. U enim ad minim veniam, quis nostrud exercitation
-									ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-									aute irure dol in reprehenderit in voluptate velit esse cillum
-									dolore eu fugiat nulla pariatur.</p>
+								<%=bl.getNoidung()%>
+								<br></br>
 							</div>
-							<div class="news-details-bottom mtb-60">
-								<h3 class="leave-comment-text">Bình luận</h3>
-								<div class="blog-top">
-									<div class="news-allreply">
-										<a href="#"><img src="../assets/img/testimonial/1.jpg" alt=""></a>
-									</div>
-									<div class="blog-img-details">
-										<div class="blog-title">
-											<div class="blog-title-1">
-												<h3>Hoàng Thị Hà</h3>
-												<span>ngày 12 tháng 9 năm 2018 lúc 8 : 00 pm</span>
-											</div>
-											<div class="nes-icon">
-												<a href="#"> trả lời </a>
-											</div>
-										</div>
-										<p class="p-border">Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit, sed do eiusmod tempor
-											incididunt ut labore et dolore i aliqua. Ut enim ad minim
-											veniam, quis nostrud exercitation ullamco laboris nisi ut
-											aliquip ex ea commodo cons. Duis aute irure dolor in
-											reprehenderit in</p>
-									</div>
-								</div>
-								<div class="blog-top mt-40 mb-40 margin-middle">
-									<div class="news-allreply">
-										<a href="#"><img src="../assets/img/testimonial/2.jpg" alt=""></a>
-									</div>
-									<div class="blog-img-details">
-										<div class="blog-title">
-											<div class="blog-title-1">
-												<h3>Nguyễn Hoàng Nam</h3>
-												<span>ngày 12 tháng 9 năm 2018 lúc 8 : 00 pm</span>
-											</div>
-											<div class="nes-icon">
-												<a href="#"> trả lời </a>
-											</div>
-										</div>
-										<p class="p-border">Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit, sed do eiusmod tempor
-											incididunt ut labore et dolore i aliqua. Ut enim ad minim
-											veniam, quis nostrud exercitation ullamco laboris nisi ut
-											aliquip ex ea commodo cons. Duis aute irure dolor in
-											reprehenderit in</p>
-									</div>
-								</div>
-								<div class="blog-top">
-									<div class="news-allreply">
-										<a href="#"><img src="../assets/img/testimonial/3.jpg" alt=""></a>
-									</div>
-									<div class="blog-img-details">
-										<div class="blog-title">
-											<div class="blog-title-1">
-												<h3>Hoàng Thị Hà</h3>
-												<span>ngày 12 tháng 9 năm 2018 lúc 8 : 00 pm</span>
-											</div>
-											<div class="nes-icon">
-												<a href="#"> trả lời </a>
-											</div>
-										</div>
-										<p class="p-border">Lorem ipsum dolor sit amet,
-											consectetur adipisicing elit, sed do eiusmod tempor
-											incididunt ut labore et dolore i aliqua. Ut enim ad minim
-											veniam, quis nostrud exercitation ullamco laboris nisi ut
-											aliquip ex ea commodo cons. Duis aute irure dolor in
-											reprehenderit in</p>
-									</div>
-								</div>
-							</div>
+							<%
+								if (session.getAttribute("uslogin") != null) {
+									Users uslog = (Users) session.getAttribute("uslogin"); 
+									// Giá trị session tồn tại 2 giờ
+									session.setMaxInactiveInterval(2 * 60 * 60); 
+							%>
 							<div class="leave-comment">
-								<h3 class="leave-comment-text">Viết bình luận</h3>
-								<form action="#">
-									<div class="row">
-										<div class="col-md-12">
-											<div class="text-leave">
-												<textarea placeholder="Nội dung*"></textarea>
-												<button class="submit" type="submit">Đăng bình luận</button>
-											</div>
+								<br></br>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="text-leave">
+											<textarea id="textcmt" placeholder="Nội dung bình luận *"></textarea>
+											<button class="submit" onclick="submitcmt(<%=id%>, <%=uslog.getId()%>)">Đăng
+												bình luận</button>
 										</div>
 									</div>
-								</form>
+								</div>
 							</div>
+							<%
+								}
+								else{
+							%>
+							<div class="leave-comment">
+								<br></br>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="text-leave">
+											<textarea placeholder="Bạn cần đăng nhập để dùng tính năng này... " disabled></textarea>
+											<button class="submit" onclick="golog()">Đăng
+												bình luận</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<%} %>
+							<div class="news-details-bottom mtb-60">
+								<h3 class="leave-comment-text">Danh sách bình luận</h3>
+								<div class="blog-top" id="viewcmt">
+									<%
+										for (Comments lscmt : comment.getListCommnetsWithID_BaiViet(id)) {
+									%>
+									<div class="news-allreply">
+										<%
+											Long id_uscmt = lscmt.getId_taikhoan();
+												us = user.getFindById(id_uscmt);
+										%>
+										<a href="#"><img
+											src="../assets/img/testimonial/<%=us.getHinhanh()%>" alt=""></a>
+									</div>
+									<div class="blog-img-details">
+										<div class="blog-title">
+											<div class="blog-title-1">
+												<h3><%=us.getTenhienthi()%></h3>
+												<span><i class="fa fa-calendar"></i> <%=lscmt.getNgayDang()%></span>
+											</div>
+										</div>
+										<p class="p-border" id="contentcmt"><%=lscmt.getNoidung()%></p>
+									</div>
+									<%
+										}
+									%>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -247,20 +225,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="single-sidebar">
-							<div class="sidebar-img-text">
-								<div class="sidebar-img">
-									<a href="#"> <img src="../assets/img/shop/2.jpg" alt="">
-									</a>
-									<div class="sidebar-text">
-										<h3>save up to</h3>
-										<h2>40% off</h2>
-										<h3>cap</h3>
-										<a href="#">shop now</a>
-									</div>
-								</div>
-							</div>
-						</div>
+
 					</div>
 				</div>
 			</div>
@@ -285,6 +250,21 @@
 	<script src="../lib/home.js"></script>
 	<script src="../assets/js/plugins.js"></script>
 	<script src="../assets/js/main.js"></script>
+	<script src="../admin/lib/bower_components/sweetalert2/dist/sweetalert2.js"></script>
+	<script> 
+		function submitcmt(id_blog, id_user) { 
+			$.ajax({
+				url : '../blog_cmt?cmt='+$("#textcmt").val()+'&id_blog='+id_blog+'&id_user='+id_user,
+				type : 'GET',
+			}).done(function(responsive) { 
+				$("#viewcmt").html(responsive); 
+				$("#textcmt").val("");
+			}); 
+		}
+		function golog() { 
+			swal('Vui lòng đăng nhập để dùng tính năng này');
+		}
+	</script>
 </body>
 
 

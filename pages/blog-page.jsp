@@ -62,10 +62,10 @@
 				<div class="col-md-4 col-sm-6">
 					<div class="blog-details mb-30">
 						<div class="blog-img">
-							<a href="blog-details.jsp"><img
+							<a href="blog-details.jsp?id_blog=<%=ls.getId()%>"><img
 								src="../assets/img/blog/<%=ls.getHinhanh()%>" alt=""></a>
 							<div class="blog-quick-view">
-								<a href="blog-details.jsp"> <i class="pe-7s-link"></i>
+								<a href="blog-details.jsp?id_blog=<%=ls.getId()%>"> <i class="pe-7s-link"></i>
 								</a>
 							</div>
 						</div>
@@ -74,18 +74,18 @@
 								//xử lý độ dài tiêu đề
 									String tieude;
 									if (ls.getTieude().length() > 20) {
-										tieude = ls.getTieude().substring(0, 20);
+										tieude = ls.getTieude().substring(0, 20) + "...";
 									} else {
 										tieude = ls.getTieude();
 									}
 							%>
 							<h4>
-								<a href="blog-details.jsp"><%=tieude%></a>
+								<a href="blog-details.jsp?id_blog=<%=ls.getId()%>"><%=tieude%></a>
 							</h4>
 							<ul class="meta">
 								<li>25 tháng 8 năm 2018</li>
 							</ul>
-							<a href="blog-details.jsp">Chi tiết <i
+							<a href="blog-details.jsp?id_blog=<%=ls.getId()%>">Chi tiết <i
 								class="fa fa-long-arrow-right"></i></a>
 						</div>
 					</div>

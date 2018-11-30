@@ -7,7 +7,7 @@
 <%@ page import="Control.CategoryControl"%>
 <%@ page import="Objects.Users"%>
 <%@ page import="Model.dao_Cart"%>
-<%@ page import="java.text.DecimalFormat"%>
+<%@ page import="java.text.DecimalFormat"%> 
 
 <!DOCTYPE html>
 <html>
@@ -73,7 +73,7 @@
 								</a>
 								<div class="currence-user-page">
 									<div class="user-page">
-										<ul> 
+										<ul>  
 											<li><a href="./pages/login.jsp"><i
 													class="pe-7s-next-2"></i>Đăng nhập</a></li>
 											<li><a href="./pages/register.jsp"><i
