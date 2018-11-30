@@ -53,7 +53,7 @@
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i>Trang cá nhân</a>
+                            <a class="nav-link" href="../profile/view"><i class="fa fa-user"></i>Trang cá nhân</a>
                             <a class="nav-link" href="#"><i class="fa fa-power-off"></i>Đăng xuất</a>
                         </div>
                     </div>
