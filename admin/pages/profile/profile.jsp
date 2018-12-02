@@ -76,7 +76,7 @@
 												%>
 												<img
 													src="../../../assets/img/testimonial/<%=user.getHinhanh()%>"
-													class="avatar img-circle img-thumbnail" alt="avatar">
+													class="avatar img-circle img-thumbnail" alt="avatar" style="width: 100%; height: 220px;">
 												<%
 													} else {
 												%>
@@ -145,7 +145,8 @@
 															<div class="form-group">
 																<label class="form-control-label">Nhập mật khẩu
 																	mới </label> <input type="password"
-																	placeholder="Nhập mật khẩu mới" class="form-control" id="password">
+																	placeholder="Nhập mật khẩu mới" class="form-control"
+																	id="password">
 															</div>
 														</div>
 														<div class="col-sm-6">
@@ -161,11 +162,19 @@
 															<div class="form-group">
 																<button
 																	class="form-control btn btn-outline-primary btn-sm font-weight-bold"
-																	onclick="ThayDoiMatKhau()">LƯU THAY ĐỔI</button>
+																	onclick="ThayDoiMatKhau(<%=user.getId()%>)">LƯU
+																	THAY ĐỔI</button>
 															</div>
 														</div>
 														<div class="col-sm-4"></div>
-														
+														<div class="col-sm-2 hien"></div>
+														<div class="col-sm-8 hien">
+															<div class="alert alert-danger text-center" role="alert">
+																Nhập mật khẩu không khớp. Vui lòng nhập lại!</div>
+														</div>
+														<div class="col-sm-2 hien"></div>
+
+
 													</div>
 
 												</div>
@@ -194,6 +203,7 @@
 	<script src="../../lib/bower_components/alertifyjs/alertify.js"></script>
 	<script>
 		$(document).ready(function() {
+			$('.hien').css("display", "none");
 			var readURL = function(input) {
 				if (input.files && input.files[0]) {
 					var reader = new FileReader();
@@ -215,7 +225,7 @@
 	<script>
 	function EditTenHienThi(id, displayName){
 		alertify.defaults.glossary.title = 'Chỉnh sửa';
-		alertify.prompt("Nhập nội dung bình luận", displayName,
+		alertify.prompt("Nhập tên hiển thị mới", displayName,
 		  function(evt, displayName){
 			if(displayName == "") return;
 			$.ajax({
@@ -228,7 +238,7 @@
 		    	$("#tenhienthi .col-sm-10").text(displayName);
 		    	$("#tenhienthi button").attr("onclick", "EditTenHienThi(" + id + ",'" + displayName  + "')")
 
-				alertify.success('Sửa bình luận thành công');
+				alertify.success('Cập nhật tên hiển thành công');
 		    });
 
 		  },
@@ -237,33 +247,46 @@
 		  });
 	}
 	</script>
-	
+
 	<script>
-	function ThayDoiMatKhau(){
-// 		console.log($('.hien').css("display", "none"));
-// 		console.log($('.hien').css("display", ""));
-	
-// 		alertify.defaults.glossary.title = 'Chỉnh sửa';
-// 		alertify.prompt("Nhập nội dung bình luận", displayName,
-// 		  function(evt, displayName){
-// 			if(displayName == "") return;
-// 			$.ajax({
-// 		        url: 'editDislayName',
-// 		        type: 'POST',
-// 		        data: {
-// 		        	id: id, displayName: displayName
-// 		        }
-// 		    }).done(function(ketqua) {
-// 		    	$("#tenhienthi .col-sm-10").text(displayName);
-// 		    	$("#tenhienthi button").attr("onclick", "EditTenHienThi(" + id + ",'" + displayName  + "')")
+	function ThayDoiMatKhau(id){
+		var regex1 = RegExp(/^[A-Za-z0-9_]{3,20}$/);
+		var password = $('#password').val();
+		var passwordagain = $('#passwordagain').val();
+		
+		if(password == "" || passwordagain == ""){
+			$('.hien').css("display", "")
+			$('.hien .alert').text("Bạn chưa nhập đầy đủ thông tin");
+			$('#password').val("");
+			$('#passwordagain').val("");
+		} else {
+			if(regex1.test(password) && regex1.test(passwordagain)){
+				if(password === passwordagain){
+					$.ajax({
+		 		        url: 'editPassword',
+		 		        type: 'POST',
+		 		        data: {
+		 		        	password: password, id: id
+		 		        }
+		 		    }).done(function(ketqua) {
+		 		    	
 
-// 				alertify.success('Sửa bình luận thành công');
-// 		    });
-
-// 		  },
-// 		  function(){
-// 		    alertify.error('Dữ liệu không thay đổi');
-// 		  });
+		 				alertify.success('Mật khẩu đã được thay đổi');
+		 		    });
+					console.log("ajax")
+				} else {
+					$('.hien').css("display", "")
+					$('.hien .alert').text("Nhập mật khẩu không khớp. Vui lòng nhập lại");
+					$('#password').val("");
+					$('#passwordagain').val("");
+				}
+			}else {
+				$('.hien').css("display", "")
+				$('.hien .alert').text("Mật khẩu dài 3 - 20 ký tự và chỉ chứa các ký từ 0-9, A-Z, a-z");
+				$('#password').val("");
+				$('#passwordagain').val("");
+			}
+		}
 	}
 	</script>
 </body>

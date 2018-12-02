@@ -34,7 +34,7 @@
 						<div class="page-header float-left">
 							<div class="page-title">
 								<h1>
-									<b>HÓA ĐƠN</b>
+									<b>HÓA ĐƠN ĐÃ HỦY</b>
 								</h1>
 							</div>
 						</div>
@@ -62,9 +62,8 @@
 						<div class="card">
 							<div class="card-header">
 								<strong class="card-title">Danh sách</strong> <a
-									class="btn btn-primary float-right btn-sm" href="listdestroy">ĐÃ
-									HỦY</a><a class="btn btn-primary float-right btn-sm mr-2"
-									href="listpayment">ĐÃ THANH TOÁN</a>
+									class="btn btn-primary float-right btn-sm" href="list">
+									DANH SÁCH HÓA ĐƠN</a>
 							</div>
 							<div class="card-body">
 								<table id="bootstrap-data-table"
@@ -81,9 +80,7 @@
 											<th>Ghi chú</th>
 											<th>Ngày đặt</th>
 											<th>Xem chi tiết</th>
-											<th>Trạng thái</th>
-											<th>Thanh toán</th>
-											<th>Tùy chọn</th>
+											<th>Tùy chọn thay đổi</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -101,35 +98,22 @@
 											<td><%=l.getGhichu()%></td>
 											<td><%=l.getNgaydat()%></td>
 											<td><a class="btn btn-info btn-block btn-sm"
-												href="viewdetail?idHoaDon=<%=l.getId()%>"><span><i
+												href="viewdetail?idHoaDon=<%=l.getId()%>&huy=true"><span><i
 														class="fa fa-edit"></i></span> Chi tiết</a></td>
-											<%
-												if (l.getTrangthai() == 0) {
-											%>
-											<td><button class="btn btn-warning btn-sm"
-													onclick="ThayDoiTrangThai(<%=l.getId()%>,'<%=l.getTrangthai()%>')"
-													id="trangthai<%=l.getId()%>">Đặt hàng</button></td>
-											<%
-												} else {
-											%>
-											<td><button class="btn btn-primary btn-sm"
-													onclick="ThayDoiTrangThai(<%=l.getId()%>,'<%=l.getTrangthai()%>')"
-													id="trangthai<%=l.getId()%>">Đang ship</button></td>
-											<%
-												}
-											%>
-											<td><button class="btn btn-danger btn-sm"
-													onclick="ThanhToan(<%=l.getId()%>)">Thanh toán</button></td>
 											<td><div>
-													<a class="btn btn-success btn-block btn-sm"
-														href="edit?id=<%=l.getId()%>"><span><i
-															class="fa fa-edit"></i></span> Sửa</a>
+													<button class="btn btn-warning btn-block btn-sm"
+														onclick="ThayDoiTrangThai(<%=l.getId()%>, 0)">
+														Đặt hàng</button>
 												</div>
 												<div>
-													<button class="btn btn-secondary mt-1 btn-block btn-sm"
-														onclick="Destroy(<%=l.getId()%>)">
-														<span><i class="fa fa-trash-o"></i></span> Hủy
-													</button>
+													<button class="btn btn-primary btn-block btn-sm mt-1"
+														onclick="ThayDoiTrangThai(<%=l.getId()%>, 1)">
+														Đang ship</button>
+												</div>
+												<div>
+													<button class="btn btn-danger mt-1 btn-block btn-sm"
+														onclick="ThayDoiTrangThai(<%=l.getId()%>, 2)">
+														Thanh toán</button>
 												</div></td>
 										</tr>
 										<%
@@ -182,85 +166,10 @@
 	$('body').addClass("open");
 	</script>
 	<script>
-	function ThayDoiTrangThai(id, trangthai){
-		swal({
-			  title: 'Bạn chắc chắn muốn đổi trạng thái?',
-			  type: 'warning',
-			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
-			  confirmButtonText: 'Yes'
-			}).then((result) => {
-			  if (result.value) {
-				   $.ajax({
-					   url: "status",
-					   type: "POST",
-					   data: {
-						   id: id, trangthai: Math.abs(trangthai - 1)
-					   }
-				   }).done(function(ketqua){
-					   if(ketqua){
-						   if(trangthai == 0){
-								$("#trangthai" + id).removeClass("btn-warning").addClass("btn-primary");
-								$("#trangthai" + id).text("Đang ship");
-								trangthai = 1;
-								$("#trangthai" + id).attr("onclick","ThayDoiTrangThai("+ id + "," + trangthai+ ")");
-							} else{
-								$("#trangthai" + id).removeClass("btn-primary").addClass("btn-warning");
-								$("#trangthai" + id).text("Đặt hàng");
-								trangthai = 0;
-								$("#trangthai" + id).attr("onclick","ThayDoiTrangThai("+ id + "," + trangthai+ ")");
-							}
-						  alertify.success('Đổi trạng thái thành công!');
-					   }
-				   }).error(function(){
-					   console.log("Lỗi");
-				   });
-			  }
-			})
-	}
-	</script>
-
-	<script>
-	function ThanhToan(id){
-		swal({
-			  title: 'Bạn chắc chắn muốn đổi thanh toán?',
-			  type: 'warning',
-			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
-			  confirmButtonText: 'Yes'
-			}).then((result) => {
-			  if (result.value) {
-				   $.ajax({
-					   url: "status",
-					   type: "POST",
-					   data: {
-						   id: id, trangthai: 2
-					   }
-				   }).done(function(ketqua){
-					   if(ketqua){
-						   $('#bootstrap-data-table tr').each(function(index){
-								if($(this).find('td').first().text() == id) {
-									$('#bootstrap-data-table').DataTable().rows(index-1).remove().draw();
-								}
-							});
-						  alertify.success('Thanh toán thành công!');
-					   }
-				   }).error(function(){
-					   console.log("Lỗi");
-				   });
-			  } else {
-				  alertify.error('Dữ liệu không thay đổi');
-			  }
-			})
-	}
-	</script>
-
-	<script>
-    function Destroy(id) {
+function ThayDoiTrangThai(id, trangthai) {
+    	
     	swal({
-  		  title: "Bạn có chắc chắn muốn hủy hóa đơn?",
+  		  title: "Bạn có chắc chắn muốn thay đổi trạng thái hóa đơn?",
   		  type: 'warning',
   		  showCancelButton: true,
   		  confirmButtonColor: '#3085d6',
@@ -272,7 +181,7 @@
 				   url: "status",
 				   type: "POST",
 				   data: {
-					   id: id, trangthai: 3
+					   id: id, trangthai: trangthai
 				   }
 			   }).done(function(ketqua){
 				   if(ketqua){
@@ -281,7 +190,7 @@
 								$('#bootstrap-data-table').DataTable().rows(index-1).remove().draw();
 							}
 						});
-					  alertify.success('Hủy hóa đơn thành công!');
+					  alertify.success('Thay đổi dữ liệu thành công!');
 				   }
 			   }).error(function(){
 				   alertify.error('Lỗi');
@@ -291,41 +200,6 @@
   		  }
   		});
     }
-  </script>
-
-
-	<%
-		if ((String) session.getAttribute("Edit") == "Success") {
-	%>
-	<script>
-		swal('Sửa dữ liệu thành công');
 	</script>
-	<%
-		session.removeAttribute("Edit");
-		}
-	%>
-
-	<%
-		if ((String) session.getAttribute("Empty") == "Success") {
-	%>
-	<script>
-	 alertify.error('Đã hủy một đơn hàng');
-	</script>
-	<%
-		session.removeAttribute("Empty");
-		}
-	%>
-
-	<%
-		if ((String) session.getAttribute("Delete") == "Success") {
-	%>
-	<script>
-		swal('Xóa dữ liệu thành công');
-	</script>
-	<%
-		session.removeAttribute("Delete");
-		}
-	%>
-
 </body>
 </html>

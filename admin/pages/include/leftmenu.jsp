@@ -23,15 +23,15 @@
                     <li>
 						<a href="../bill/list"> <i class="menu-icon ti-receipt"></i>Hóa đơn</a>
                     </li>
+                    <li>
+						<a href="../user/list"> <i class="menu-icon ti-receipt"></i>Tài khoản</a>
+                    </li>
 					<li class="menu-item-has-children">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Menu 2 cấp</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="../demotinymce/demo">Demo tinymce</a></li>
-                            <li><i class="fa fa-table"></i><a href="../demotinymceajax/demoajax">Demo ajax tinymce</a></li>
                         </ul>
                     </li>
-
-                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

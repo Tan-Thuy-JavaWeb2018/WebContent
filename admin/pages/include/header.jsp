@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="Objects.Users" %>
 <!-- Header-->
+ <%
+     Users user = new Users();
+     user = (Users) session.getAttribute("uslogin");
+ %>
         <header id="header" class="header">
             <div class="top-left">
                 <div class="navbar-header">
@@ -27,7 +31,7 @@
                                 </a>
                             </div>
                         </div>
-
+						
                         <div class="dropdown for-message">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="message" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
@@ -49,7 +53,18 @@
 
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="../../lib/images/admin.jpg" alt="User Avatar">
+                        <%
+							if (user.getHinhanh() != "") {
+						%> 
+						<img class="user-avatar rounded-circle" src="../../../assets/img/testimonial/<%=user.getHinhanh()%>" alt="User Avatar">
+						 <%
+						} else {
+						%> 
+						<img class="user-avatar rounded-circle" src="https://placehold.it/270x270" alt="User Avatar">
+						<%
+							}
+						%>
+<%--                             <img class="user-avatar rounded-circle" src="../../../assets/img/testimonial/<%=l.getHinhanh()%>" alt="User Avatar"> --%>
                         </a>
 
                         <div class="user-menu dropdown-menu">

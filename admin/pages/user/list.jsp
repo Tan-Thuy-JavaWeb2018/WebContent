@@ -1,7 +1,7 @@
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="Objects.Bills"%>
+<%@ page import="Objects.Users"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html class="no-js" lang="">
@@ -34,7 +34,7 @@
 						<div class="page-header float-left">
 							<div class="page-title">
 								<h1>
-									<b>HÓA ĐƠN</b>
+									<b>TÀI KHOẢN</b>
 								</h1>
 							</div>
 						</div>
@@ -44,7 +44,7 @@
 							<div class="page-title">
 								<ol class="breadcrumb text-right">
 									<li><a href="javascript:void(0)">Trang chủ</a></li>
-									<li><a href="javascript:void(0)">Hóa đơn</a></li>
+									<li><a href="javascript:void(0)">Tài khoản</a></li>
 									<li class="active">Danh sách</li>
 								</ol>
 							</div>
@@ -61,76 +61,70 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<strong class="card-title">Danh sách</strong> <a
-									class="btn btn-primary float-right btn-sm" href="listdestroy">ĐÃ
-									HỦY</a><a class="btn btn-primary float-right btn-sm mr-2"
-									href="listpayment">ĐÃ THANH TOÁN</a>
+								<strong class="card-title">Danh sách</strong>
+								<!-- 								<a class="btn btn-primary float-right" href="add"><span><i class="fa fa-plus-square"></i></span> Thêm</a> -->
 							</div>
 							<div class="card-body">
 								<table id="bootstrap-data-table"
-									class="table table-striped table-bordered"
-									style="font-size: 14px">
+									class="table table-striped table-bordered">
 									<thead>
 										<tr>
 											<th>ID</th>
-											<th>Họ tên</th>
-											<th>Số nhà</th>
-											<th>Địa chỉ</th>
-											<th>Điện thoại</th>
+											<th>Tên tài khoản</th>
 											<th>Email</th>
-											<th>Ghi chú</th>
-											<th>Ngày đặt</th>
-											<th>Xem chi tiết</th>
-											<th>Trạng thái</th>
-											<th>Thanh toán</th>
-											<th>Tùy chọn</th>
+											<th>Tên hiển thị</th>
+											<th>Hình đại diện</th>
+											<th>Phân quyền</th>
+											<th>ResetPass</th>
+											<th>Xóa</th>
 										</tr>
 									</thead>
 									<tbody>
 										<%
-											ArrayList<Bills> list = (ArrayList<Bills>) request.getAttribute("list");
-											for (Bills l : list) {
+											ArrayList<Users> list = (ArrayList<Users>) request.getAttribute("list");
+											for (Users l : list) {
 										%>
 										<tr>
 											<td><%=l.getId()%></td>
-											<td><%=l.getHoten()%></td>
-											<td><%=l.getSonha()%></td>
-											<td><%=l.getDiachi()%></td>
-											<td><%=l.getDienthoai()%></td>
+											<td><%=l.getTentaikhoan()%></td>
 											<td><%=l.getEmail()%></td>
-											<td><%=l.getGhichu()%></td>
-											<td><%=l.getNgaydat()%></td>
-											<td><a class="btn btn-info btn-block btn-sm"
-												href="viewdetail?idHoaDon=<%=l.getId()%>"><span><i
-														class="fa fa-edit"></i></span> Chi tiết</a></td>
+											<td><%=l.getTenhienthi()%></td>
+											<td style="min-width: 100px;">
+												<%
+													if (l.getHinhanh() != "") {
+												%> <a
+												href="../../../assets/img/testimonial/<%=l.getHinhanh()%>">
+													<img alt=""
+													src="../../../assets/img/testimonial/<%=l.getHinhanh()%>"
+													style="width: 100%">
+											</a> <%
+ 	} else {
+ %> <img alt="" src="https://placehold.it/270x270" style="width: 100%">
+												<%
+													}
+												%>
+											</td>
 											<%
-												if (l.getTrangthai() == 0) {
+												if (l.getPhanquyen().equals("user")) {
 											%>
-											<td><button class="btn btn-warning btn-sm"
-													onclick="ThayDoiTrangThai(<%=l.getId()%>,'<%=l.getTrangthai()%>')"
-													id="trangthai<%=l.getId()%>">Đặt hàng</button></td>
+											<td><button class="btn btn-warning"
+													onclick="ThayDoiPhanQuyen(<%=l.getId()%>,'<%=l.getPhanquyen()%>')"
+													id="trangthai<%=l.getId()%>">user</button></td>
 											<%
 												} else {
 											%>
-											<td><button class="btn btn-primary btn-sm"
-													onclick="ThayDoiTrangThai(<%=l.getId()%>,'<%=l.getTrangthai()%>')"
-													id="trangthai<%=l.getId()%>">Đang ship</button></td>
+											<td><button class="btn btn-primary"
+													onclick="ThayDoiPhanQuyen(<%=l.getId()%>,'<%=l.getPhanquyen()%>')"
+													id="trangthai<%=l.getId()%>">admin</button></td>
 											<%
 												}
 											%>
-											<td><button class="btn btn-danger btn-sm"
-													onclick="ThanhToan(<%=l.getId()%>)">Thanh toán</button></td>
-											<td><div>
-													<a class="btn btn-success btn-block btn-sm"
-														href="edit?id=<%=l.getId()%>"><span><i
-															class="fa fa-edit"></i></span> Sửa</a>
-												</div>
-												<div>
-													<button class="btn btn-secondary mt-1 btn-block btn-sm"
-														onclick="Destroy(<%=l.getId()%>)">
-														<span><i class="fa fa-trash-o"></i></span> Hủy
-													</button>
-												</div></td>
+											<td><button class="btn btn-danger"
+													onclick="ResetPass(<%=l.getId()%>)">ResetPass</button></td>
+											<td><button class="btn btn-secondary"
+													onclick="Delete(<%=l.getId()%>)">
+													<span><i class="fa fa-trash-o"></i></span> Xóa
+												</button></td>
 										</tr>
 										<%
 											}
@@ -170,21 +164,19 @@
 	<script src="../../lib/assets/js/init/datatables-init.js"></script>
 
 	<script src="../../lib/bower_components/alertifyjs/alertify.js"></script>
-
+	<script>
+	$('body').addClass("open");
+	</script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#bootstrap-data-table-export').DataTable();
 		});
 	</script>
-
 	<script>
-	$('body').addClass("open");
-	</script>
-	<script>
-	function ThayDoiTrangThai(id, trangthai){
+	function ThayDoiPhanQuyen(id, phanquyen){
 		swal({
-			  title: 'Bạn chắc chắn muốn đổi trạng thái?',
+			  title: 'Bạn chắc chắn muốn đổi phân quyền?',
 			  type: 'warning',
 			  showCancelButton: true,
 			  confirmButtonColor: '#3085d6',
@@ -193,38 +185,38 @@
 			}).then((result) => {
 			  if (result.value) {
 				   $.ajax({
-					   url: "status",
+					   url: "editquyen",
 					   type: "POST",
 					   data: {
-						   id: id, trangthai: Math.abs(trangthai - 1)
+						   id: id, phanquyen: phanquyen
 					   }
 				   }).done(function(ketqua){
 					   if(ketqua){
-						   if(trangthai == 0){
+						   if(phanquyen == 'user'){
 								$("#trangthai" + id).removeClass("btn-warning").addClass("btn-primary");
-								$("#trangthai" + id).text("Đang ship");
-								trangthai = 1;
-								$("#trangthai" + id).attr("onclick","ThayDoiTrangThai("+ id + "," + trangthai+ ")");
+								$("#trangthai" + id).text("admin");
+								phanquyen = 'admin'
+								$("#trangthai" + id).attr("onclick","ThayDoiPhanQuyen("+ id + ",'" + phanquyen+ "')");
 							} else{
 								$("#trangthai" + id).removeClass("btn-primary").addClass("btn-warning");
-								$("#trangthai" + id).text("Đặt hàng");
-								trangthai = 0;
-								$("#trangthai" + id).attr("onclick","ThayDoiTrangThai("+ id + "," + trangthai+ ")");
+								$("#trangthai" + id).text("user");
+								phanquyen = 'user'
+								$("#trangthai" + id).attr("onclick","ThayDoiPhanQuyen("+ id + ",'" + phanquyen + "')");
 							}
-						  alertify.success('Đổi trạng thái thành công!');
+						  alertify.success('Thay đổi phân quyền thành công!');
 					   }
 				   }).error(function(){
 					   console.log("Lỗi");
 				   });
-			  }
+			  } else alertify.error('Dữ liệu không thay đổi!');
 			})
 	}
 	</script>
 
 	<script>
-	function ThanhToan(id){
+	function ResetPass(id){
 		swal({
-			  title: 'Bạn chắc chắn muốn đổi thanh toán?',
+			  title: 'Bạn chắc chắn muốn Reset Password?',
 			  type: 'warning',
 			  showCancelButton: true,
 			  confirmButtonColor: '#3085d6',
@@ -233,65 +225,22 @@
 			}).then((result) => {
 			  if (result.value) {
 				   $.ajax({
-					   url: "status",
+					   url: "resetpass",
 					   type: "POST",
 					   data: {
-						   id: id, trangthai: 2
+						   id: id
 					   }
 				   }).done(function(ketqua){
 					   if(ketqua){
-						   $('#bootstrap-data-table tr').each(function(index){
-								if($(this).find('td').first().text() == id) {
-									$('#bootstrap-data-table').DataTable().rows(index-1).remove().draw();
-								}
-							});
-						  alertify.success('Thanh toán thành công!');
+						  alertify.success('reset password successfully!');
 					   }
 				   }).error(function(){
 					   console.log("Lỗi");
 				   });
-			  } else {
-				  alertify.error('Dữ liệu không thay đổi');
-			  }
+			  } else alertify.error('Dữ liệu không thay đổi!');
 			})
 	}
 	</script>
-
-	<script>
-    function Destroy(id) {
-    	swal({
-  		  title: "Bạn có chắc chắn muốn hủy hóa đơn?",
-  		  type: 'warning',
-  		  showCancelButton: true,
-  		  confirmButtonColor: '#3085d6',
-  		  cancelButtonColor: '#d33',
-  		  confirmButtonText: 'Yes'
-  		}).then((result) => {
-  		  if (result.value) {
-  			 $.ajax({
-				   url: "status",
-				   type: "POST",
-				   data: {
-					   id: id, trangthai: 3
-				   }
-			   }).done(function(ketqua){
-				   if(ketqua){
-					   $('#bootstrap-data-table tr').each(function(index){
-							if($(this).find('td').first().text() == id) {
-								$('#bootstrap-data-table').DataTable().rows(index-1).remove().draw();
-							}
-						});
-					  alertify.success('Hủy hóa đơn thành công!');
-				   }
-			   }).error(function(){
-				   alertify.error('Lỗi');
-			   });
-  		  } else {
-  			 alertify.error('Dữ liệu không thay đổi');
-  		  }
-  		});
-    }
-  </script>
 
 
 	<%
@@ -306,13 +255,13 @@
 	%>
 
 	<%
-		if ((String) session.getAttribute("Empty") == "Success") {
+		if ((String) session.getAttribute("Add") == "Success") {
 	%>
 	<script>
-	 alertify.error('Đã hủy một đơn hàng');
+		swal('Thêm dữ liệu thành công');
 	</script>
 	<%
-		session.removeAttribute("Empty");
+		session.removeAttribute("Add");
 		}
 	%>
 
@@ -327,5 +276,24 @@
 		}
 	%>
 
+	<script>
+    function Delete(id) {
+    	swal({
+  		  title: "Bạn có chắc chắn muốn xóa dữ liệu?",
+  		  text: "Sau khi xóa, bạn sẽ không thể phục hồi dữ liệu này!",
+  		  type: 'warning',
+  		  showCancelButton: true,
+  		  confirmButtonColor: '#3085d6',
+  		  cancelButtonColor: '#d33',
+  		  confirmButtonText: 'Yes'
+  		}).then((result) => {
+  		  if (result.value) {
+  			  window.location.href = "delete?id=" + id;
+  		  } else {
+  			  swal("Dữ liệu của bạn không thay đổi!");
+  		  }
+  		});
+    }
+  </script>
 </body>
 </html>
