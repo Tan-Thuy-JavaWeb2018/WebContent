@@ -33,7 +33,7 @@
 		<div class="container">
 			<div class="footer-top pt-60 pb-30">
 				<div class="row">
-					<div class="col-md-7 col-sm-7">
+					<div class="col-md-6 col-sm-6">
 						<div class="footer-widget mb-30">
 							<div class="footer-logo">
 								<a href="index.html"> <img style="width: 200px" src="../assets/img/logo/logo.png"
@@ -76,10 +76,10 @@
 						</div>
 					</div>
 
-					<div class="col-md-4 hidden-sm" style="text-align: right;">
+					<div class="col-md-6 hidden-sm" style="text-align: right;">
 						<iframe
 							src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2Fcategory%2FCoffee-Shop%2FWonderlust-Danang-174715466048536%2F&tabs=timeline&width=1000&height=300&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=true&appId"
-							width="1000" height="300" style="border: none; overflow: hidden"
+							width="500" height="300" style="border: none; overflow: hidden"
 							scrolling="no" frameborder="0" allowTransparency="true"
 							allow="encrypted-media"></iframe>
 					</div>

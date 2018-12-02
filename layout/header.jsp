@@ -50,8 +50,7 @@
 							<div class="user user-style-3 f-right">
 								<%
 									if (session.getAttribute("uslogin") != null) {
-										// Giá trị session tồn tại 2 giờ
-										session.setMaxInactiveInterval(2 * 60 * 60);
+										// Giá trị session tồn tại 2 giờ 
 										Users us = (Users) session.getAttribute("uslogin");
 								%>
 								<a href="#"> <i class="pe-7s-user"></i>

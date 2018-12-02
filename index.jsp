@@ -533,16 +533,7 @@
 		<script src="lib/js/jquery.nivo.slider.js"></script>
 		<script src="lib/home.js"></script>
 		<script src="assets/js/plugins.js"></script>
-		<script src="assets/js/main.js"></script>
-		<script>
-			
-		<%if (session.getAttribute("uslogin") != null) {%>
-			$(document).ready(function() {
-
-			});
-		<%}%>
-			
-		</script>
+		<script src="assets/js/main.js"></script> 
 </body>
 
 </html>
