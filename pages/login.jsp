@@ -43,7 +43,7 @@
 			<div class="breadcrumbs text-center">
 				<h2 class="breadcrumb-title">Đăng nhập hệ thống</h2>
 				<ul>
-					<li><a class="active" href="index.jsp">Trang chủ</a></li>
+					<li><a class="active" href="../index.jsp">Trang chủ</a></li>
 					<li>Đăng nhập</li>
 				</ul>
 			</div>
@@ -104,7 +104,7 @@
 
 
 	<!-- Thêm chân trang -->
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../layout/footerpage.jsp"></jsp:include>
 	<!-- Xong thêm chân trang -->
 
 

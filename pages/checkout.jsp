@@ -41,7 +41,7 @@
 <body onload="onload()"> 
 	<%
 		dao_Cart cart = (dao_Cart) session.getAttribute("cart");
-		if(cart.countItems() > 0){
+		if(cart.countItems() > 0 && cart != null){
 	%>
 	<!-- Thêm phần tiêu đề trang -->
 	<jsp:include page="../layout/headerpage.jsp"></jsp:include>
@@ -53,7 +53,7 @@
 			<div class="breadcrumbs text-center">
 				<h2 class="breadcrumb-title">thanh toán hóa đơn</h2>
 				<ul>
-					<li><a class="active" href="index.jsp">Trang chủ</a></li>
+					<li><a class="active" href="../index.jsp">Trang chủ</a></li>
 					<li>thanh toán</li>
 				</ul>
 			</div>
@@ -292,10 +292,12 @@
 	</div>
 	</div>
 	<!-- Xong phần thanh toán -->
-	<%} %>
+	<%}
+		else{}
+		%>
 
 	<!-- Thêm chân trang -->
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../layout/footerpage.jsp"></jsp:include>
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->

@@ -47,7 +47,7 @@
 			<div class="breadcrumbs text-center">
 				<h2 class="breadcrumb-title">DANH sách đặt hàng</h2>
 				<ul>
-					<li><a class="active" href="index.jsp">Trang chủ</a></li>
+					<li><a class="active" href="../index.jsp">Trang chủ</a></li>
 					<li>Đặt hàng</li>
 				</ul>
 			</div>
@@ -154,7 +154,7 @@
 	<!-- shopping-cart-area end -->
 
 	<!-- Thêm chân trang -->
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../layout/footerpage.jsp"></jsp:include>
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->

@@ -41,7 +41,7 @@
                 <h2 class="breadcrumb-title">Liên hệ chúng tôi</h2>
                 <ul>
                     <li>
-                        <a class="active" href="index.jsp">Trang chủ</a>
+                        <a class="active" href="../index.jsp">Trang chủ</a>
                     </li>
                     <li>liên hệ</li>
                 </ul>
@@ -133,7 +133,7 @@
     <!-- Xong phần bản đồ -->
 
   <!-- Thêm chân trang -->
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../layout/footerpage.jsp"></jsp:include>
 	<!-- Xong thêm chân trang -->
 
 

@@ -50,7 +50,7 @@
 			<div class="breadcrumbs text-center">
 				<h2 class="breadcrumb-title">Thảo luận bài viết</h2>
 				<ul>
-					<li><a class="active" href="index.jsp">Trang chủ</a></li>
+					<li><a class="active" href="../index.jsp">Trang chủ</a></li>
 					<li>Thảo luận</li>
 				</ul>
 			</div>
@@ -234,7 +234,7 @@
 	<!-- Kết thúc chi tiết bài viết -->
 
 	<!-- Thêm chân trang -->
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../layout/footerpage.jsp"></jsp:include>
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->

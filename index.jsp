@@ -492,7 +492,10 @@
 									<a href="pages/blog-details.jsp?id_blog=<%=ls.getId()%>"> <%=tieude%></a>
 								</h4>
 								<ul class="meta">
-									<li>08 tháng 8 năm 2018</li>
+									<%
+										String[] date = ls.getNgayDang().split(" ");
+									%>
+									<li><%=date[0]%></li>
 								</ul>
 								<a href="pages/blog-details.jsp?id_blog=<%=ls.getId()%>">
 									Đọc thêm <i class="pe-7s-next"></i>
@@ -534,8 +537,8 @@
 		<script>
 			
 		<%if (session.getAttribute("uslogin") != null) {%>
-			$(document).ready(function() {  
-				
+			$(document).ready(function() {
+
 			});
 		<%}%>
 			

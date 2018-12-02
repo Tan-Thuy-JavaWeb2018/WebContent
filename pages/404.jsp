@@ -66,7 +66,7 @@
 	<!-- Xong phần trang lỗi -->
 
 	<!-- Thêm chân trang -->
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../layout/footerpage.jsp"></jsp:include>
 	<!-- Xong thêm chân trang -->
 
 	<!-- Toàn bộ js -->

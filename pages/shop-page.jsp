@@ -50,7 +50,7 @@
 			<div class="breadcrumbs text-center">
 				<h2 class="breadcrumb-title">DANH MỤC SẢN PHẨM</h2>
 				<ul>
-					<li><a class="active" href="index.jsp">Trang chủ</a></li>
+					<li><a class="active" href="../index.jsp">Trang chủ</a></li>
 					<li>Sản phẩm</li>
 				</ul>
 			</div>
@@ -313,7 +313,7 @@
 	<!-- Xong nội dung trang danh sách sản phẩm -->
 
 	<!-- Thêm chân trang -->
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="../layout/footerpage.jsp"></jsp:include>
 	<!-- Xong thêm chân trang -->
  
 
