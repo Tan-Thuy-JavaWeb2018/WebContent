@@ -12,19 +12,22 @@
                     </li>
                     <li class="menu-title">MENU</li><!-- /.menu-title -->
                     <li>
-						<a href="../category/list"> <i class="menu-icon ti-receipt"></i>Loại sản phẩm</a>
+						<a href="../category/list"> <i class="menu-icon fa fa-building-o"></i>Loại sản phẩm</a>
                     </li>
                     <li>
 						<a href="../product/list"> <i class="menu-icon ti-receipt"></i>Sản phẩm</a>
                     </li>
                     <li>
-						<a href="../blog/list"> <i class="menu-icon ti-receipt"></i>Blog</a>
+						<a href="../blog/list"> <i class="menu-icon fa fa-book"></i>Blog</a>
                     </li>
                     <li>
-						<a href="../bill/list"> <i class="menu-icon ti-receipt"></i>Hóa đơn</a>
+						<a href="../bill/list"> <i class="menu-icon fa fa-id-card-o"></i>Hóa đơn</a>
                     </li>
                     <li>
-						<a href="../user/list"> <i class="menu-icon ti-receipt"></i>Tài khoản</a>
+						<a href="../user/list"> <i class="menu-icon fa fa-user"></i>Tài khoản</a>
+                    </li>
+                    <li>
+						<a href="../thongke/khoangthoigian"> <i class="menu-icon fa fa-bar-chart"></i>Thống kê doanh thu</a>
                     </li>
 					<li class="menu-item-has-children">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Menu 2 cấp</a>

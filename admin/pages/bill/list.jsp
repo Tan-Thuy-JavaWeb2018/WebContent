@@ -145,7 +145,7 @@
 			<!-- .animated -->
 		</div>
 		<!-- .content -->
-
+		<div class="clearfix"></div>
 	</div>
 	<!-- /#right-panel -->
 
@@ -183,15 +183,15 @@
 	</script>
 	<script>
 	function ThayDoiTrangThai(id, trangthai){
-		swal({
-			  title: 'Bạn chắc chắn muốn đổi trạng thái?',
-			  type: 'warning',
-			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
-			  confirmButtonText: 'Yes'
-			}).then((result) => {
-			  if (result.value) {
+// 		swal({
+// 			  title: 'Bạn chắc chắn muốn đổi trạng thái?',
+// 			  type: 'warning',
+// 			  showCancelButton: true,
+// 			  confirmButtonColor: '#3085d6',
+// 			  cancelButtonColor: '#d33',
+// 			  confirmButtonText: 'Yes'
+// 			}).then((result) => {
+// 			  if (result.value) {
 				   $.ajax({
 					   url: "status",
 					   type: "POST",
@@ -215,23 +215,23 @@
 					   }
 				   }).error(function(){
 					   console.log("Lỗi");
-				   });
-			  }
-			})
+				   })
+// 			  }
+// 			})
 	}
 	</script>
 
 	<script>
 	function ThanhToan(id){
-		swal({
-			  title: 'Bạn chắc chắn muốn đổi thanh toán?',
-			  type: 'warning',
-			  showCancelButton: true,
-			  confirmButtonColor: '#3085d6',
-			  cancelButtonColor: '#d33',
-			  confirmButtonText: 'Yes'
-			}).then((result) => {
-			  if (result.value) {
+// 		swal({
+// 			  title: 'Bạn chắc chắn muốn đổi thanh toán?',
+// 			  type: 'warning',
+// 			  showCancelButton: true,
+// 			  confirmButtonColor: '#3085d6',
+// 			  cancelButtonColor: '#d33',
+// 			  confirmButtonText: 'Yes'
+// 			}).then((result) => {
+// 			  if (result.value) {
 				   $.ajax({
 					   url: "status",
 					   type: "POST",
@@ -250,10 +250,11 @@
 				   }).error(function(){
 					   console.log("Lỗi");
 				   });
-			  } else {
-				  alertify.error('Dữ liệu không thay đổi');
-			  }
-			})
+// 			  } 
+// 			  else {
+// 				  alertify.error('Dữ liệu không thay đổi');
+// // 			  }
+// 			})
 	}
 	</script>
 

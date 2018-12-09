@@ -115,7 +115,7 @@
 			<!-- .animated -->
 		</div>
 		<!-- .content -->
-
+		<div class="clearfix"></div>
 	</div>
 	<!-- /#right-panel -->
 

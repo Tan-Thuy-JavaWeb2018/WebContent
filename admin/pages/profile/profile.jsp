@@ -192,6 +192,7 @@
 				<!-- .content -->
 			</div>
 		</div>
+		<div class="clearfix"></div>
 	</div>
 	<!-- /#right-panel -->
 

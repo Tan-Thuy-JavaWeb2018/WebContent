@@ -129,7 +129,7 @@
 			<!-- .animated -->
 		</div>
 		<!-- .content -->
-
+		<div class="clearfix"></div>
 	</div>
 	<!-- /#right-panel -->
 
@@ -168,15 +168,15 @@
 	<script>
 function ThayDoiTrangThai(id, trangthai) {
     	
-    	swal({
-  		  title: "Bạn có chắc chắn muốn thay đổi trạng thái hóa đơn?",
-  		  type: 'warning',
-  		  showCancelButton: true,
-  		  confirmButtonColor: '#3085d6',
-  		  cancelButtonColor: '#d33',
-  		  confirmButtonText: 'Yes'
-  		}).then((result) => {
-  		  if (result.value) {
+//     	swal({
+//   		  title: "Bạn có chắc chắn muốn thay đổi trạng thái hóa đơn?",
+//   		  type: 'warning',
+//   		  showCancelButton: true,
+//   		  confirmButtonColor: '#3085d6',
+//   		  cancelButtonColor: '#d33',
+//   		  confirmButtonText: 'Yes'
+//   		}).then((result) => {
+//   		  if (result.value) {
   			 $.ajax({
 				   url: "status",
 				   type: "POST",
@@ -195,10 +195,10 @@ function ThayDoiTrangThai(id, trangthai) {
 			   }).error(function(){
 				   alertify.error('Lỗi');
 			   });
-  		  } else {
-  			 alertify.error('Dữ liệu không thay đổi');
-  		  }
-  		});
+//   		  } else {
+//   			 alertify.error('Dữ liệu không thay đổi');
+//   		  }
+//   		});
     }
 	</script>
 </body>
