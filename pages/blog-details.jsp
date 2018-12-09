@@ -85,7 +85,10 @@
 										<li><a href="#"><i class="fa fa-comments-o"></i><%=comment.getListCommnetsWithID_BaiViet(id).size()%></a></li>
 									</ul>
 								</div>
-								<%=bl.getNoidung()%>
+								<div class="mt-50">
+									<%=bl.getNoidung()%>
+								</div>
+								
 								<br></br>
 							</div>
 							<%

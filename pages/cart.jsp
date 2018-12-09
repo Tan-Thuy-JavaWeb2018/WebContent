@@ -140,7 +140,7 @@
 								if (cart.countItems() > 0) {
 							%>
 							<div class="cart-total-btn2 f-right">
-								<a href="#">Tiến hàng thanh toán</a>
+								<a href="checkout.jsp">Tiến hàng thanh toán</a>
 							</div>
 							<%
 								}
